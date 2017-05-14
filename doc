@@ -1,0 +1,29 @@
+全局异常处理；
+1. 404页面处理：
+2. JSP页面报错处理；
+3. controller 层报错处理：controller advice统一处理；
+
+动态资源404请求流程：
+1. 首先进入interceptor；
+2. interceptor处理完成，无异常，但是response.status = 404；
+3. 根据web.xml中对404的配置，跳转到对应的error-page
+4. 进入error-page的controller之前，先进入了interceptor的preHandle方法；
+5. 进入error-page的controller处理完成；
+6. 回到interceptor的afterComplete方法，无异常，response.status = 404（这里为什么不继续跳转了呢？）;
+
+静态资源404请求流程：
+1. 由于interceptor的设置中不处理静态资源，所以系统发现找不到的静态资源时，就会根据web.xml中配置的error-page进行跳转；
+2. 进入error-page的controller之前，先进入了interceptor的preHandle方法；
+3. 进入error-page的controller处理完成；
+4. 回到interceptor的afterComplete方法，无异常，response.status = 404;
+
+测试：
+1. 401 错误返回信息
+2. 403 错误返回信息
+
+
+全局的handlerInterceptor；
+静态资源直接响应，如果报404需要记录日志；
+自定义静态资源响应，比如动态js、动态jpg生成；
+
+

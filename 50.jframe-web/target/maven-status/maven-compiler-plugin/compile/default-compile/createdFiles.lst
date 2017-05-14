@@ -1,0 +1,3 @@
+org\jframe\web\controllers\_ControllerBase.class
+org\jframe\web\viewModels\LayoutViewModel.class
+org\jframe\web\controllers\ErrorController.class

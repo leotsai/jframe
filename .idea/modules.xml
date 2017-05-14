@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/01.jframe-infrastructure/01.jframe-infrastructure.iml" filepath="$PROJECT_DIR$/01.jframe-infrastructure/01.jframe-infrastructure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02.jframe-data/02.jframe-data.iml" filepath="$PROJECT_DIR$/02.jframe-data/02.jframe-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/20.jframe-services/20.jframe-services.iml" filepath="$PROJECT_DIR$/20.jframe-services/20.jframe-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/21.jframe-services-pc/21.jframe-services-pc.iml" filepath="$PROJECT_DIR$/21.jframe-services-pc/21.jframe-services-pc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/22.jframe-services-admin/22.jframe-services-admin.iml" filepath="$PROJECT_DIR$/22.jframe-services-admin/22.jframe-services-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/23.jframe-services-api/23.jframe-services-api.iml" filepath="$PROJECT_DIR$/23.jframe-services-api/23.jframe-services-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/50.jframe-web/50.jframe-web.iml" filepath="$PROJECT_DIR$/50.jframe-web/50.jframe-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/51.jframe-web-pc/51.jframe-web-pc.iml" filepath="$PROJECT_DIR$/51.jframe-web-pc/51.jframe-web-pc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/52.jframe-web-admin/52.jframe-web-admin.iml" filepath="$PROJECT_DIR$/52.jframe-web-admin/52.jframe-web-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/53.jframe-web-api/53.jframe-web-api.iml" filepath="$PROJECT_DIR$/53.jframe-web-api/53.jframe-web-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/99.jframe-web-main-mvc/99.jframe-web-main-mvc.iml" filepath="$PROJECT_DIR$/99.jframe-web-main-mvc/99.jframe-web-main-mvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jframe.iml" filepath="$PROJECT_DIR$/jframe.iml" />
+    </modules>
+  </component>
+</project>

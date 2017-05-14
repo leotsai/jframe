@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="maven build">
+    <output-path>$PROJECT_DIR$/99.jframe-web-main-mvc/target/jframe-web-main-mvc</output-path>
+    <root id="root" />
+  </artifact>
+</component>
