@@ -13,7 +13,6 @@
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/99.jframe-web-main/pom.xml" />
         <option value="$PROJECT_DIR$/999.jframe-www/pom.xml" />
       </set>
     </option>
