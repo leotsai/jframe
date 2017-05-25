@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="99.jframe-web-main-mvc:war">
-    <output-path>$PROJECT_DIR$/99.jframe-web-main-mvc/target</output-path>
-    <root id="archive" name="jframe-web-main-mvc.war">
-      <element id="artifact" artifact-name="99.jframe-web-main-mvc:war exploded" />
-    </root>
-  </artifact>
-</component>
