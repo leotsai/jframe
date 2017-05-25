@@ -61,11 +61,14 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
     <!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
 
-    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" >
         <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
     </bean>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    </bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000000"/>
     </bean>
     <bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions"  >

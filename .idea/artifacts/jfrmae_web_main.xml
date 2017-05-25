@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="jfrmae-web-main">
-    <output-path>$PROJECT_DIR$/_local deployment</output-path>
+    <output-path>$PROJECT_DIR$/_deployment</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="lib">
