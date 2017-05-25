@@ -5,7 +5,7 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="lib">
           <element id="archive" name="99.jframe-web-main-mvc.jar">
-            <element id="module-output" name="99.jframe-web-main-mvc" />
+            <element id="module-output" name="99.jframe-web-main" />
           </element>
           <element id="archive" name="jframe-web-pc-1.0-SNAPSHOT.jar">
             <element id="module-output" name="51.jframe-web-pc" />
@@ -50,10 +50,10 @@
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.25" />
           <element id="library" level="project" name="Maven: org.slf4j:log4j-over-slf4j:1.7.25" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-nop:1.7.25" />
-          <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.40" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.2.5.Final" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
           <element id="library" level="project" name="Maven: org.javassist:javassist:3.20.0-GA" />
           <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
           <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" />
@@ -66,9 +66,6 @@
           <element id="library" level="project" name="Maven: org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:1.0.0.Beta1" />
           <element id="library" level="project" name="Maven: javax.annotation:jsr250-api:1.0" />
           <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.3.5.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.3.5.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.3.5.RELEASE" />
           <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.3.2" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.2" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.5" />
@@ -106,9 +103,9 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/99.jframe-web-main-mvc/target/jframe-web-main-mvc/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/99.jframe-web-main/target/jframe-web-main-mvc/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="99.jframe-web-main-mvc/web/Web" />
+      <element id="javaee-facet-resources" facet="99.jframe-web-main/web/Web" />
     </root>
   </artifact>
 </component>

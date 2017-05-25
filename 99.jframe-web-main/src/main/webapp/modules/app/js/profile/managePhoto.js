@@ -1,0 +1,359 @@
+(function () {
+    if (window.WeixinJsSdk) {
+        return;
+    }
+
+    var isInitialized = false;
+    var urlConfigOptions = "/app/weixin/GetConfigOptions";
+    var jsApiList = ['chooseImage', 'openLocation', 'previewImage', 'uploadImage', 'onMenuShareTimeline', 'closeWindow'];
+
+    window.WeixinJsSdk = function () {
+
+    };
+
+    WeixinJsSdk.isInWeixin = function () {
+        return $("#body").hasClass("weixin");
+    };
+
+    WeixinJsSdk.registerJsApiList = function (array) {
+        jsApiList = array;
+    };
+
+    WeixinJsSdk.bindLocationBtn = function (selector) {
+        $(selector).click(function (e) {
+            if (WeixinJsSdk.isInWeixin() == false) {
+                return;
+            }
+            e.preventDefault();
+            var lat = $(this).attr("data-lat") * 1;
+            var lng = $(this).attr("data-lng") * 1;
+            var address = $.trim($(this).html());
+
+            var txPosition = LatLngConverter.convertBaidu2Tengxin(lng, lat);
+
+            WeixinJsSdk.ready(function () {
+                wx.openLocation({
+                    latitude: txPosition.lat,
+                    longitude: txPosition.lng,
+                    name: address,
+                    address: address,
+                    scale: 15,
+                    infoUrl: ''
+                });
+            });
+        });
+    };
+
+    WeixinJsSdk.onShare = function (title, link, imgUrl, description, successCallback, cancelCallback) {
+        if (description == null || description === '') {
+            description = title;
+        }
+        if (description.length > 100) {
+            description = description.substring(0, 100) + "...";
+        }
+
+        WeixinJsSdk.ready(function () {
+            wx.onMenuShareTimeline({
+                title: title,
+                link: link,
+                imgUrl: imgUrl,
+                success: function () {
+                    successCallback && successCallback();
+                },
+                cancel: function () {
+                    cancelCallback && cancelCallback();
+                }
+            });
+
+            wx.onMenuShareAppMessage({
+                title: title,
+                desc: description,
+                link: link,
+                imgUrl: imgUrl,
+                type: 'link',
+                dataUrl: '',
+                success: function () {
+                    successCallback && successCallback();
+                },
+                cancel: function () {
+                    cancelCallback && cancelCallback();
+                }
+            });
+
+            wx.onMenuShareQQ({
+                title: title,
+                desc: description,
+                link: link,
+                imgUrl: imgUrl,
+                success: function () {
+                    successCallback && successCallback();
+                },
+                cancel: function () {
+                    cancelCallback && cancelCallback();
+                }
+            });
+
+            wx.onMenuShareWeibo({
+                title: title,
+                desc: description,
+                link: link,
+                imgUrl: imgUrl,
+                success: function () {
+                    successCallback && successCallback();
+                },
+                cancel: function () {
+                    cancelCallback && cancelCallback();
+                }
+            });
+
+            wx.onMenuShareQZone({
+                title: title,
+                desc: description,
+                link: link,
+                imgUrl: imgUrl,
+                success: function () {
+                    successCallback && successCallback();
+                },
+                cancel: function () {
+                    cancelCallback && cancelCallback();
+                }
+            });
+
+        });
+    };
+
+    WeixinJsSdk.ready = function (func) {
+        if (!WeixinJsSdk.isInWeixin()) {
+            return;
+        }
+        if (isInitialized) {
+            func && func();
+        } else {
+            initializeWeixin(func);
+        }
+    };
+
+    WeixinJsSdk.closeWindow = function () {
+        WeixinJsSdk.ready(function () {
+            wx.closeWindow();
+        });
+    };
+
+    var initializeWeixin = function (callback) {
+        getConfigOptions(function (options) {
+            wx.config({
+                debug: false,
+                appId: options.appId,
+                timestamp: options.timestamp,
+                nonceStr: options.nonceStr,
+                signature: options.signature,
+                jsApiList: jsApiList
+            });
+
+            wx.ready(function () {
+                isInitialized = true;
+                callback && callback();
+            });
+
+            wx.error(function (res) {
+                var msg = "微信出错啦：";
+                for (var p in res) {
+                    msg += '\r\n' + p + ": " + res[p];
+                }
+                alert(msg);
+            });
+        });
+    };
+
+    function getConfigOptions(callback) {
+        mvcApp.ajax.post(urlConfigOptions, null, function (result) {
+            if (result.Success) {
+                var value = result.Value;
+                callback({
+                    appId: value.AppId,
+                    timestamp: value.Timestamp,
+                    nonceStr: value.NonceStr,
+                    signature: value.Signature
+                });
+            } else {
+                mvcApp.notification.toast(result.Message);
+            }
+        });
+    };
+
+})();
+(function () {
+    if (window.WeixinImageUploader) {
+        return;
+    }
+    window.WeixinImageUploader = function (wrapperSelector, imgKeys) {
+        this.wrapperSelector = wrapperSelector;
+        this.imgKeys = imgKeys == undefined ? [] : imgKeys;
+        this.maxImages = 6;
+        this.size = 's80x80';
+        this.imageType = 0;
+        this.cropCenter = false;
+        this.showTip = true;
+        this.canChooseFromAlbum = true;
+    };
+
+    WeixinImageUploader.prototype = {
+        init: function () {
+            var $wrapper = $(this.wrapperSelector);
+            var $ul = $('<ul class="files-uploader"></ul>');
+            $wrapper.append($ul);
+
+            for (var i = 0; i < this.imgKeys.length; i++) {
+                this.append$Li(this.imgKeys[i]);
+            }
+            this.appendNewUploaderIfNeeded();
+        },
+        append$Li: function (imgKey) {
+            var me = this;
+            var imgHtml = imgKey == null ? "+" : '<img src="' + this.getSrc(imgKey) + '"/>';
+            var liHtml = '<li data-id="' + imgKey + '" class="uploader-file' + (imgKey == null ? ' uploader-new' : '') + '">\
+                            <label>' + imgHtml + '</label>\
+                            <a class="btn-delete"></a>\
+                            <div class="upload-busy"></div>\
+                        </li>';
+            var $li = $(liHtml);
+            $li.find("a.btn-delete").click(function () {
+                $(this).closest("li").remove();
+                me.appendNewUploaderIfNeeded();
+                me.onImageRemoved();
+            });
+            $li.find("label").click(function () {
+                me._onUploadBtnClicked(this);
+            });
+            $(this.wrapperSelector).find("ul").append($li);
+        },
+        getSrc: function (imgKey) {
+            if (imgKey == null || imgKey == '') {
+                return '';
+            }
+            if (imgKey.indexOf('/') > -1) {
+                return imgKey;
+            }
+            return "/img/" + this.size + "/" + imgKey;
+        },
+        appendNewUploaderIfNeeded: function () {
+            var me = this;
+            var $wrap = $(this.wrapperSelector);
+            if ($wrap.find("li.uploader-new").length == 0 && $wrap.find("li.uploader-file").length < this.maxImages) {
+                this.append$Li(null);
+            }
+            $wrap.find(".upload-tip").remove();
+            $wrap.find(".files-uploader > li").removeClass("has-tip");
+            if (this.showTip && $wrap.find(".files-uploader > li").length == 1) {
+                var $li = $wrap.find(".files-uploader > li").eq(0).addClass("has-tip");
+                $li.append('<label class="upload-tip">点击添加照片</label>');
+                $li.find("label.upload-tip").click(function () {
+                    me._onUploadBtnClicked(this);
+                });
+            }
+        },
+        onImageRemoved: function () {
+
+        },
+        showHideTip: function () {
+
+        },
+        _onUploadBtnClicked: function (sender) {
+            var me = this;
+            var isNewItemClicked = $(sender).closest("li").hasClass("uploader-new");
+            var count = 1;
+            if (isNewItemClicked) {
+                var currentItems = $(this.wrapperSelector).find("li:not(.uploader-new)").length;
+                count = this.maxImages - currentItems;
+            }
+            WeixinJsSdk.ready(function () {
+                var source = ['camera'];
+                if (me.canChooseFromAlbum) {
+                    source.push('album');
+                }
+                wx.chooseImage({
+                    count: count,
+                    sizeType: ['original', 'compressed'],
+                    sourceType: source,
+                    success: function (res) {
+                        var localIds = res.localIds;
+                        if (isNewItemClicked) {
+                            me.appendNewImages(localIds);
+                        } else {
+                            me.replaceImage(sender, localIds[0]);
+                        }
+                    }
+                });
+            });
+        },
+        appendNewImages: function (localIds) {
+            var me = this;
+            $(this.wrapperSelector).find("li.uploader-new").remove();
+            for (var i = 0; i < localIds.length; i++) {
+                var localId = localIds[i];
+                this.append$Li(localId);
+                var $li = $(this.wrapperSelector).find("li").last();
+                $li.addClass("uploading").find("img").attr("src", localId);
+            }
+            me.appendNewUploaderIfNeeded();
+            me.startUploadToWeixin();
+        },
+        replaceImage: function (sender, localId) {
+            var $li = $(sender).closest("li");
+            $li.addClass("uploading").attr("data-id", localId).find("img").attr("src", localId);
+            this.startUploadToWeixin();
+        },
+        _doUpload: function ($li, localId, callback) {
+            wx.uploadImage({
+                localId: localId,
+                isShowProgressTips: 0,
+                success: function (res) {
+                    callback && callback(res.serverId);
+                }
+            });
+        },
+        _getImgKey: function (serverId, callback) {
+            var url = '/app/img/uploadWeixin?serverId=' + serverId + "&type=" + this.imageType + "&cropCenter=" + this.cropCenter;
+            mvcApp.ajax.post(url, null, function (result) {
+                if (result.Success) {
+                    callback(result.Value);
+                } else {
+                    cm.notification.toast("上传图片失败，请重试: " + result.Message);
+                }
+            });
+        },
+        getImageKeys: function () {
+            if ($(this.wrapperSelector).find("li.uploading").length > 0) {
+                mvcApp.notification.toast("请等待图片上传完成");
+                return null;
+            }
+            var imgs = [];
+            $(this.wrapperSelector).find(".files-uploader > li").each(function () {
+                if ($(this).hasClass(".uploader-new")) {
+                    return;
+                }
+                var imgKey = $.trim($(this).attr("data-id"));
+                if (imgKey == '' || imgKey == 'null' || imgKey == 'undefined') {
+                    return;
+                }
+                imgs.push(imgKey);
+            });
+            return imgs;
+        },
+        startUploadToWeixin: function () {
+            var me = this;
+            var $li = $(this.wrapperSelector).find("ul > li.uploading").first();
+            if ($li.length == 0) {
+                return;
+            }
+            var localId = $li.attr("data-id");
+            me._doUpload($li, localId, function (serverId) {
+                me._getImgKey(serverId, function (imgKey) {
+                    $li.removeClass("uploading").attr("data-id", imgKey);
+                    me.startUploadToWeixin();
+                });
+            });
+        }
+    };
+
+})();

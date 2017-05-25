@@ -18,6 +18,7 @@
         <module name="52.jframe-web-admin" />
         <module name="53.jframe-services-api" />
         <module name="53.jframe-web-api" />
+        <module name="99.jframe-web-main" />
         <module name="99.jframe-web-main-mvc" />
       </profile>
     </annotationProcessing>

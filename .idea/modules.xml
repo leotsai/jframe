@@ -12,7 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/51.jframe-web-pc/51.jframe-web-pc.iml" filepath="$PROJECT_DIR$/51.jframe-web-pc/51.jframe-web-pc.iml" />
       <module fileurl="file://$PROJECT_DIR$/52.jframe-web-admin/52.jframe-web-admin.iml" filepath="$PROJECT_DIR$/52.jframe-web-admin/52.jframe-web-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/53.jframe-web-api/53.jframe-web-api.iml" filepath="$PROJECT_DIR$/53.jframe-web-api/53.jframe-web-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/99.jframe-web-main-mvc/99.jframe-web-main-mvc.iml" filepath="$PROJECT_DIR$/99.jframe-web-main-mvc/99.jframe-web-main-mvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/99.jframe-web-main/99.jframe-web-main.iml" filepath="$PROJECT_DIR$/99.jframe-web-main/99.jframe-web-main.iml" />
       <module fileurl="file://$PROJECT_DIR$/jframe.iml" filepath="$PROJECT_DIR$/jframe.iml" />
     </modules>
   </component>
