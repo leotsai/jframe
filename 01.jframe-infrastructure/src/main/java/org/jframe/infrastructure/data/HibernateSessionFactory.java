@@ -3,7 +3,7 @@ package org.jframe.infrastructure.data;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.jframe.AppContext;
-import org.jframe.infrastructure.helpers.MyClassHelper;
+import org.jframe.infrastructure.helpers.ClassHelper;
 
 import javax.persistence.Entity;
 import java.io.File;
@@ -45,7 +45,7 @@ public class HibernateSessionFactory {
     public void initialize(){
         File file = new File(AppContext.getRootFolder() + "\\WEB-INF\\hibernate.cfg.xml");
         Configuration configuration = new Configuration().configure(file);
-        List<Class> list = MyClassHelper.getClasses("org.jframe.data.entities");
+        List<Class> list = ClassHelper.getClasses("org.jframe.data.entities");
         for(Class clz : list) {
             configuration.addAnnotatedClass(clz);
             Entity entity = (Entity) clz.getAnnotation(Entity.class);

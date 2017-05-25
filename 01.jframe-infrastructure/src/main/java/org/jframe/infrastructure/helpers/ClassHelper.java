@@ -15,7 +15,7 @@ import java.util.jar.JarFile;
 /**
  * Created by leo on 2017-05-18.
  */
-public class MyClassHelper {
+public class ClassHelper {
 
     public static List<Class> getClasses(String basePackage)
     {

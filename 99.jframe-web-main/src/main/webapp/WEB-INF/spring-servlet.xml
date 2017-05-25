@@ -18,6 +18,14 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
         <!--</mvc:interceptor>-->
     <!--</mvc:interceptors>-->
 
+    <bean id="appProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>/WEB-INF/app.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射-->
     <mvc:annotation-driven >
         <mvc:message-converters register-defaults="false">

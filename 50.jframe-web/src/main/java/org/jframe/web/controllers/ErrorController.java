@@ -3,8 +3,8 @@ package org.jframe.web.controllers;
 import org.jframe.AppContext;
 import org.jframe.infrastructure.core.KnownException;
 import org.jframe.infrastructure.helpers.JsonHelper;
-import org.jframe.infrastructure.helpers.MyRequestHelper;
-import org.jframe.infrastructure.logging.Logger;
+import org.jframe.infrastructure.helpers.LogHelper;
+import org.jframe.infrastructure.helpers.RequestHelper;
 import org.jframe.infrastructure.web.StandardJsonResult;
 import org.jframe.web.viewModels.LayoutViewModel;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 @Controller("web-error")
 @RequestMapping("/error")
 public class ErrorController {
-
     @RequestMapping("/404")
     public ModelAndView e404(HttpServletRequest request, HttpServletResponse response){
         return this.exception(request, response);
@@ -29,27 +28,30 @@ public class ErrorController {
 
     @RequestMapping(value = "/exception")
     public ModelAndView exception(HttpServletRequest request, HttpServletResponse response) {
-        String requestUri = MyRequestHelper.getRequestUri(request);
+        return handleException(request, response, RequestHelper.getException(request));
+    }
+
+    public static ModelAndView handleException(HttpServletRequest request, HttpServletResponse response, Throwable ex){
+        String requestUri = RequestHelper.getRequestUri(request);
         try{
-            Throwable ex = MyRequestHelper.getException(request);
-            this.logError(requestUri, ex, response.getStatus());
-            String message = this.getErrorMessage(ex, response.getStatus());
-            if(MyRequestHelper.returnJson(request)){
+            logError(requestUri, ex, response.getStatus());
+            String message = getErrorMessage(ex, response.getStatus());
+            if(RequestHelper.returnJson(request)){
                 StandardJsonResult jsonResult = new StandardJsonResult();
-                jsonResult.fail(message, response.getStatus());
+                jsonResult.fail(message);
                 response.setContentType("application/json;charset=utf-8");
                 response.getWriter().write(JsonHelper.serialize(jsonResult));
                 return new ModelAndView();
             }
             return errorView(message);
         }
-        catch (Exception ex){
-            Logger.log("ErrorController.exception", ex);
+        catch (Exception ex2){
+            LogHelper.log("ErrorController.exception", ex2);
         }
         return errorView("对不起，服务器出错了，请重试");
     }
 
-    private ModelAndView errorView(String message){
+    private static ModelAndView errorView(String message){
         ModelAndView mv = new ModelAndView("pc-error");
         LayoutViewModel model = new LayoutViewModel();
         model.setError(message);
@@ -57,7 +59,7 @@ public class ErrorController {
         return mv;
     }
 
-    private void logError(String uri, Throwable ex, int status) {
+    private static void logError(String uri, Throwable ex, int status) {
         StringBuilder sb = new StringBuilder("请求路径：" + uri);
         if (ex != null) {
             sb.append("\n错误消息：" + ex.getClass() + ":" + ex.getMessage() + "\n错误堆栈跟踪：");
@@ -68,10 +70,10 @@ public class ErrorController {
         if (AppContext.printLogs()) {
             System.err.print("\n" + sb);
         }
-        Logger.log("HTTP ERROR[" + status + "]", sb.toString());
+        LogHelper.log("HTTP ERROR[" + status + "]", sb.toString());
     }
 
-    private String getErrorMessage(Throwable ex, int status){
+    private static String getErrorMessage(Throwable ex, int status){
         if(ex != null) {
             if (ex.getClass().equals(KnownException.class)) {
                 return ex.getMessage();
@@ -101,7 +103,6 @@ public class ErrorController {
         }
         return "未知错误";
     }
-
 
 
 }
