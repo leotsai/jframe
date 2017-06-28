@@ -24,8 +24,7 @@ public class LoginController extends _PcControllerBase {
         LayoutViewModel<String> model = new LayoutViewModel<String>();
         model.setTitle("登录");
         model.setModel(returnUrl);
-        //return super.tryView("pc-account-login", () -> model);
-        return super.view("pc-account-login", model);
+        return super.tryView("pc-account-login", () -> model);
     }
 
     @RequestMapping(method = RequestMethod.POST)

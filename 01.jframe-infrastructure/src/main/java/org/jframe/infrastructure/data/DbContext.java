@@ -3,11 +3,15 @@ package org.jframe.infrastructure.data;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
+import org.jframe.infrastructure.caching.AnnotationContext;
 
+import javax.persistence.Entity;
 import javax.persistence.Query;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by leo on 2017-05-18.
@@ -29,30 +33,58 @@ public class DbContext implements AutoCloseable{
     }
 
     public <T> List<T> getList(String sql, Class<T> clazz, Object... parameterValues){
-        Query query = this.session.createNativeQuery(sql, clazz);
-        this.setParameters(query, parameterValues);
+        return this.getList(sql, clazz, this.getParameterMap(parameterValues));
+    }
+
+    public <T> List<T> getList(String sql, Class<T> clazz, Map<String, Object> map){
+        Query query;
+        boolean isEntity = AnnotationContext.get(clazz, Entity.class) != null;
+        if(isEntity){
+            query = this.session.createNativeQuery(sql, clazz);
+        }
+        else{
+            query = this.session.createNativeQuery(sql).setResultTransformer(new DtoResultTransformer(clazz));
+        }
+
+        this.setParameters(query, map);
         return query.getResultList();
     }
 
     public <T> List<T> getList(String sql, Object... parameterValues){
+        return this.getList(sql, this.getParameterMap(parameterValues));
+    }
+
+    public <T> List<T> getList(String sql, Map<String, Object> map){
         Query query = this.session.createNativeQuery(sql);
-        this.setParameters(query, parameterValues);
+        this.setParameters(query, map);
         return query.getResultList();
     }
 
     public <T> T getFirst(String sql, Class<T> clazz, Object... parameterValues){
-        List<T> list = this.getList(sql, clazz, parameterValues);
+        return this.getFirst(sql, clazz, this.getParameterMap(parameterValues));
+    }
+
+    public <T> T getFirst(String sql, Class<T> clazz, Map<String, Object> map){
+        List<T> list = this.getList(sql, clazz, map);
         return list.isEmpty() ? null : list.get(0);
     }
 
     public <T> T getFirst(String sql, Object... parameterValues){
-        List<T> list = this.getList(sql, parameterValues);
+        return this.getFirst(sql ,this.getParameterMap(parameterValues));
+    }
+
+    public <T> T getFirst(String sql, Map<String, Object> map){
+        List<T> list = this.getList(sql, map);
         return list.isEmpty() ? null : list.get(0);
     }
 
     public int count(String sql, Object... parameterValues){
+        return this.count(sql, this.getParameterMap(parameterValues));
+    }
+
+    public int count(String sql, Map<String, Object> map){
         NativeQuery query = this.session.createNativeQuery(sql);
-        this.setParameters(query, parameterValues);
+        this.setParameters(query, map);
         BigInteger count = (BigInteger) query.getSingleResult();
         return count.intValue();
     }
@@ -61,6 +93,17 @@ public class DbContext implements AutoCloseable{
         return (T)this.session.get(clazz, id);
     }
 
+    public <T> PageResult<T> getPage(Class clazz, String sql, PageRequest request, Object... parameterValues) {
+        return this.getPage(clazz, sql, request, this.getParameterMap(parameterValues));
+    }
+
+    public <T> PageResult<T> getPage(Class clazz, String sql, PageRequest request, Map<String, Object> parameters) {
+        String sqlCount = "select count(1) from (" + sql + ") _tcount";
+        String sqlPage = request.getSqlPageing(sql);
+        int count = this.count(sqlCount, parameters);
+        List<T> page = this.getList(sqlPage, clazz, parameters);
+        return new PageResult<>(request, count, page);
+    }
 
     public Session getSession(){
         return this.session;
@@ -85,15 +128,26 @@ public class DbContext implements AutoCloseable{
         this.getTransaction().commit();
     }
 
-    protected void setParameters(Query query, Object... parameterValues) {
-        if (parameterValues != null) {
-            int index = 0;
-            for (Object value : parameterValues) {
-                query.setParameter("p" + index, value);
-                index++;
-            }
+    protected void setParameters(Query query, Map<String, Object> map) {
+        for(String key : map.keySet()){
+            query.setParameter(key, map.get(key));
         }
     }
+
+    protected Map<String, Object> getParameterMap(Object... parameterValues) {
+        Map<String, Object> map = new HashMap<>();
+        if (parameterValues == null || parameterValues.length == 0) {
+            return map;
+        }
+        int index = 0;
+        for (Object value : parameterValues) {
+            map.put("p" + index, value);
+            index++;
+        }
+        return map;
+    }
+
+
 
 
     @Override

@@ -2,13 +2,19 @@ package org.jframe.infrastructure.helpers;
 
 import org.jframe.infrastructure.core.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Leo on 2017/1/9.
  */
 public class ListHelper {
-    public static <T> T firstOrNull(T[] list, Func2<T, Boolean> predicate) {
+    public static <T> T firstOrNull(Iterable<T> list, SafeFunc1<T, Boolean> predicate) {
         if(list == null){
             return null;
+        }
+        if(predicate == null){
+            return list.iterator().next();
         }
         for (T item : list) {
             if (predicate.invoke(item)) {
@@ -18,7 +24,19 @@ public class ListHelper {
         return null;
     }
 
-    public static <T1, T2> boolean any(T1[] list1, T2[] list2, Func3<T1, T2, Boolean> predicate){
+    public static <T> boolean any(Iterable<T> list, SafeFunc1<T, Boolean> predicate){
+        if(list == null){
+            return false;
+        }
+        for (T item : list) {
+            if (predicate.invoke(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <T1, T2> boolean any(Iterable<T1> list1, Iterable<T2> list2, SafeFunc2<T1, T2, Boolean> predicate){
         if(list1 == null || list2 == null){
             return false;
         }
@@ -30,6 +48,19 @@ public class ListHelper {
             }
         }
         return false;
+    }
+
+    public static <T> List<T> where(List<T> list, SafeFunc1<T, Boolean> predicate) {
+        List<T> result = new ArrayList<>();
+        if (list == null) {
+            return result;
+        }
+        for (T item : list) {
+            if (predicate.invoke(item)) {
+                result.add(item);
+            }
+        }
+        return result;
     }
 
 }

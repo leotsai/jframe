@@ -12,6 +12,9 @@ import java.util.UUID;
  */
 @MappedSuperclass
 public class EntityBase {
+
+    protected static final String EmojCharset = " CHARACTER SET utf8mb4 COLLATE utf8mb4_bin ";
+
     @Id
     @Column(nullable = false, length = 32)
     private String id;

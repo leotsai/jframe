@@ -8,9 +8,6 @@
         ${model.title}
     </div>
     <div class="panel-content">
-        <div>
-            <img src="/img/W200/189-2017-01-b0dd0a6361bd43eebcc759c447c9ec70.bmp">
-        </div>
         <form id="formRegister" method="POST">
             <table class="form">
                 <colgroup>

@@ -12,10 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by Leo on 2017/1/7.
  */
 @Controller("pc-home")
-@RequestMapping("/pc/home")
+@RequestMapping("/")
 public class HomeController extends _PcControllerBase {
 
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public ModelAndView index() {
         return super.tryView("pc-home-index", () -> {
             LayoutViewModel model = new LayoutViewModel();
