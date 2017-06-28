@@ -1,6 +1,11 @@
 package org.jframe.infrastructure.data;
 
+import org.jframe.infrastructure.core.JList;
+
+import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Created by leo on 2017-05-26.
@@ -10,13 +15,13 @@ public class PageResult<T> {
     private int totalPages;
     private int pageIndex;
     private int pageSize;
-    private List<T> list;
+    private JList<T> list;
 
     public PageResult(){
 
     }
 
-    public PageResult(PageRequest request, int totalRows, List<T> pagedList) {
+    public PageResult(PageRequest request, int totalRows, JList<T> pagedList) {
         this.pageIndex = request.getPageIndex();
         this.pageSize = request.getPageSize();
         this.totalRows = totalRows;
@@ -25,6 +30,21 @@ public class PageResult<T> {
             this.totalPages++;
         }
         this.list = pagedList;
+    }
+
+    public <TTemp> PageResult(PageResult<TTemp>  page, Function<TTemp, T> func) {
+        this.pageIndex = page.getPageIndex();
+        this.pageSize = page.getPageSize();
+        this.totalRows = page.getTotalRows();
+        this.totalPages = page.getTotalPages();
+        this.list = new JList<>();
+        for (TTemp item : page.getList()) {
+            this.list.add(func.apply(item));
+        }
+    }
+
+    public <TResult> PageResult<TResult> to(Function<T, TResult> func){
+        return new PageResult<>(this, func);
     }
 
     public boolean hasNextPage(){
@@ -77,9 +97,8 @@ public class PageResult<T> {
         return list;
     }
 
-    public void setList(List<T> list) {
+    public void setList(JList<T> list) {
         this.list = list;
     }
-
 
 }

@@ -34,7 +34,7 @@ public class ErrorController {
     public static ModelAndView handleException(HttpServletRequest request, HttpServletResponse response, Throwable ex){
         String requestUri = RequestHelper.getRequestUri(request);
         try{
-            logError(requestUri, ex, response.getStatus());
+            LogHelper.log("HTTP ERROR[" + response.getStatus() + "]", requestUri);
             String message = getErrorMessage(ex, response.getStatus());
             if(RequestHelper.returnJson(request)){
                 StandardJsonResult jsonResult = new StandardJsonResult();
@@ -57,20 +57,6 @@ public class ErrorController {
         model.setError(message);
         mv.addObject("model", model);
         return mv;
-    }
-
-    private static void logError(String uri, Throwable ex, int status) {
-        StringBuilder sb = new StringBuilder("请求路径：" + uri);
-        if (ex != null) {
-            sb.append("\n错误消息：" + ex.getClass() + ":" + ex.getMessage() + "\n错误堆栈跟踪：");
-            for (StackTraceElement element : ex.getStackTrace()) {
-                sb.append("\n" + element);
-            }
-        }
-        if (AppContext.printLogs()) {
-            System.err.print("\n" + sb);
-        }
-        LogHelper.log("HTTP ERROR[" + status + "]", sb.toString());
     }
 
     private static String getErrorMessage(Throwable ex, int status){

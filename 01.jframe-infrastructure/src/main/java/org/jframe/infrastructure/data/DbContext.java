@@ -4,6 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.jframe.infrastructure.caching.AnnotationContext;
+import org.jframe.infrastructure.core.JList;
+import org.jframe.infrastructure.helpers.LogHelper;
 
 import javax.persistence.Entity;
 import javax.persistence.Query;
@@ -18,7 +20,6 @@ import java.util.Map;
  */
 public class DbContext implements AutoCloseable{
     protected final Session session;
-    protected Transaction transaction;
 
     public DbContext(){
         this.session = HibernateSessionFactory.getInstance().getFactory().openSession();
@@ -32,11 +33,11 @@ public class DbContext implements AutoCloseable{
         return new DbSet<T>(this, clazz);
     }
 
-    public <T> List<T> getList(String sql, Class<T> clazz, Object... parameterValues){
+    public <T> JList<T> getList(String sql, Class<T> clazz, Object... parameterValues){
         return this.getList(sql, clazz, this.getParameterMap(parameterValues));
     }
 
-    public <T> List<T> getList(String sql, Class<T> clazz, Map<String, Object> map){
+    public <T> JList<T> getList(String sql, Class<T> clazz, Map<String, Object> map){
         Query query;
         boolean isEntity = AnnotationContext.get(clazz, Entity.class) != null;
         if(isEntity){
@@ -47,21 +48,31 @@ public class DbContext implements AutoCloseable{
         }
 
         this.setParameters(query, map);
-        return query.getResultList();
+        return new JList<>(query.getResultList());
     }
 
-    public <T> List<T> getList(String sql, Object... parameterValues){
+    public <T> JList<T> getList(String sql, Object... parameterValues){
         return this.getList(sql, this.getParameterMap(parameterValues));
     }
 
-    public <T> List<T> getList(String sql, Map<String, Object> map){
+    public <T> JList<T> getList(String sql, Map<String, Object> map){
         Query query = this.session.createNativeQuery(sql);
         this.setParameters(query, map);
-        return query.getResultList();
+        return new JList<>(query.getResultList());
     }
 
     public <T> T getFirst(String sql, Class<T> clazz, Object... parameterValues){
         return this.getFirst(sql, clazz, this.getParameterMap(parameterValues));
+    }
+
+    public int execute(String sql, Map<String, Object> map) {
+        Query query = this.session.createNativeQuery(sql);
+        this.setParameters(query, map);
+        return query.executeUpdate();
+    }
+
+    public int execute(String sql, Object... parameterValues) {
+        return this.execute(sql, this.getParameterMap(parameterValues));
     }
 
     public <T> T getFirst(String sql, Class<T> clazz, Map<String, Object> map){
@@ -93,6 +104,10 @@ public class DbContext implements AutoCloseable{
         return (T)this.session.get(clazz, id);
     }
 
+    public void delete(Object object){
+        this.session.delete(object);
+    }
+
     public <T> PageResult<T> getPage(Class clazz, String sql, PageRequest request, Object... parameterValues) {
         return this.getPage(clazz, sql, request, this.getParameterMap(parameterValues));
     }
@@ -101,7 +116,7 @@ public class DbContext implements AutoCloseable{
         String sqlCount = "select count(1) from (" + sql + ") _tcount";
         String sqlPage = request.getSqlPageing(sql);
         int count = this.count(sqlCount, parameters);
-        List<T> page = this.getList(sqlPage, clazz, parameters);
+        JList<T> page = this.getList(sqlPage, clazz, parameters);
         return new PageResult<>(request, count, page);
     }
 
@@ -109,23 +124,16 @@ public class DbContext implements AutoCloseable{
         return this.session;
     }
 
-    public Transaction getTransaction(){
-        if(this.transaction == null){
-            this.transaction = this.session.getTransaction();
-        }
-        return this.transaction;
-    }
-
     public void save(Object o){
         this.session.save(o);
     }
 
     public void commitTransaction() {
-        if (this.transaction == null) {
-            this.transaction = this.session.getTransaction();
-            this.transaction.begin();
+        Transaction transaction = this.session.getTransaction();
+        if(transaction.isActive() == false){
+            transaction.begin();
         }
-        this.getTransaction().commit();
+        transaction.commit();
     }
 
     protected void setParameters(Query query, Map<String, Object> map) {
@@ -147,9 +155,6 @@ public class DbContext implements AutoCloseable{
         return map;
     }
 
-
-
-
     @Override
     public void close() throws Exception {
         this.session.close();
@@ -160,9 +165,7 @@ public class DbContext implements AutoCloseable{
             this.close();
         }
         catch (Exception ex){
-            ex.printStackTrace();
+            LogHelper.log("DbContext.tryClose", ex);
         }
     }
-
-
 }

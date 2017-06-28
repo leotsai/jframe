@@ -3,6 +3,7 @@ package org.jframe.web.controllers;
 import org.jframe.infrastructure.core.Action;
 import org.jframe.infrastructure.core.Func;
 import org.jframe.infrastructure.core.KnownException;
+import org.jframe.infrastructure.helpers.LogHelper;
 import org.jframe.infrastructure.web.StandardJsonResult;
 import org.jframe.web.viewModels.LayoutViewModel;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,13 +28,11 @@ public class _ControllerBase {
             result.setSuccess(true);
         }
         catch (KnownException ex){
-            result.setSuccess(false);
-            result.setMessage(ex.getMessage());
+            result.fail(ex.getMessage());
         }
         catch (Exception  ex){
-            result.setSuccess(false);
-            result.setMessage(ex.getMessage());
-            result.setCode(-1);
+            result.fail(ex.getMessage(), -1);
+            LogHelper.log("_ControllerBase.tryJson", ex);
             ex.printStackTrace();
         }
         return result;
@@ -46,13 +45,11 @@ public class _ControllerBase {
             result.setSuccess(true);
         }
         catch (KnownException ex){
-            result.setSuccess(false);
-            result.setMessage(ex.getMessage());
+            result.fail(ex.getMessage());
         }
         catch (Exception  ex){
-            result.setSuccess(false);
-            result.setMessage(ex.getMessage());
-            result.setCode(-1);
+            result.fail(ex.getMessage(), -1);
+            LogHelper.log("_ControllerBase.tryJson", ex);
         }
         return result;
     }
@@ -69,13 +66,17 @@ public class _ControllerBase {
             mv.setViewName(viewName);
             mv.addObject("model", getModel.invoke());
         }
+        catch (KnownException ex){
+            return error( ex.getMessage());
+        }
         catch (Exception ex){
-            return error( ex instanceof KnownException ? ex.getMessage() : "服务器未知错误，请刷新页面重试");
+            LogHelper.log("_ControllerBase.tryView", ex);
+            return error("服务器未知错误，请刷新页面重试");
         }
         return mv;
     }
 
-    protected   ModelAndView error(String message){
+    protected  ModelAndView error(String message){
         ModelAndView mv = new ModelAndView();
         mv.setViewName(this.getErrorViewPath());
 

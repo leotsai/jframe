@@ -2,6 +2,7 @@ package org.jframe.infrastructure.data;
 
 import org.hibernate.transform.ResultTransformer;
 import org.jframe.infrastructure.helpers.ClassHelper;
+import org.jframe.infrastructure.helpers.LogHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,7 @@ public class DtoResultTransformer implements ResultTransformer {
             return entity;
         }
         catch (Exception ex){
-            ex.printStackTrace();
+            LogHelper.log("_transformTuple." + this.clazz.getName(), ex);
             return null;
         }
     }
@@ -50,8 +51,7 @@ public class DtoResultTransformer implements ResultTransformer {
                         clazz.newInstance();
                     }
                     catch (Exception ex){
-                        System.err.print("检查DtoEntity的实现类是否具有无参构造函数，失败：" + clazz.toString());
-                        classList.get(-1).toString();
+                        LogHelper.log("_checkDtoEntityConstructors","检查DtoEntity的实现类是否具有无参构造函数，失败：" + clazz.toString());
                     }
                 }
             }

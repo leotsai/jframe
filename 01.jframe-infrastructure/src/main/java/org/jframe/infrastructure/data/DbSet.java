@@ -46,7 +46,7 @@ public class DbSet<T> {
     }
 
     public String getTable(){
-        return HibernateSessionFactory.getInstance().getTableName(this.clazz) + " ";
+        return HibernateSessionFactory.getInstance().getTableName(this.clazz);
     }
 
 
