@@ -1,3 +1,6 @@
+技术交流QQ群：651499479，欢迎java大神指点迷津，也欢迎新手进群学习。
+
+
 # jframe
 java web application architecture based on spring mvc
 
