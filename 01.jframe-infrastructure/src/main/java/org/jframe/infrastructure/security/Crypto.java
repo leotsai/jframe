@@ -1,5 +1,7 @@
 package org.jframe.infrastructure.security;
 
+import org.jframe.infrastructure.helpers.LogHelper;
+
 import javax.crypto.Cipher;
 import java.security.Key;
 import java.security.MessageDigest;
@@ -26,7 +28,7 @@ public class Crypto {
             decryptCipher = Cipher.getInstance("DES");
             decryptCipher.init(Cipher.DECRYPT_MODE, key);
         } catch (Exception ex) {
-
+            LogHelper.log("Crypto constructor", ex);
         }
     }
 

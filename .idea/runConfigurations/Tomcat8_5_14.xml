@@ -67,6 +67,11 @@
         <option name="PROGRAM_PARAMETERS" value="" />
       </SHUTDOWN>
     </ConfigurationWrapper>
-    <method />
+    <method>
+      <option name="Make" enabled="true" />
+      <option name="BuildArtifacts" enabled="true">
+        <artifact name="jfrmae-web-main" />
+      </option>
+    </method>
   </configuration>
 </component>

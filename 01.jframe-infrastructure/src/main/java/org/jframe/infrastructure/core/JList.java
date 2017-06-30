@@ -25,6 +25,10 @@ public class JList<T> extends ArrayList<T> {
         return new JList<>(Arrays.asList(array));
     }
 
+    public static <TEntity> JList<TEntity> from(Collection<TEntity> collection){
+        return new JList<>(collection);
+    }
+
     public T firstOrNull(Function<T, Boolean> predicate) {
         if (predicate == null) {
             return this.firstOrNull();

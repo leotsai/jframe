@@ -21,6 +21,20 @@ public class PageResult<T> {
 
     }
 
+    public PageResult(PageRequest request, List<T> list) {
+        this.pageIndex = request.getPageIndex();
+        this.pageSize = request.getPageSize();
+        this.totalRows = list.size();
+        this.totalPages = this.totalRows / request.getPageSize();
+        if (totalRows % request.getPageSize() > 0) {
+            this.totalPages++;
+        }
+        this.list = new JList<>();
+        for (int i = request.getSkip(); i < request.getSkip() + request.getPageSize() && i < this.totalRows; i++) {
+            this.list.add(list.get(i));
+        }
+    }
+
     public PageResult(PageRequest request, int totalRows, JList<T> pagedList) {
         this.pageIndex = request.getPageIndex();
         this.pageSize = request.getPageSize();
