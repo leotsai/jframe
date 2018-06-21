@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JavaScriptLibraryMappings">
-    <excludedPredefinedLibrary name="jframe/99.jframe-web-main/src/main/webapp/_grunt/node_modules" />
-    <excludedPredefinedLibrary name="jframe/99.jframe-web-main/target/ROOT/_grunt/node_modules" />
-    <excludedPredefinedLibrary name="jframe/99.jframe-web-main/target/jframe-web-main/_grunt/node_modules" />
-  </component>
-</project>
