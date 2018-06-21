@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.jframe.infrastructure.caching.AnnotationContext;
-import org.jframe.infrastructure.core.JList;
+import org.jframe.infrastructure.extensions.JList;
 import org.jframe.infrastructure.helpers.LogHelper;
 
 import javax.persistence.Entity;

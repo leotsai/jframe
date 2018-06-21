@@ -1,7 +1,7 @@
 package org.jframe.web.controllers;
 
 import org.jframe.AppContext;
-import org.jframe.infrastructure.core.KnownException;
+import org.jframe.infrastructure.extensions.KnownException;
 import org.jframe.infrastructure.helpers.JsonHelper;
 import org.jframe.infrastructure.helpers.LogHelper;
 import org.jframe.infrastructure.helpers.RequestHelper;

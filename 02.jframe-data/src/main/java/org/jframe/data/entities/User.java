@@ -3,7 +3,7 @@ package org.jframe.data.entities;
 import org.jframe.data.converters.GenderConverter;
 import org.jframe.data.core.EntityBase;
 import org.jframe.data.enums.Gender;
-import org.jframe.infrastructure.core.KnownException;
+import org.jframe.infrastructure.extensions.KnownException;
 import org.jframe.infrastructure.helpers.StringHelper;
 
 import javax.persistence.*;

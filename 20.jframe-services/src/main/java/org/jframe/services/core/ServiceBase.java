@@ -1,8 +1,8 @@
 package org.jframe.services.core;
 
 import org.jframe.data.JframeDbContext;
-import org.jframe.infrastructure.core.SafeAction1;
-import org.jframe.infrastructure.core.SafeFunc1;
+import org.jframe.infrastructure.extensions.SafeAction1;
+import org.jframe.infrastructure.extensions.SafeFunc1;
 
 /**
  * Created by screw on 2017/5/19.

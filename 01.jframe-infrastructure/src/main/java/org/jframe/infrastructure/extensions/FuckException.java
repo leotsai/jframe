@@ -1,4 +1,4 @@
-package org.jframe.infrastructure.core;
+package org.jframe.infrastructure.extensions;
 
 /**
  * Created by screw on 2017/5/23.

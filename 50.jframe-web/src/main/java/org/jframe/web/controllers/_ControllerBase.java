@@ -1,8 +1,8 @@
 package org.jframe.web.controllers;
 
-import org.jframe.infrastructure.core.Action;
-import org.jframe.infrastructure.core.Func;
-import org.jframe.infrastructure.core.KnownException;
+import org.jframe.infrastructure.extensions.Action;
+import org.jframe.infrastructure.extensions.Func;
+import org.jframe.infrastructure.extensions.KnownException;
 import org.jframe.infrastructure.helpers.LogHelper;
 import org.jframe.infrastructure.web.StandardJsonResult;
 import org.jframe.web.viewModels.LayoutViewModel;

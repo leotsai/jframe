@@ -1,4 +1,4 @@
-package org.jframe.infrastructure.core;
+package org.jframe.infrastructure.extensions;
 
 import java.util.List;
 

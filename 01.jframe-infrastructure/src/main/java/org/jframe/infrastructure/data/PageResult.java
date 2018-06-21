@@ -1,9 +1,7 @@
 package org.jframe.infrastructure.data;
 
-import org.jframe.infrastructure.core.JList;
+import org.jframe.infrastructure.extensions.JList;
 
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 

@@ -3,7 +3,7 @@ package org.jframe.services.api.impl;
 import org.jframe.AppContext;
 import org.jframe.data.JframeDbContext;
 import org.jframe.data.entities.User;
-import org.jframe.infrastructure.core.KnownException;
+import org.jframe.infrastructure.extensions.KnownException;
 import org.jframe.services.api.UserService;
 import org.jframe.services.core.ServiceBase;
 import org.springframework.stereotype.Service;

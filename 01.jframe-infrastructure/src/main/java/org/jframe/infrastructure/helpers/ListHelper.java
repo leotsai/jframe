@@ -1,6 +1,6 @@
 package org.jframe.infrastructure.helpers;
 
-import org.jframe.infrastructure.core.*;
+import org.jframe.infrastructure.extensions.*;
 
 import java.util.ArrayList;
 import java.util.List;
