@@ -1,7 +1,7 @@
 package org.jframe.web.pc.controllers;
 
 
-import org.jframe.infrastructure.web.StandardJsonResult;
+import org.jframe.core.web.StandardJsonResult;
 import org.jframe.web.viewModels.LayoutViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ public class LoginController extends _PcControllerBase {
     public ModelAndView index(String returnUrl) {
         LayoutViewModel<String> model = new LayoutViewModel<String>();
         model.setTitle("登录");
-        model.setModel(returnUrl);
+        model.setValue(returnUrl);
         return super.tryView("pc-account-login", () -> model);
     }
 

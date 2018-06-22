@@ -1,7 +1,7 @@
 package org.jframe.data.converters;
 
+import org.jframe.core.extensions.JList;
 import org.jframe.data.enums.Gender;
-import org.jframe.infrastructure.extensions.JList;
 
 import javax.persistence.AttributeConverter;
 

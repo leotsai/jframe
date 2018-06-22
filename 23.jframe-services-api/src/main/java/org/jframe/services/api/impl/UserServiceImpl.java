@@ -1,9 +1,10 @@
 package org.jframe.services.api.impl;
 
-import org.jframe.AppContext;
+import org.jframe.core.extensions.KnownException;
+import org.jframe.core.helpers.HttpHelper;
 import org.jframe.data.JframeDbContext;
 import org.jframe.data.entities.User;
-import org.jframe.infrastructure.extensions.KnownException;
+import org.jframe.infrastructure.AppContext;
 import org.jframe.services.api.UserService;
 import org.jframe.services.core.ServiceBase;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class UserServiceImpl extends ServiceBase implements UserService {
             if(db.getUserSet().existsUsername(newUser.getUsername())){
                 throw new KnownException("username already registered.");
             }
-            newUser.setRegisterIp(AppContext.getCurrentRequest().getRemoteUser());
+            newUser.setRegisterIp(HttpHelper.getIp());
             db.save(newUser);
             db.commitTransaction();
         }

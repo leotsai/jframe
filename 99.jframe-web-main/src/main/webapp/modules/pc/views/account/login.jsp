@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <script src="/modules/pc/js/account/login.js"></script>
-<input type="hidden" id="hfReturnUrl" value="${model.model}"/>
+<input type="hidden" id="hfReturnUrl" value="${model.value}"/>
 <div class="panel">
     <div class="panel-title">
         ${model.title}

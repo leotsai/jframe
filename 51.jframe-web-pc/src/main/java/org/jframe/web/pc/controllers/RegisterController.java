@@ -17,7 +17,7 @@ public class RegisterController extends  _PcControllerBase{
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index(String returnUrl){
         LayoutViewModel model = new LayoutViewModel();
-        model.setModel(returnUrl);
+        model.setValue(returnUrl);
         model.setTitle("register a new user");
         return super.tryView("pc-account-register", () -> model);
     }

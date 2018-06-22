@@ -1,12 +1,11 @@
 package org.jframe.web.api.controllers;
 
-import org.jframe.AppContext;
+import org.jframe.core.web.StandardJsonResult;
 import org.jframe.data.entities.User;
-import org.jframe.infrastructure.web.StandardJsonResult;
+import org.jframe.infrastructure.AppContext;
 import org.jframe.services.api.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**

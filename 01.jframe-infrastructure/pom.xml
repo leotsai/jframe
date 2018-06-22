@@ -11,5 +11,17 @@
 
     <artifactId>jframe-infrastructure</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.jframe</groupId>
+            <artifactId>jframe-core-unionpay</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jframe</groupId>
+            <artifactId>jframe-core-weixin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

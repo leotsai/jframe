@@ -1,6 +1,7 @@
 package org.jframe.infrastructure.security;
 
-import org.jframe.infrastructure.helpers.LogHelper;
+import org.jframe.core.logging.LogHelper;
+import org.jframe.infrastructure.AppContext;
 
 import javax.crypto.Cipher;
 import java.security.Key;
@@ -13,7 +14,7 @@ import java.security.Security;
  * Created by Leo on 2017/1/8.
  */
 public class Crypto {
-    private static final String DesKey="k1Ds";
+    private static final String DesKey = "W5pK0o,";
     private static Cipher encryptCipher = null;
     private static Cipher decryptCipher = null;
 
@@ -32,32 +33,76 @@ public class Crypto {
         }
     }
 
-    public static String encrypt(String input)  {
+    /**
+     * 老系统的MD5加密
+     * @param input：未加密的密码
+     * @param salt：member表的login_id
+     * @return
+     */
+    public static String encryptMd5_old(String input, String salt) {
+        input = input.toLowerCase();
+        try {
+            int middle = input.length() / 2;
+            byte[] result = MessageDigest.getInstance("MD5").digest((input.substring(0, middle) + salt + input.substring(middle)).getBytes());
+            StringBuilder strBuilder = new StringBuilder(result.length * 2);
+            for (byte b : result) {
+                String s = Integer.toHexString(b & 0x00FF);
+                if (1 == s.length()) {
+                    strBuilder.append('0');
+                }
+                strBuilder.append(s);
+            }
+            return strBuilder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String encryptWithSalt(String input, String salt) {
+        return md5(input + salt);
+    }
+
+    public static String encrypt(String input) {
         return bytesToHex(encrypt(input.getBytes()));
     }
 
-    public static String decrypt(String input)  {
+    public static String decrypt(String input) {
         return new String(decrypt(hexToBytes(input)));
     }
 
+    /**
+     * 返回值均为小写字母，不包含短横线“-”
+     *
+     * @param input
+     * @return
+     */
     public static String md5(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             digest.update(input.getBytes());
             return bytesToHex(digest.digest());
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            if (AppContext.getAppConfig().isTestServer()) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
 
+    /***
+     * 返回值均为小写字母，不包含短横线“-”
+     * @param input
+     * @return
+     */
     public static String sha(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-1");
             digest.update(input.getBytes());
             return bytesToHex(digest.digest());
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            if (AppContext.getAppConfig().isTestServer()) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -81,8 +126,8 @@ public class Crypto {
         }
     }
 
-    private static byte[] hexToBytes(String hex)  {
-        try{
+    private static byte[] hexToBytes(String hex) {
+        try {
             byte[] bytes = hex.getBytes();
             int iLen = bytes.length;
             byte[] result = new byte[iLen / 2];
@@ -91,26 +136,23 @@ public class Crypto {
                 result[i / 2] = (byte) Integer.parseInt(strTmp, 16);
             }
             return result;
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             return null;
         }
     }
 
     private static byte[] encrypt(byte[] bytes) {
-        try{
+        try {
             return encryptCipher.doFinal(bytes);
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return null;
         }
     }
 
-    private static byte[] decrypt(byte[] bytes)  {
-        try{
+    private static byte[] decrypt(byte[] bytes) {
+        try {
             return decryptCipher.doFinal(bytes);
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             return null;
         }
     }

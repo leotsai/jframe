@@ -1,6 +1,8 @@
 package org.jframe.web;
 
-import org.jframe.infrastructure.helpers.LogHelper;
+import org.jframe.core.logging.LogHelper;
+import org.jframe.infrastructure.AppContext;
+import org.jframe.infrastructure.logging.MongoWpkLogAppender;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
@@ -17,7 +19,7 @@ public class MvcApplicationListner implements ApplicationListener {
             System.out.print("\nlogger stopped");
         }
         else if(applicationEvent instanceof ContextStartedEvent){
-            LogHelper.startLogger();
+            LogHelper.startLogger(new MongoWpkLogAppender(AppContext.getAppConfig().getLogsDbName()), true);
             System.out.print("\nlogger started");
         }
     }

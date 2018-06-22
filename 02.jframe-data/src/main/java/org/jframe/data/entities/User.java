@@ -1,10 +1,10 @@
 package org.jframe.data.entities;
 
+import org.jframe.core.extensions.KnownException;
+import org.jframe.core.helpers.StringHelper;
 import org.jframe.data.converters.GenderConverter;
 import org.jframe.data.core.EntityBase;
 import org.jframe.data.enums.Gender;
-import org.jframe.infrastructure.extensions.KnownException;
-import org.jframe.infrastructure.helpers.StringHelper;
 
 import javax.persistence.*;
 import java.util.Collection;
