@@ -48,6 +48,9 @@ public class AppConfig {
     @Value("${app.mock}")
     private boolean mock;
 
+    @Value("${app.entityPackage}")
+    private String entityPackage;
+
 
     //---------------------------------------------
 
@@ -97,5 +100,9 @@ public class AppConfig {
 
     public boolean isMock() {
         return mock;
+    }
+
+    public String getEntityPackage() {
+        return entityPackage;
     }
 }

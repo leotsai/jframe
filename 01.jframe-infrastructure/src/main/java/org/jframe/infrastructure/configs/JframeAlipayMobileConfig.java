@@ -11,7 +11,7 @@ import org.jframe.core.alipay.AlipayMobileConfig;
  */
 @Component
 @PropertySource("/WEB-INF/app.properties")
-public class WpkAlipayMobileConfig implements AlipayMobileConfig {
+public class JframeAlipayMobileConfig implements AlipayMobileConfig {
 
     @Value("${alipay.mobile.url}")
     private String url;

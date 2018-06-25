@@ -1,5 +1,7 @@
 package org.jframe.core.weixin.core;
 
+import org.jframe.core.app.AppInitializer;
+import org.jframe.core.extensions.KnownException;
 import org.jframe.core.weixin.AppletApi;
 import org.jframe.core.weixin.WeixinApi;
 import org.jframe.core.weixin.core.dtos.AccessTokenDto;
@@ -8,7 +10,7 @@ import org.jframe.core.weixin.core.dtos.JsApiTicketDto;
 /**
  * Created by leo on 2017-09-23.
  */
-public class WxKeyManager {
+public class WxKeyManager implements AppInitializer {
 
     private final static WxKeyManager instance = new WxKeyManager();
 
@@ -21,8 +23,16 @@ public class WxKeyManager {
     private WxKeyManager() {
     }
 
-    public void initialize(WxCacheProvider cacheProvider) {
+    public WxKeyManager setCacheProvider(WxCacheProvider cacheProvider) {
         this.cacheProvider = cacheProvider;
+        return this;
+    }
+
+    @Override
+    public void initialize() {
+        if (this.cacheProvider == null) {
+            throw new KnownException(this.getClass().getName() + " cacheProvider is null");
+        }
     }
 
     public String getAccessToken(WeixinApi api) {
@@ -90,4 +100,8 @@ public class WxKeyManager {
         return this.cacheProvider.getJsApiTicket(appId);
     }
 
+    @Override
+    public void close() {
+
+    }
 }

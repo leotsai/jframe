@@ -6,14 +6,14 @@ import org.jframe.core.weixin.WeixinApi;
 /**
  * Created by leo on 2017-10-22.
  */
-public class WpkWeixinApi extends WeixinApi {
+public class JframeWeixinApi extends WeixinApi {
 
-    private static final WpkWeixinApi instance = new WpkWeixinApi();
-    public static WpkWeixinApi getInstance(){
+    private static final JframeWeixinApi instance = new JframeWeixinApi();
+    public static JframeWeixinApi getInstance(){
         return instance;
     }
 
-    private WpkWeixinApi() {
+    private JframeWeixinApi() {
         super(AppContext.getWeixinWpkConfig());
     }
 

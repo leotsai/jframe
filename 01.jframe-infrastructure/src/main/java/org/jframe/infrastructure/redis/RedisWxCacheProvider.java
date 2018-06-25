@@ -13,7 +13,7 @@ import org.jframe.core.weixin.core.dtos.JsApiTicketDto;
 public class RedisWxCacheProvider implements WxCacheProvider {
     @Override
     public AccessTokenDto getAccessToken(String appId) {
-        try(WpkRedisSession session = new WpkRedisSession()){
+        try(JframeRedisSession session = new JframeRedisSession()){
             String value = session.get(AppContext.RedisKeys.weixinAccessToken(appId));
             if(StringHelper.isNullOrEmpty(value)){
                 return null;
@@ -24,14 +24,14 @@ public class RedisWxCacheProvider implements WxCacheProvider {
 
     @Override
     public void setAccessToken(String appId, AccessTokenDto tokenDto) {
-        try(WpkRedisSession session = new WpkRedisSession()){
+        try(JframeRedisSession session = new JframeRedisSession()){
             session.setex(AppContext.RedisKeys.weixinAccessToken(appId), 6900, JsonHelper.serialize(tokenDto));
         }
     }
 
     @Override
     public JsApiTicketDto getJsApiTicket(String appId) {
-        try(WpkRedisSession session = new WpkRedisSession()){
+        try(JframeRedisSession session = new JframeRedisSession()){
             String value = session.get(AppContext.RedisKeys.weixinJsApiTicket(appId));
             if(StringHelper.isNullOrEmpty(value)){
                 return null;
@@ -42,7 +42,7 @@ public class RedisWxCacheProvider implements WxCacheProvider {
 
     @Override
     public void setJsApiTicket(String appId, JsApiTicketDto ticketDto) {
-        try(WpkRedisSession session = new WpkRedisSession()){
+        try(JframeRedisSession session = new JframeRedisSession()){
             session.setex(AppContext.RedisKeys.weixinJsApiTicket(appId), 6900, JsonHelper.serialize(ticketDto));
         }
     }

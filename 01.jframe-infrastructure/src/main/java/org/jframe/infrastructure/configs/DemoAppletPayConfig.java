@@ -16,32 +16,32 @@ import java.io.InputStream;
  */
 @Component
 @PropertySource("/WEB-INF/app.properties")
-public class WpkWeixinPayConfig implements WeixinPayConfig {
+public class DemoAppletPayConfig implements WeixinPayConfig {
 
-    @Value("${weixin.pay.appId}")
+    @Value("${applet.pay.demo.appId}")
     private String appId;
 
-    @Value("${weixin.pay.mchId}")
+    @Value("${applet.pay.demo.mchId}")
     private String mchId;
 
-    @Value("${weixin.pay.key}")
+    @Value("${applet.pay.demo.key}")
     private String key;
 
-    @Value("${weixin.pay.certFilePath}")
+    @Value("${applet.pay.demo.certFilePath}")
     private String certFilePath;
 
-    @Value("${weixin.pay.clientIp}")
+    @Value("${applet.pay.demo.clientIp}")
     private String clientIp;
 
-    @Value("${weixin.pay.httpConnectTimeoutMs}")
+    @Value("${applet.pay.demo.httpConnectTimeoutMs}")
     private int httpConnectTimeoutMs;
 
-    @Value("${weixin.pay.httpReadTimeoutMs}")
+    @Value("${applet.pay.demo.httpReadTimeoutMs}")
     private int httpReadTimeoutMs;
 
     @Override
     public String getPayNotifyUrl() {
-        return AppContext.getAppConfig().getHost() + "/app/weixinPay/back-notify";
+        return AppContext.getAppConfig().getHost() + "/app/weixinPay/ibuy-back-notify";
     }
 
     @Override

@@ -10,18 +10,18 @@ import org.jframe.core.weixin.core.AppletConfig;
  */
 @Component
 @PropertySource("/WEB-INF/app.properties")
-public class AppletIbuyConfig implements AppletConfig {
+public class DemoAppletConfig implements AppletConfig {
 
-    @Value("${applet.ibuy.appId}")
+    @Value("${applet.demo.appId}")
     private String appId;
 
-    @Value("${applet.ibuy.appSecret}")
+    @Value("${applet.demo.appSecret}")
     private String appSecret;
 
-    @Value("${applet.ibuy.messageToken}")
+    @Value("${applet.demo.messageToken}")
     private String messageToken;
 
-    @Value("${applet.ibuy.messageAesKey}")
+    @Value("${applet.demo.messageAesKey}")
     private String messageAesKey;
 
 

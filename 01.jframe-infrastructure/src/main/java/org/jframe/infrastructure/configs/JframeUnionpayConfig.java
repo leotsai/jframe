@@ -11,7 +11,7 @@ import org.jframe.core.unionpay.configs.UnionpayConfig;
 
 @Component
 @PropertySource("/WEB-INF/app.properties")
-public class WpkUnionpayConfig implements UnionpayConfig {
+public class JframeUnionpayConfig implements UnionpayConfig {
     @Value("${unionpay.merId}")
     private String merId;
 

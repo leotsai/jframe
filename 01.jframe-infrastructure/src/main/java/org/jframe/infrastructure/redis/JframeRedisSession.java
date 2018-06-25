@@ -6,10 +6,10 @@ import org.jframe.core.redis.RedisSession;
 /**
  * Created by Leo on 2017/11/3.
  */
-public class WpkRedisSession extends RedisSession {
+public class JframeRedisSession extends RedisSession {
 
-    public WpkRedisSession() {
-        super(RedisWpkPoolContext.getInstance());
+    public JframeRedisSession() {
+        super(JframeRedisPoolContext.getInstance());
     }
 
     @Override

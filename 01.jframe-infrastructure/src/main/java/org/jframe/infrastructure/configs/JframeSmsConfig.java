@@ -10,7 +10,7 @@ import org.jframe.core.aliyun.sms.SmsConfig;
  */
 @Component
 @PropertySource(value = "/WEB-INF/app.properties", encoding = "UTF-8")
-public class WpkSmsConfig implements SmsConfig {
+public class JframeSmsConfig implements SmsConfig {
 
     @Value("${aliyun.sms.key}")
     private String key;

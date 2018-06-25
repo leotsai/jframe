@@ -1,5 +1,6 @@
 package org.jframe.infrastructure.mongodb;
 
+import org.jframe.core.app.AppInitializer;
 import org.jframe.infrastructure.AppContext;
 import org.jframe.core.mongodb.MongoDatabaseFactory;
 import org.jframe.core.mongodb.MongoDbContext;
@@ -7,15 +8,19 @@ import org.jframe.core.mongodb.MongoDbContext;
 /**
  * Created by leo on 2017-10-22.
  */
-public class MongoDatabaseWpkFactory extends MongoDatabaseFactory {
+public class JframeMongoDatabaseFactory extends MongoDatabaseFactory implements AppInitializer {
 
-    private final static MongoDatabaseWpkFactory instance = new MongoDatabaseWpkFactory();
+    private final static JframeMongoDatabaseFactory instance = new JframeMongoDatabaseFactory();
 
-    public static MongoDatabaseWpkFactory getInstance(){
+    public static JframeMongoDatabaseFactory getInstance() {
         return instance;
     }
 
-    public void initialize(){
+    private JframeMongoDatabaseFactory() {
+    }
+
+    @Override
+    public void initialize() {
         super.initialize(AppContext.getMongodbConfig());
     }
 
@@ -23,7 +28,7 @@ public class MongoDatabaseWpkFactory extends MongoDatabaseFactory {
         return new MongoDbContext(this, AppContext.getAppConfig().getLogsDbName() + "_backup");
     }
 
-    public MongoDbContext createLogsDb(){
+    public MongoDbContext createLogsDb() {
         return new MongoDbContext(this, AppContext.getAppConfig().getLogsDbName());
     }
 

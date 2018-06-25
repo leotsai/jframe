@@ -1,16 +1,16 @@
 package org.jframe.infrastructure.configs;
 
+import org.jframe.core.aliyun.mq.MqProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.jframe.core.aliyun.mq.MqProducerConfig;
 
 /**
  * Created by Leo on 2017/10/20.
  */
 @Component
 @PropertySource("/WEB-INF/app.properties")
-public class MqProducerWpkConfig implements MqProducerConfig{
+public class JframeMqProducerConfig implements MqProducerConfig {
 
     @Value("${aliyun.mq.default.topic}")
     private String topic;

@@ -1,33 +1,28 @@
 package org.jframe.infrastructure.configs;
 
+import org.jframe.core.redis.RedisConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.jframe.core.mongodb.MongodbConfig;
 
 /**
  * Created by Leo on 2017/10/20.
  */
 @Component
 @PropertySource("/WEB-INF/app.properties")
-public class MongodbWpkConfig implements MongodbConfig{
+public class JframeRedisConfig implements RedisConfig {
 
-    @Value("${mongo.address}")
+    @Value("${redis.address}")
     private String address;
 
-    @Value("${mongo.port}")
+    @Value("${redis.port}")
     private int port;
 
-    @Value("${mongo.database}")
-    private String database;
+    @Value("${redis.timeoutSeconds}")
+    private int timeoutSeconds;
 
-    @Value("${mongo.username}")
-    private String username;
-
-    @Value("${mongo.password}")
+    @Value("${redis.password}")
     private String password;
-
-    //--------------------------------------------
 
     @Override
     public String getAddress() {
@@ -40,17 +35,12 @@ public class MongodbWpkConfig implements MongodbConfig{
     }
 
     @Override
-    public String getUsername() {
-        return this.username;
+    public int getTimeoutSeconds() {
+        return this.timeoutSeconds;
     }
 
     @Override
     public String getPassword() {
         return this.password;
-    }
-
-    @Override
-    public String getDatabase() {
-        return this.database;
     }
 }

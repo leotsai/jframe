@@ -101,16 +101,16 @@ public class AppContext implements ApplicationContextAware {
         return getBean(clazz);
     }
 
-    public static WpkAlipayMobileConfig getAlipayMobileConfig() {
-        return getBean(WpkAlipayMobileConfig.class);
+    public static JframeAlipayMobileConfig getAlipayMobileConfig() {
+        return getBean(JframeAlipayMobileConfig.class);
     }
 
     public static MongodbConfig getMongodbConfig() {
         return getBean(MongodbConfig.class);
     }
 
-    public static MqProducerWpkConfig getMqConfig() {
-        return getBean(MqProducerWpkConfig.class);
+    public static JframeMqProducerConfig getMqConfig() {
+        return getBean(JframeMqProducerConfig.class);
     }
 
     public static OssImagesConfig getOssImagesConfig() {
@@ -125,20 +125,20 @@ public class AppContext implements ApplicationContextAware {
         return getBean(OssPublicConfig.class);
     }
 
-    public static WpkSmsConfig getSmsConfig() {
-        return getBean(WpkSmsConfig.class);
+    public static JframeSmsConfig getSmsConfig() {
+        return getBean(JframeSmsConfig.class);
     }
 
     public static RedisConfig getRedisConfig() {
         return getBean(RedisConfig.class);
     }
 
-    public static WeixinWpkConfig getWeixinWpkConfig() {
-        return getBean(WeixinWpkConfig.class);
+    public static JframeWeixinConfig getWeixinWpkConfig() {
+        return getBean(JframeWeixinConfig.class);
     }
 
-    public static WpkUnionpayConfig getUnionpayConfig() {
-        return getBean(WpkUnionpayConfig.class);
+    public static JframeUnionpayConfig getUnionpayConfig() {
+        return getBean(JframeUnionpayConfig.class);
     }
 
     public static <T extends WeixinPayConfig> WeixinPayConfig getWeixinPayConfig(Class<T> clazz) {

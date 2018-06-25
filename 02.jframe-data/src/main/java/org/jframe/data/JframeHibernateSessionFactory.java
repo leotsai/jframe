@@ -3,9 +3,11 @@ package org.jframe.data;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import org.hibernate.cfg.Configuration;
+import org.jframe.core.app.AppInitializer;
 import org.jframe.core.extensions.JList;
 import org.jframe.core.extensions.KnownException;
 import org.jframe.core.hibernate.HibernateSessionFactory;
+import org.jframe.infrastructure.AppContext;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -14,7 +16,7 @@ import java.util.Properties;
 /**
  * Created by leo on 2017-10-21.
  */
-public class JframeHibernateSessionFactory extends HibernateSessionFactory {
+public class JframeHibernateSessionFactory extends HibernateSessionFactory implements AppInitializer {
 
     private final static JframeHibernateSessionFactory instance;
 
@@ -33,14 +35,14 @@ public class JframeHibernateSessionFactory extends HibernateSessionFactory {
 
     }
 
-    public void initialize(String startupDirectory) {
+    public JframeHibernateSessionFactory setConfiguration(String startupDirectory) {
         this.startupDirectory = startupDirectory;
-        super.initialize();
+        return this;
     }
 
-    public void initialize(Properties properties) {
+    public JframeHibernateSessionFactory setConfiguration(Properties properties) {
         this.properties = properties;
-        super.initialize();
+        return this;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class JframeHibernateSessionFactory extends HibernateSessionFactory {
 
         ClassLoader classLoader = this.getClass().getClassLoader();
         try {
-            ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(classLoader).getTopLevelClassesRecursive("wpk.data.entities");
+            ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(classLoader).getTopLevelClassesRecursive(AppContext.getAppConfig().getEntityPackage());
             if (classInfos.size() == 0) {
                 throw new KnownException("找不到entity");
             }
