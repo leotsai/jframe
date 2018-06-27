@@ -1,4 +1,6 @@
-<%--
+<%@ page import="org.jframe.infrastructure.helpers.DateHelper" %>
+<%@ page import="org.jframe.core.extensions.JDate" %>
+<%@ page import="java.util.Calendar" %><%--
   Created by IntelliJ IDEA.
   User: Leo
   Date: 2017/1/6
@@ -32,19 +34,15 @@
                 The demo website for <a target="_blank" href="https://github.com/leotsai/jframe">https://github.com/leotsai/jframe</a>
                 <a class="btn" target="_blank" href="https://github.com/leotsai/mvcsolution">go to github</a>
             </div>
-            <a id="linkAdmin" class="btn" href="/admin">Admin Control Panel</a>
         </div>
         <div id="mainNav" class="clearfix">
             <div class="inner">
                 <ul id="mainMenu" class="menu clearfix">
-                    <li id="navHome"><a href="#">Home</a></li>
-                    <li id="navDoc"><a href="#">Documentation</a></li>
-                    <li id="navSource"><a href="#">Get The Source Code</a></li>
-                    <li id="navContact"><a href="#">Contact Me</a></li>
+                    <li id="navHome"><a href="/demo">Demo Home</a></li>
                 </ul>
                 <ul id="loginStatus" class="menu clearfix">
-                    <li id="navLogin"><a href="/login">Login</a></li>
-                    <li id="navRegister"><a href="/register">Register</a></li>
+                    <li id="navLogin"><a href="/demo/login">Demo Login</a></li>
+                    <li id="navRegister"><a href="/demo/register">Demo Register</a></li>
                 </ul>
             </div>
         </div>
@@ -56,7 +54,7 @@
     </div>
     <div id="footer">
         <div class="inner">
-            &copy;@("2013 - " + DateTime.Now.Year)
+            &copy;@(2013 - <%=Calendar.getInstance().get(Calendar.YEAR)%>)
         </div>
     </div>
 </div>

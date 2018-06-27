@@ -38,13 +38,13 @@
             <div class="inner">
                 <ul id="mainMenu" class="menu clearfix">
                     <li id="navHome"><a href="/">Home</a></li>
-                    <li id="navDoc"><a href="/home/doc">Documentation</a></li>
-                    <li id="navSource"><a href="/home/source">Get The Source Code</a></li>
-                    <li id="navContact"><a href="/home/contact">Contact Me</a></li>
+                    <li id="navDoc"><a href="#">Documentation</a></li>
+                    <li id="navSource"><a href="#">Get The Source Code</a></li>
+                    <li id="navContact"><a href="#">Contact Me</a></li>
                 </ul>
                 <ul id="loginStatus" class="menu clearfix">
-                    <li id="navLogin"><a href="/login">Login</a></li>
-                    <li id="navRegister"><a href="/register">Register</a></li>
+                    <li id="navLogin"><a href="/demo/login">Login</a></li>
+                    <li id="navRegister"><a href="/demo/register">Register</a></li>
                 </ul>
             </div>
         </div>
