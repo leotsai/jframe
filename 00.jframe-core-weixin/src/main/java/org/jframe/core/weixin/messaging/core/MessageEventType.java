@@ -18,5 +18,5 @@ public enum MessageEventType {
     unsubscribe,
     TEMPLATESENDJOBFINISH,
     LOCATION,
-    MASSSENDJOBFINISH;
+    MASSSENDJOBFINISH
 }

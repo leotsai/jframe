@@ -391,9 +391,8 @@ public class SecureUtil {
 	 * @param inputByte
 	 *            待解码数据
 	 * @return 解码后的数据
-	 * @throws IOException
-	 */
-	public static byte[] base64Decode(byte[] inputByte) throws IOException {
+     */
+	public static byte[] base64Decode(byte[] inputByte) {
 		return Base64.decodeBase64(inputByte);
 	}
 
@@ -403,9 +402,8 @@ public class SecureUtil {
 	 * @param inputByte
 	 *            待编码数据
 	 * @return 解码后的数据
-	 * @throws IOException
-	 */
-	public static byte[] base64Encode(byte[] inputByte) throws IOException {
+     */
+	public static byte[] base64Encode(byte[] inputByte) {
 		return Base64.encodeBase64(inputByte);
 	}
 
@@ -432,10 +430,8 @@ public class SecureUtil {
 	 * @param privateKey
 	 * @param cryptPin
 	 * @return
-	 * @throws Exception
-	 */
-	private static byte[] decryptData(PrivateKey privateKey, byte[] data)
-			throws Exception {
+     */
+	private static byte[] decryptData(PrivateKey privateKey, byte[] data) {
 		try {
 			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding","BC");
 			cipher.init(Cipher.DECRYPT_MODE, privateKey);
@@ -511,8 +507,7 @@ public class SecureUtil {
 	private static byte[] formatPan(String aPan) {
 		int tPanLen = aPan.length();
 		byte[] tByte = new byte[8];
-		;
-		int temp = tPanLen - 13;
+        int temp = tPanLen - 13;
 		try {
 			tByte[0] = (byte) 0x00;
 			tByte[1] = (byte) 0x00;

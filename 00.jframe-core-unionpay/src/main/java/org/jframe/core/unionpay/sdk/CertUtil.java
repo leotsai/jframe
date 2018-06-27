@@ -752,11 +752,7 @@ public class CertUtil {
 	 */
 	static class CerFilter implements FilenameFilter {
 		public boolean isCer(String name) {
-			if (name.toLowerCase().endsWith(".cer")) {
-				return true;
-			} else {
-				return false;
-			}
+            return name.toLowerCase().endsWith(".cer");
 		}
 		@Override
 		public boolean accept(File dir, String name) {

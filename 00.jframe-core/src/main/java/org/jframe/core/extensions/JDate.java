@@ -129,8 +129,7 @@ public class JDate extends Date {
 
     public static JDate parseFrom(String date) {
         try {
-            return new JDate(DateUtils.parseDate(date, new String[]{
-                    "yyyy-MM-dd",
+            return new JDate(DateUtils.parseDate(date, "yyyy-MM-dd",
                     "yyyy-MM-dd HH:mm",
                     "yyyy-MM-dd HH:mm:ss",
                     "yyyy/MM/dd",
@@ -138,8 +137,7 @@ public class JDate extends Date {
                     "yyyy/MM/dd HH:mm:ss",
                     "yyyy.MM.dd",
                     "yyyy.MM.dd HH:mm",
-                    "yyyy.MM.dd HH:mm:ss"
-            }));
+                    "yyyy.MM.dd HH:mm:ss"));
         } catch (Exception ex) {
             throw new KnownException("输入的字符串（" + date + "）不是一个正确的时间");
         }

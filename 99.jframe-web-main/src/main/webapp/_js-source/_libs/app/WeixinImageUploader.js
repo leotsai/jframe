@@ -2,15 +2,24 @@
     if (window.WeixinImageUploader) {
         return;
     }
+    var urls = {
+        getUploadWeixin: function (serverId, type) {
+            return '/img/uploadWeixin?serverId=' + serverId + "&type=" + type;
+        }
+    };
     window.WeixinImageUploader = function (wrapperSelector, imgKeys) {
         this.wrapperSelector = wrapperSelector;
         this.imgKeys = imgKeys == undefined ? [] : imgKeys;
         this.maxImages = 6;
-        this.size = 's80x80';
+        this.style = mvcApp.imageStyles.s60x60;
         this.imageType = 0;
-        this.cropCenter = false;
+
         this.showTip = true;
         this.canChooseFromAlbum = true;
+    };
+
+    WeixinImageUploader.isWkWebView = function(){
+        return window.__wxjs_is_wkwebview === true;
     };
 
     WeixinImageUploader.prototype = {
@@ -23,6 +32,30 @@
                 this.append$Li(this.imgKeys[i]);
             }
             this.appendNewUploaderIfNeeded();
+            if(this.isDisabled){
+                this.disable();
+            }
+        },
+        disable: function(){
+            this.isDisabled = true;
+            var $ul = $(this.wrapperSelector).find("ul.files-uploader");
+            $ul.addClass("disabled");
+            $ul.find(":file").attr("disabled", "disabled");
+        },
+        enable: function(){
+            this.isDisabled = false;
+            var $ul = $(this.wrapperSelector).find("ul.files-uploader");
+            $ul.removeClass("disabled");
+            $ul.find(":file").removeAttr("disabled");
+        },
+        reset: function () {
+            $(this.wrapperSelector).find(".files-uploader > li").each(function () {
+                if ($(this).hasClass(".uploader-new")) {
+                    return;
+                }
+                $(this).remove();
+            });
+            this.appendNewUploaderIfNeeded();
         },
         append$Li: function (imgKey) {
             var me = this;
@@ -30,6 +63,7 @@
             var liHtml = '<li data-id="' + imgKey + '" class="uploader-file' + (imgKey == null ? ' uploader-new' : '') + '">\
                             <label>' + imgHtml + '</label>\
                             <a class="btn-delete"></a>\
+                            <span class="success-icon"></span>\
                             <div class="upload-busy"></div>\
                         </li>';
             var $li = $(liHtml);
@@ -41,6 +75,9 @@
             $li.find("label").click(function () {
                 me._onUploadBtnClicked(this);
             });
+            $li.find('span.success-icon').click(function () {
+                $li.find('label').eq(0).trigger('click');
+            });
             $(this.wrapperSelector).find("ul").append($li);
         },
         getSrc: function (imgKey) {
@@ -50,7 +87,7 @@
             if (imgKey.indexOf('/') > -1) {
                 return imgKey;
             }
-            return "/img/" + this.size + "/" + imgKey;
+            return mvcApp.getImageUrl(imgKey, this.style);
         },
         appendNewUploaderIfNeeded: function () {
             var me = this;
@@ -76,11 +113,17 @@
         },
         _onUploadBtnClicked: function (sender) {
             var me = this;
+            if(this.isDisabled){
+                return;
+            }
             var isNewItemClicked = $(sender).closest("li").hasClass("uploader-new");
             var count = 1;
             if (isNewItemClicked) {
                 var currentItems = $(this.wrapperSelector).find("li:not(.uploader-new)").length;
                 count = this.maxImages - currentItems;
+            }
+            if(count > 9){
+                count = 9;
             }
             WeixinJsSdk.ready(function () {
                 var source = ['camera'];
@@ -109,14 +152,30 @@
                 var localId = localIds[i];
                 this.append$Li(localId);
                 var $li = $(this.wrapperSelector).find("li").last();
-                $li.addClass("uploading").find("img").attr("src", localId);
+                $li.addClass("uploading");
+                me._setLocalImage($li.find("img"), localId);
             }
             me.appendNewUploaderIfNeeded();
             me.startUploadToWeixin();
         },
+        _setLocalImage: function($img, localId){
+            if(WeixinImageUploader.isWkWebView()){
+                wx.getLocalImgData({
+                    localId: localId, // 图片的localID
+                    success: function (res) {
+                        var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+                        $img.attr("src", localData);
+                    }
+                });
+            }
+            else{
+                $img.attr("src", localId);
+            }
+        },
         replaceImage: function (sender, localId) {
             var $li = $(sender).closest("li");
-            $li.addClass("uploading").attr("data-id", localId).find("img").attr("src", localId);
+            $li.addClass("uploading").attr("data-id", localId).find("img");
+            this._setLocalImage($li.find("img"), localId);
             this.startUploadToWeixin();
         },
         _doUpload: function ($li, localId, callback) {
@@ -129,12 +188,12 @@
             });
         },
         _getImgKey: function (serverId, callback) {
-            var url = '/app/img/uploadWeixin?serverId=' + serverId + "&type=" + this.imageType + "&cropCenter=" + this.cropCenter;
+            var url = urls.getUploadWeixin(serverId, this.imageType);
             mvcApp.ajax.post(url, null, function (result) {
-                if (result.Success) {
-                    callback(result.Value);
+                if (result.success) {
+                    callback(result.value);
                 } else {
-                    cm.notification.toast("上传图片失败，请重试: " + result.Message);
+                    mvcApp.notification.toast("上传图片失败，请重试: " + result.message);
                 }
             });
         },
@@ -166,9 +225,13 @@
             me._doUpload($li, localId, function (serverId) {
                 me._getImgKey(serverId, function (imgKey) {
                     $li.removeClass("uploading").attr("data-id", imgKey);
+                    me.onImageUploaded($li, imgKey);
                     me.startUploadToWeixin();
                 });
             });
+        },
+        onImageUploaded: function ($li, imgKey) {
+
         }
     };
 

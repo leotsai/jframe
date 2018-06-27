@@ -1,0 +1,4 @@
+#run below code to install each module
+npm install --save grunt grunt-contrib-uglify
+npm install --save grunt grunt-contrib-concat
+npm install --save grunt grunt-contrib-watch

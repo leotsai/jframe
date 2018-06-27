@@ -34,8 +34,8 @@
         }
         $btn.find("span").html(num > 0 ? num : '赞');
         mvcApp.ajax.post(url, "id=" + id + "&isToLike=" + (!wasLiked), function (result) {
-            if (result.Success == false) {
-                mvcApp.notification.toast(result.Message);
+            if (result.success == false) {
+                mvcApp.notification.toast(result.message);
             }
         });
     };

@@ -2,61 +2,51 @@ package org.jframe.data.entities;
 
 import org.jframe.data.core.EntityBase;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 /**
  * Created by leo on 2017-05-25.
+ * 用户-角色关系表
  */
-@Entity(name = "user_role_rls")
+@Entity
+@Table(name = "s_user_role_rls", indexes = {
+        @Index(name = "idx_user_id", columnList = "user_id"),
+        @Index(name = "idx_role_id", columnList = "role_id")
+})
 public class UserRoleRL extends EntityBase {
-    @Column(name = "user_id", columnDefinition = "varchar(32) not null")
-    private String userId;
+    @Column(name = "user_id", columnDefinition = "bigint not null COMMENT '对应用户表的id列'")
+    private Long userId;
 
-    @Column(name = "role_id", columnDefinition = "varchar(32) not null")
-    private String roleId;
+    @Column(name = "role_id", columnDefinition = "bigint not null COMMENT '对应角色表的id列'")
+    private Long roleId;
 
+    public UserRoleRL() {
+
+    }
+
+    public UserRoleRL(Long userId, Long roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
+    }
     //-------------------------------------
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "role_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_user_role_rls_roleId"))
-    private Role role;
-
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_user_role_rls_userId"))
-    private User user;
-
-    //-------------------------------------
-
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
 }

@@ -1,44 +1,84 @@
-﻿(function() {
+﻿(function () {
 
-    function handleError(err, onlyCallbackOnSuccess, callback){
-        if(err.status === 0 && err.statusText === "abort"){
+    function handleError(err, onlyCallbackOnSuccess, callback) {
+        if (err.status === 0 && err.statusText === "abort") {
             return;
         }
         if (onlyCallbackOnSuccess) {
-            mvcApp.notification.alert("网络错误", "网络出错了，请重试");
+            mvcApp.notification.alert("网络错误", err.responseText);
         } else {
             callback({
                 success: false,
-                message: '网络出错了'
+                message: err.responseText
             });
         }
-    };
+    }
+
+    function handleSuccess(result, successCallback, forbiddenCallback) {
+        if (result.code === mvcApp.wpkCode.NOT_AUTHENTICATED) {
+            forbiddenCallback && forbiddenCallback();
+            mvcApp.login._showLogin();
+        } else if (result.code === mvcApp.wpkCode.INSUFFICIENT_PERMISSION) {
+            forbiddenCallback && forbiddenCallback();
+            mvcApp.notification.alertInfo("权限不足，请注销登录后重新登录尝试")
+        } else {
+            successCallback && successCallback();
+        }
+
+    }
+
+    function getFixedUrl(url) {
+        if (url.indexOf("?") > -1) {
+            return url + "&ts=" + new Date().getTime();
+        }
+        return url + "?ts=" + new Date().getTime();
+    }
 
     mvcApp.ajax = {
         post: function (url, data, callback, onlyCallbackOnSuccess) {
-            data = "ajax=true&ts=" + new Date().getTime() + "&" + data;
             return $.ajax({
                 type: "post",
-                url: url,
+                url: getFixedUrl(url),
                 contentType: "application/x-www-form-urlencoded",
                 data: data,
-                success: function(result) {
-                    if (onlyCallbackOnSuccess && result.success === false) {
-                        mvcApp.notification.alertError(result.message);
-                    } else {
-                        callback(result);
-                    }
+                success: function (result) {
+                    handleSuccess(result, function () {
+                        if (onlyCallbackOnSuccess && result.success === false) {
+                            mvcApp.notification.alertInfo(result.message);
+                        } else {
+                            callback(result);
+                        }
+                    });
                 },
-                error: function(err) {
+                error: function (err) {
+                    handleError(err, onlyCallbackOnSuccess, callback);
+                }
+            });
+        },
+        postJson: function (url, objectData, callback, onlyCallbackOnSuccess) {
+            return $.ajax({
+                type: "post",
+                url: getFixedUrl(url),
+                contentType: "application/json",
+                data: typeof(objectData) === "object" ? JSON.stringify(objectData) : objectData,
+                success: function (result) {
+                    handleSuccess(result, function () {
+                        if (onlyCallbackOnSuccess && result.success === false) {
+                            mvcApp.notification.alertInfo(result.message);
+                        } else {
+                            callback(result);
+                        }
+                    });
+                },
+                error: function (err) {
                     handleError(err, onlyCallbackOnSuccess, callback);
                 }
             });
         },
         busyPost: function (url, data, callback, busyText, onlyCallbackOnSuccess) {
-            data = "ajax=true&ts=" + new Date().getTime() + "&" + data;
             return $.ajax({
                 type: "post",
-                url: url,
+                url: getFixedUrl(url),
                 contentType: "application/x-www-form-urlencoded",
                 data: data,
                 beforeSend: function () {
@@ -46,15 +86,17 @@
                 },
                 success: function (result) {
                     mvcApp.notification.busy(false);
-                    if (onlyCallbackOnSuccess == undefined || onlyCallbackOnSuccess === false) {
-                        callback(result);
-                    } else {
-                        if (result.success === true) {
+                    handleSuccess(result, function () {
+                        if (onlyCallbackOnSuccess == undefined || onlyCallbackOnSuccess === false) {
                             callback(result);
                         } else {
-                            mvcApp.notification.alert("出错了", result.message);
+                            if (result.success === true) {
+                                callback(result);
+                            } else {
+                                mvcApp.notification.alertInfo(result.message);
+                            }
                         }
-                    }
+                    });
                 },
                 error: function (err) {
                     mvcApp.notification.busy(false);
@@ -62,28 +104,80 @@
                 }
             });
         },
-        load: function (wrapper, url, successCallback, message) {
+        busyPostJson: function (url, objectData, callback, busyText, onlyCallbackOnSuccess) {
+            return $.ajax({
+                type: "post",
+                url: getFixedUrl(url),
+                contentType: "application/json;charset=utf-8",
+                data: typeof(objectData) === "object" ? JSON.stringify(objectData) : objectData,
+                beforeSend: function () {
+                    mvcApp.notification.busy(busyText);
+                },
+                success: function (result) {
+                    mvcApp.notification.busy(false);
+                    handleSuccess(result, function () {
+                        if (onlyCallbackOnSuccess == undefined || onlyCallbackOnSuccess === false) {
+                            callback(result);
+                        } else {
+                            if (result.success === true) {
+                                callback(result);
+                            } else {
+                                mvcApp.notification.alertInfo(result.message);
+                            }
+                        }
+                    });
+                },
+                error: function (err) {
+                    mvcApp.notification.busy(false);
+                    handleError(err, onlyCallbackOnSuccess, callback);
+                }
+            });
+        },
+        load: function (wrapper, url, successCallback, message, forbiddenCallback) {
             var $wrapper = $(wrapper);
             $wrapper.empty();
             message = message == undefined ? "加载中..." : message;
-            $wrapper.html("<div class=='loading'>" + message + "</div>");
-            var loadUrl;
-            if (url.indexOf("?") < 0) {
-                loadUrl = url + "?ajax=true&ts=" + new Date().getTime();
-            } else {
-                loadUrl = url + "&ajax=true&ts=" + new Date().getTime();
-            }
+            $wrapper.html("<div class='loading'>" + message + "</div>");
             $.ajax({
                 type: "get",
-                url: loadUrl,
+                url: getFixedUrl(url),
                 success: function (result) {
-                    $wrapper.html(result);
-                    if (successCallback != undefined && successCallback != null) {
-                        successCallback();
-                    }
+                    handleSuccess(result, function () {
+                        $wrapper.html(result);
+                        if (successCallback != undefined && successCallback != null) {
+                            successCallback();
+                        }
+                    }, forbiddenCallback);
                 },
                 error: function (err) {
-                    handleError(err, false, function(){
+                    handleError(err, false, function () {
+                        $wrapper.html("<div class='load-error'><span class='error'>Error occuurred.</span><a href='javascript:void(0);'>Re-try</a></div>");
+                        $wrapper.find("a").click(function () {
+                            mvcApp.ajax.load(wrapper, url, successCallback);
+                        });
+                    });
+                }
+            });
+        },
+        loadPost: function (wrapper, url, data, successCallback, message) {
+            var $wrapper = $(wrapper);
+            $wrapper.empty();
+            message = message == undefined ? "加载中..." : message;
+            $wrapper.html("<div class='loading'>" + message + "</div>");
+            $.ajax({
+                type: "post",
+                data: data,
+                url: getFixedUrl(url),
+                success: function (result) {
+                    handleSuccess(result, function () {
+                        $wrapper.html(result);
+                        if (successCallback != undefined && successCallback != null) {
+                            successCallback();
+                        }
+                    });
+                },
+                error: function (err) {
+                    handleError(err, false, function () {
                         $wrapper.html("<div class='load-error'><span class='error'>Error occuurred.</span><a href='javascript:void(0);'>Re-try</a></div>");
                         $wrapper.find("a").click(function () {
                             mvcApp.ajax.load(wrapper, url, successCallback);

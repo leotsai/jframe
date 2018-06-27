@@ -416,7 +416,7 @@ public class AcpService {
         }
 		StringBuffer sf = new StringBuffer("{");
 		//敏感信息加密域
-		StringBuffer encryptedInfoSb = new StringBuffer("");
+		StringBuffer encryptedInfoSb = new StringBuffer();
 		
 		for(Iterator<String> it = customerInfoMap.keySet().iterator(); it.hasNext();){
 			String key = it.next();

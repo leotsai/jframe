@@ -14,7 +14,7 @@ public enum QrCodePermanentType {
     private int value;
     private String text;
 
-    private QrCodePermanentType(int value, String text){
+    QrCodePermanentType(int value, String text){
         this.value = value;
         this.text = text;
     }

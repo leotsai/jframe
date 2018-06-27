@@ -11,5 +11,5 @@ public enum MessageType {
     video,
     shortvideo,
     location,
-    link;
+    link
 }

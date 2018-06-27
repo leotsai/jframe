@@ -25,7 +25,7 @@ Array.prototype.sum = function(propertyOrFunc) {
 };
 
 Array.prototype.where = function (predicateFunction) {
-    var results = new Array();
+    var results = [];
     this.each(function() {
         if (predicateFunction.call(this)) {
             results.push(this);
@@ -108,7 +108,7 @@ Array.prototype.groupBy = function (predicate) {
 };
 
 Array.prototype.skip = function (count) {
-    var items = new Array();
+    var items = [];
     for (var i = count; i < this.length; i++) {
         items.push(this[i]);
     }
@@ -116,7 +116,7 @@ Array.prototype.skip = function (count) {
 };
 
 Array.prototype.take = function (count) {
-    var items = new Array();
+    var items = [];
     for (var i = 0; i < this.length && i < count; i++) {
         items.push(this[i]);
     }

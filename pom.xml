@@ -8,23 +8,23 @@
     <artifactId>jframe</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>01.jframe-infrastructure</module>
-        <module>02.jframe-data</module>
-        <module>20.jframe-services</module>
-        <module>50.jframe-web</module>
-        <module>21.jframe-services-pc</module>
-        <module>51.jframe-web-pc</module>
-        <module>22.jframe-services-admin</module>
-        <module>52.jframe-web-admin</module>
-        <module>23.jframe-services-api</module>
-        <module>53.jframe-web-api</module>
-        <module>99.jframe-web-main</module>
         <module>00.jframe-core</module>
         <module>00.jframe-core-unionpay</module>
         <module>00.jframe-core-weixin</module>
+        <module>01.jframe-infrastructure</module>
+        <module>02.jframe-data</module>
+        <module>20.jframe-services</module>
+        <module>21.jframe-services-demo</module>
+        <module>22.jframe-services-admin</module>
+        <module>23.jframe-services-api</module>
+        <module>50.jframe-web</module>
+        <module>51.jframe-web-demo</module>
+        <module>52.jframe-web-admin</module>
+        <module>53.jframe-web-api</module>
+        <module>99.jframe-web-main</module>
+
     </modules>
     <packaging>pom</packaging>
-
 
 
     <dependencies>
@@ -144,15 +144,12 @@
         </dependency>
 
 
-
-
         <!-- 银联支付使用的 https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
             <version>1.58</version>
         </dependency>
-
 
 
         <dependency>

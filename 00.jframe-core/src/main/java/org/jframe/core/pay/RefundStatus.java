@@ -8,5 +8,5 @@ public enum RefundStatus {
     HTTP_ERROR,
     REFUND_PROCESSING,
     REFUND_SUCCESS,
-    REFUND_FAIL;
+    REFUND_FAIL
 }

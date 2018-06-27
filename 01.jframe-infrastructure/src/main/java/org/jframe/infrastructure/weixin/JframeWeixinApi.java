@@ -14,7 +14,7 @@ public class JframeWeixinApi extends WeixinApi {
     }
 
     private JframeWeixinApi() {
-        super(AppContext.getWeixinWpkConfig());
+        super(AppContext.getJframeWeixinConfig());
     }
 
 

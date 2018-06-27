@@ -19,7 +19,7 @@ public enum ImageStyle {
 
     private String style;
 
-    private ImageStyle(String style){
+    ImageStyle(String style){
         this.style = style;
     }
 

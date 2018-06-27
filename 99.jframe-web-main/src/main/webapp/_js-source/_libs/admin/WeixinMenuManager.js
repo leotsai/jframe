@@ -104,8 +104,8 @@
             $btn.cssDisable().html("读取中...");
             mvcApp.ajax.post(url, null, function(result) {
                 $btn.cssEnable().html(btnText);
-                if (result.Success) {
-                    me.data = $.parseJSON(result.Value);
+                if (result.success) {
+                    me.data = $.parseJSON(result.value);
                     if (me.data == null) {
                         alert("没有读取到任何数据");
                     } else {
@@ -115,7 +115,7 @@
                     }
                     me.render();
                 } else {
-                    alert(result.Message);
+                    alert(result.message);
                 }
             });
         },
@@ -135,14 +135,14 @@
             }
             mvcApp.ajax.post(url, "data=" + JSON.stringify(menu), function (result) {
                 $btn.cssEnable().html(btnText);
-                if (result.Success) {
-                    if (result.Value.ErrCode === 0) {
+                if (result.success) {
+                    if (result.value.errCode === 0) {
                         alert("保存成功！");
                     } else {
-                        alert("ErrCode: " + result.Value.ErrCode + ", ErrMsg: " + result.Value.ErrMsg + "}");
+                        alert("ErrCode: " + result.value.errCode + ", ErrMsg: " + result.value.errMsg + "}");
                     }
                 } else {
-                    alert(result.Message);
+                    alert(result.message);
                 }
             });
         },
@@ -153,10 +153,10 @@
             $("#btnDeleteFromWeixin").cssDisable().html("删除中...");
             mvcApp.ajax.post(this.urls.deleteFromWeixin, null, function (result) {
                 $("#btnDeleteFromWeixin").cssEnable().html("从微信服务器删除菜单");
-                if (result.Success) {
-                    alert(result.Value);
+                if (result.success) {
+                    alert(result.value);
                 } else {
-                    alert(result.Message);
+                    alert(result.message);
                 }
             });
         },

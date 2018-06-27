@@ -33,10 +33,7 @@ public class DecimalHelper {
     }
 
     public static boolean isZero(BigDecimal amount) {
-        if (BigDecimal.ZERO.compareTo(amount) == 0) {
-            return true;
-        }
-        return false;
+        return BigDecimal.ZERO.compareTo(amount) == 0;
     }
 
     public static BigDecimal calculateDivision(BigDecimal dividend, BigDecimal divisor, int scale) {

@@ -20,7 +20,6 @@ public class AppConfig {
     @Value("${app.isTestServer}")
     private boolean isTestServer;
 
-
     @Value("${app.redisKeyPrefix}")
     private String redisKeyPrefix;
 

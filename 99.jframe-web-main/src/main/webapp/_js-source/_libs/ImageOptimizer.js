@@ -602,7 +602,7 @@
                 if (numValues == 1) {
                     numerator = file.getUint32(valueOffset, !bigEnd);
                     denominator = file.getUint32(valueOffset + 4, !bigEnd);
-                    val = new Number(numerator / denominator);
+                    val = Number(numerator / denominator);
                     val.numerator = numerator;
                     val.denominator = denominator;
                     return val;
@@ -611,7 +611,7 @@
                     for (n = 0; n < numValues; n++) {
                         numerator = file.getUint32(valueOffset + 8 * n, !bigEnd);
                         denominator = file.getUint32(valueOffset + 4 + 8 * n, !bigEnd);
-                        vals[n] = new Number(numerator / denominator);
+                        vals[n] = Number(numerator / denominator);
                         vals[n].numerator = numerator;
                         vals[n].denominator = denominator;
                     }
@@ -1031,7 +1031,7 @@
             width = (imgWidth * height / imgHeight) << 0;
         }
         var opt = { width: width, height: height };
-        for (var k in options) opt[k] = options[k];
+        for (var k=0; k<options.length; k++) opt[k] = options[k];
 
         var tagName = target.tagName.toLowerCase();
         if (tagName === 'img') {
@@ -1125,7 +1125,7 @@
         function q (ae, aa) {
             var ad = 0;
             var ag = 0;
-            var af = new Array();
+            var af = [];
             for (var ab = 1; ab <= 16; ab++) {
                 for (var ac = 1; ac <= ae[ab]; ac++) {
                     af[aa[ag]]    = [];
@@ -1468,7 +1468,7 @@
             if (aj) {
                 R(aj)
             }
-            j                       = new Array();
+            j                       = [];
             t                       = 0;
             a                       = 7;
             p(65496);

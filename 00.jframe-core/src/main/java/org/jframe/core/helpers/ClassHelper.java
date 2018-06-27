@@ -74,7 +74,7 @@ public class ClassHelper {
 
         Enumeration<JarEntry> ee = jarFile.entries();
         while (ee.hasMoreElements()) {
-            JarEntry entry = (JarEntry) ee.nextElement();
+            JarEntry entry = ee.nextElement();
             if (entry.getName().startsWith(basePackage) && entry.getName().endsWith(".class")) {
                 jarEntryList.add(entry);
             }

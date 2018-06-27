@@ -41,21 +41,19 @@ public class MySSLSocketFactory implements ProtocolSocketFactory {
 
 	@Override
 	public Socket createSocket(String host, int port, InetAddress clientHost,
-							   int clientPort) throws IOException, UnknownHostException {
+							   int clientPort) throws IOException {
 		return getSSLContext().getSocketFactory().createSocket(host, port,
 				clientHost, clientPort);
 	}
 
 	@Override
 	public Socket createSocket(String host, int port, InetAddress localAddress,
-							   int localPort, HttpConnectionParams params) throws IOException,
-			UnknownHostException {
+							   int localPort, HttpConnectionParams params) throws IOException {
 		return createSocket(host, port, localAddress, localPort);
 	}
 
 	@Override
-	public Socket createSocket(String host, int port) throws IOException,
-			UnknownHostException {
+	public Socket createSocket(String host, int port) throws IOException {
 		return getSSLContext().getSocketFactory().createSocket(host, port);
 	}
 

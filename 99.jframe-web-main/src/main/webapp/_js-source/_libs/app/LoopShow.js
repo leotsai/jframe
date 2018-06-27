@@ -1,4 +1,10 @@
-﻿(function () {
+﻿/*
+更新记录：
+2017-07-14 13:27    增加了onIndexChanged处理方法，同时增加了enableWeixinImageViewer（微信内使用微信图片预览）
+                    增加了TouchManager.bindClick方法
+2017-07-18 22:29    修复了legend当前高亮的bug
+*/
+(function () {
     if (window.LoopShow) {
         return;
     }
@@ -9,11 +15,12 @@
         this.width = $wrap.width();
         this.autoPlay = true;
         this.autoPlayInterval = 3500;
+        this.enableWeixinImageViewer = false;
         this.items = [];
         this._indexData = {
-            current: 0,
-            previous: 0,
-            next: 0
+            current: -1,
+            previous: -1,
+            next: -1
         };
         this._$ul = null;
         this._touchManager = null;
@@ -24,11 +31,15 @@
     LoopShow.prototype = {
         init: function () {
             var me = this;
+            if(mvcApp.utils.getFullUrl == undefined && this.enableWeixinImageViewer){
+                alert("mvcApp.utils.getFullUrl == undefined");
+            }
             this._$wrap.addClass("loopshow")
                 .html('<ul class="loopshow-items" style="width:' + this.width * 3 + 'px;"></ul>');
             this._$ul = this._$wrap.find("ul.loopshow-items");
             this._touchManager = new TouchManager(this._$ul);
-            this._touchManager.onTouchStart = function() {
+            this._touchManager.isVerticalEnabled = false;
+            this._touchManager.onTouchStart = function () {
                 clearInterval(me._autoPlayTimer);
             };
             this._touchManager.onTouchEnd = function (isToLeft) {
@@ -82,12 +93,12 @@
                 }
             }
             me._$ul.css("left", -me.width);
+            this.fixIndexData(index);
             var $lis = this._$wrapLegend.find("ul.loopshow-legend").children("li");
             $lis.removeClass("selected");
             $lis.eq(this._indexData.current).addClass("selected");
-            this.fixIndexData(index);
         },
-        _moveToLeft: function(targetLeft, callback) {
+        _moveToLeft: function (targetLeft, callback) {
             var me = this;
             var startLeft = me._$ul.position().left;
             if (startLeft === targetLeft) {
@@ -100,7 +111,7 @@
                     return;
                 }
                 var x = me._$ul.position().left;
-                x = targetLeft > startLeft ? x + 50 : x - 50;
+                x = targetLeft > startLeft ? x + 25 : x - 25;
                 if ((targetLeft > startLeft && x > targetLeft) || (targetLeft < startLeft && x < targetLeft)) {
                     x = targetLeft;
                 }
@@ -111,23 +122,24 @@
                 }
                 setTimeout(function () {
                     slow();
-                }, 20);
-            };
+                }, 5);
+            }
             slow();
         },
-        _startAutoPlay: function() {
+        _startAutoPlay: function () {
             var me = this;
             clearInterval(me._autoPlayTimer);
-            me._autoPlayTimer = setInterval(function() {
+            me._autoPlayTimer = setInterval(function () {
                 if (me._touchManager.isTouching()) {
                     return;
                 }
-                me._moveToLeft(-me.width * 2, function() {
+                me._moveToLeft(-me.width * 2, function () {
                     me.show(me._indexData.current + 1);
                 });
             }, this.autoPlayInterval);
         },
         renderItem: function (dataItem) {
+            var me = this;
             var height = this.height;
             var width = this.width;
             var html = '<li style="width:' + width + 'px; height:' + height + 'px;">' + this.buildItemContentHtml(dataItem, width, height) + '</li>';
@@ -136,7 +148,20 @@
             $li.find("img").load(function () {
                 $(this).closest(".img-wrap").find(".loading").remove();
             });
-
+            if (this.enableWeixinImageViewer) {
+                TouchManager.bindClick($li.find("img"), function () {
+                    var imageUrls = [];
+                    for (var i = 0; i < me.items.length; i++) {
+                        imageUrls.push(mvcApp.utils.getFullUrl(me.items[i].src));
+                    }
+                    WeixinJsSdk.ready(function () {
+                        wx.previewImage({
+                            current: mvcApp.utils.getFullUrl(dataItem.src),
+                            urls: imageUrls
+                        });
+                    });
+                });
+            }
             return $li;
         },
         buildItemContentHtml: function (dataItem, width, height) {
@@ -160,12 +185,15 @@
             if (next >= this.items.length) {
                 next = 0;
             }
-
+            var oldIndex = this._indexData.current;
             this._indexData.current = index;
             this._indexData.previous = previous;
             this._indexData.next = next;
+            if (oldIndex !== index) {
+                this.onIndexChanged && this.onIndexChanged(oldIndex, index);
+            }
         },
-        _buildLegend: function() {
+        _buildLegend: function () {
             if (this._$wrapLegend == null) {
                 return;
             }
@@ -180,99 +208,4 @@
         }
     };
 
-})();
-
-(function() {
-    window.TouchManager = function ($content) {
-        this._$content = $content;
-        this._isTouching = false;
-        this._startPosition = null;
-        this._lastTouchPosition = null;
-        this._isMovingVertical = null;
-    };
-
-    TouchManager.prototype = {
-        init: function () {
-            var me = this;
-            var dom = me._$content[0];
-            dom.addEventListener("touchstart", function (e) {
-                me._handleTouchstart(e);
-            });
-            dom.addEventListener("touchmove", function (e) {
-                me._handleTouchmove(e);
-            });
-            dom.addEventListener("touchend", function (e) {
-                me._handleTouchend(e);
-            });
-        },
-        _getTouchPosition: function (event) {
-            try {
-                var touch = event.targetTouches[0];
-                if (touch == undefined) {
-                    return null;
-                }
-                return {
-                    x: touch.pageX,
-                    y: touch.pageY
-                };
-            } catch (ex) {
-                return {
-                    x: event.clientX,
-                    y: event.clientY
-                };
-            }
-        },
-        _handleTouchstart: function (e) {
-            this._isTouching = true;
-            var position = this._getTouchPosition(e);
-            this._startPosition = position;
-            this._lastTouchPosition = position;
-            this._isMovingVertical = null;
-            this.onTouchStart();
-        },
-        _handleTouchmove: function (e) {
-            var position = this._getTouchPosition(e);
-            if (position == null) {
-                return;
-            }
-            if (this._lastTouchPosition == null) {
-                this._lastTouchPosition = position;
-                this._startPosition = position;
-                return;
-            }
-            if (this._isMovingVertical == null) {
-                this._isMovingVertical = Math.abs(position.y - this._startPosition.y) > Math.abs(position.x - this._lastTouchPosition.x);
-            }
-            if (this._isMovingVertical === true) {
-                return;
-            }
-            e.preventDefault();
-
-            var movedX = position.x - this._lastTouchPosition.x;
-            this._$content.css("left", this._$content.position().left + movedX);
-            this._lastTouchPosition = position;
-        },
-        _handleTouchend: function (e) {
-            this._isTouching = false;
-            var position = this._getTouchPosition(e);
-            if (position != null) {
-                this._lastTouchPosition = position;
-            }
-            var isToLeft = null;
-            if (this._lastTouchPosition != null) {
-                var movedX = this._lastTouchPosition.x - this._startPosition.x;
-                isToLeft = movedX === 0 ? null : movedX < 0;
-            }
-            this.onTouchEnd(isToLeft);
-        },
-        onTouchStart: function () {
-
-        },
-        onTouchEnd: function (isToLeft) {
-
-        },
-        isTouching: function () {
-            return this._isTouching;
-        }
-    };
 })();

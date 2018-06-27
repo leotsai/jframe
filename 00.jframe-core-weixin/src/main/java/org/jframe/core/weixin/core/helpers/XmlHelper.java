@@ -14,6 +14,6 @@ public class XmlHelper {
 
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + xmlRaw;
         xml = xml.replace("<xml>", place1).replace("</xml>", place2);
-        return (T) org.jframe.core.helpers.XmlHelper.deserialize(clazz, xml);
+        return org.jframe.core.helpers.XmlHelper.deserialize(clazz, xml);
     }
 }

@@ -142,7 +142,7 @@ public class ApacheHttpClient {
 		this.result = result;
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		//String url ="https://gateway.95516.com/jiaofei/config/s/biz/S0_9800_0000";
 		String url ="https://gateway.test.95516.com/gateway/api/backTransReq.do";
 		

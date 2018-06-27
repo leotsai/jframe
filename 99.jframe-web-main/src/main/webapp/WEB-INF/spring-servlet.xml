@@ -10,6 +10,11 @@ http://www.springframework.org/schema/context/spring-context-4.3.xsd
 http://www.springframework.org/schema/mvc
 http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
+    <mvc:interceptors>
+        <bean class="org.jframe.web.security.WeixinAutoLoginInterceptor"/>
+        <bean class="org.jframe.web.security.AuthorizeInterceptor"/>
+    </mvc:interceptors>
+
     <bean id="appProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>

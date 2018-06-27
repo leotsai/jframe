@@ -1,18 +1,24 @@
-var outputRoot = '../modules/';
+var outputRoot = '../../../../target/jframe-web-main-mvc/modules/';
+var outputSource = '../modules/';
 var folder = '../_js-source/';
 var libs = {
     listPager: folder + "_libs/listpager.js",
     grid: folder + "_libs/Grid.js",
     fileUpload: folder + "_libs/FileUpload.js",
-    webImageUploader: folder + "_libs/WebImageUploader.js",
-    arrayExtensions: folder + "_libs/ArrayExtensions.js",
-    dateExtensions: folder + "_libs/DateExtensions.js",
+    loginManager: folder + "_libs/LoginManager.js",
+    cascadingSelector: folder + "_libs/CascadingSelector.js",
+    hashQuery: folder + "_libs/HashQuery.js",
     app: {
         weixinRecharger: folder + "_libs/app/WeixinRecharger.js",
         weixinJsSdk: folder + "_libs/app/WeixinJsSdk.js",
-        weixinImageUploader: folder + "_libs/app/WeixinImageUploader.js",
         likereader: folder + "_libs/app/LikeReader.js",
-        loopshow: folder + "_libs/app/LoopShow.js"
+        touchManager: folder + "_libs/app/TouchManager.js",
+        slideAction: folder + "_libs/app/SlideAction.js",
+        locationPicker: folder + "_libs/app/LocationPicker.js",
+        numbersInput: folder + "_libs/app/numbersInput.js",
+        smsCaptchaSender: folder + "_libs/app/SmsCaptchaSender.js",
+        listScroller: folder + "_libs/app/ListScroller.js",
+        multiAjaxCaller: folder + "_libs/app/MultiAjaxCaller.js"
     },
     admin: {
         weixinMenu: folder + "_libs/admin/WeixinMenuManager.js"
@@ -21,101 +27,52 @@ var libs = {
         slider: folder + "_libs/pc/slider.js",
         iphonePreviewer: folder + "_libs/pc/IphonePreviewer.js",
         imageZoomer: folder + "_Libs/pc/ImageZoomer.js",
-        imageViewer: folder + "_libs/pc/ImageViewer.js",
-        timeframeSelector: folder + "_libs/pc/TimeframeSelector.js"
+        timeframeSelector: folder + "_libs/pc/TimeframeSelector.js",
+        pageDataPointViewer: folder + "_libs/pc/PageDataPointViewer.js",
+        combobox: folder + "_libs/pc/Combobox.js"
     }
 };
 
-function getAdminConfigs() {
-    return {
-        weixin: {
-            menuManager: [libs.admin.weixinMenu],
-            "qr-generate": [],
-            "get-resource": [libs.grid],
-            accessToken: []
-        },
-        user: {
-            index: [libs.grid]
-        },
-        role: {
-            index: [libs.grid]
-        },
-        banner: {
-            index: [libs.fileUpload, libs.webImageUploader, libs.grid]
-        },
-        setting: {
-            index: []
-        },
-        article: {
-            index: [libs.grid, libs.pc.iphonePreviewer, libs.fileUpload, libs.webImageUploader],
-            editor: []
-        },
-        message: {
-            index: [libs.grid],
-            weixin: [libs.grid]
-        },
-        datachange: {
-            index: [libs.dateExtensions, libs.pc.timeframeSelector]
-        },
-        body: {
-            index: [libs.fileUpload, libs.webImageUploader]
-        },
-        therapy: {
-            index: [libs.grid]
-        }
-    };
-}
+libs.webImageUploader = [libs.fileUpload, folder + "_libs/WebImageUploader.js"];
+libs.vueGrid = [libs.grid, folder + "_libs/VueGrid.js"];
+libs.vueListPager = [libs.listPager, folder + "_libs/vuelistpager.js"];
+libs.app.loopshow = [libs.app.touchManager, folder + "_libs/app/LoopShow.js"];
+libs.app.weixinImageUploader = [libs.app.weixinJsSdk, folder + "_libs/app/WeixinImageUploader.js"];
+libs.pc.imageViewer = [libs.pc.slider, libs.pc.imageZoomer, folder + "_libs/pc/ImageViewer.js"];
 
 
-function getAppConfigs() {
-    return {
-        account: {
-            login: [],
-            "validate-login-key": [],
-            "login-by-password": [],
-            changePassword:[]
-        },
-        home: {
-            index: [libs.app.loopshow]
-        },
-        profile: {
-            index: [],
-            manage: [],
-            managePhoto: [libs.app.weixinJsSdk, libs.app.weixinImageUploader]
-        },
-        article: {
-            index: [libs.listPager],
-            details: [libs.app.likereader, libs.app.weixinJsSdk]
-        },
-        therapy: {
-            index: []
-        },
-        order: {
-            details: [libs.app.weixinJsSdk, libs.app.weixinRecharger],
-            paid: []
-        }
-    };
-};
-
-function getPublicConfigs() {
+function getDemoConfigs() {
     return {
         home: {
-            index: []
+            index: [libs.fileUpload, libs.webImageUploader, libs.cascadingSelector]
         },
         account: {
             index: [],
-            login: [],
+            login: [libs.loginManager],
             register: [libs.fileUpload, libs.webImageUploader]
         }
     };
-};
+}
+function getImportedLibs(libList) {
+    var list = [];
 
+    function addAll(itemOrList) {
+        if (itemOrList instanceof Array) {
+            for (var i = 0; i < itemOrList.length; i++) {
+                addAll(itemOrList[i]);
+            }
+        } else {
+            if (list.indexOf(itemOrList) === -1) {
+                list.push(itemOrList);
+            }
+        }
+    }
+    addAll(libList);
+    return list;
+}
 module.exports = function (grunt) {
-
     var pages = {
-        admin: getAdminConfigs(),
-        app: getAppConfigs(),
-        'pc': getPublicConfigs()
+        demo: getDemoConfigs()
     };
 
     var concat = {};
@@ -125,21 +82,27 @@ module.exports = function (grunt) {
             var module = area[moduleName];
             for (var page in module) {
                 var taskName = areaName + '_' + moduleName + '_' + page;
-                var output = outputRoot + areaName + '/js/' + moduleName + '/' + page + '.js';
-                var inputs = module[page];
+                var output1 = outputRoot + areaName + '/js/' + moduleName + '/' + page + '.js';
+                var output2 = outputSource + areaName + '/js/' + moduleName + '/' + page + '.js';
+                var inputs = getImportedLibs(module[page]);
                 inputs.push(folder + areaName + '/' + moduleName + '/' + page + '/*.js');
-                var task = { files: {} };
-                task.files[output] = inputs;
+                var task = {files: {}};
+                task.files[output1] = inputs;
+                task.files[output2] = inputs;
                 concat[taskName] = task;
             }
         }
     }
 
-    var core = { files: {} };
-    core.files[outputRoot + "pc/js/core.js"] = [folder + '_core/*.js', folder + '_core/pc/*.js'];
-    core.files[outputRoot + "admin/js/core.js"] = [folder + '_core/*.js', folder + '_core/pc/*.js'];
-    core.files[outputRoot + "app/js/core.js"] = [folder + '_core/*.js', folder + '_core/app/*.js'];
-    core.files[outputRoot + "admin/js/libs.ImageViewer.js"] = [libs.pc.slider, libs.pc.imageZoomer, libs.pc.imageViewer];
+    var coreFolder = folder + '_core/*.js';
+
+    function subFolder(name) {
+        return folder + '_core/' + name + '/*.js';
+    }
+    var core = {files: {}};
+    core.files[outputRoot + "demo/js/core.js"] = [coreFolder, subFolder("_pc")];
+
+    core.files[outputSource + "demo/js/core.js"] = [coreFolder, subFolder("_pc")];
 
     concat.core = core;
 
@@ -160,8 +123,6 @@ module.exports = function (grunt) {
             }
         }
     };
-
-
     grunt.initConfig(options);
 
     grunt.loadNpmTasks('grunt-contrib-concat');

@@ -156,11 +156,9 @@ public class HttpClient {
 	 *
 	 * @param connection
 	 * @return
-	 * @throws URISyntaxException
-	 * @throws IOException
-	 */
+     */
 	private String response(final HttpURLConnection connection, String encoding)
-			throws URISyntaxException, IOException, Exception {
+			throws Exception {
 		InputStream in = null;
 		StringBuilder sb = new StringBuilder(1024);
 		BufferedReader br = null;
@@ -278,7 +276,7 @@ public class HttpClient {
 		if (null == coder || "".equals(coder)) {
 			coder = "UTF-8";
 		}
-		StringBuffer sf = new StringBuffer("");
+		StringBuffer sf = new StringBuffer();
 		String reqstr = "";
 		if (null != requestParam && 0 != requestParam.size()) {
 			for (Entry<String, String> en : requestParam.entrySet()) {

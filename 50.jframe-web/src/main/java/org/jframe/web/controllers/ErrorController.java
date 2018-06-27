@@ -12,6 +12,7 @@ import org.jframe.web.viewModels.MessageViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,22 +39,19 @@ public class ErrorController {
         }
         String requestUri = RequestHelper.getRequestUri(request);
         try {
-            if(response.getStatus() == 404){
+            if (response.getStatus() == 404) {
                 LogHelper.log("http.error.404", requestUri);
-            }
-            else{
+            } else {
                 String fullMessage = requestUri + "\r\n<br/>" + ExceptionHelper.getFullHtmlMessage(ex);
                 LogHelper.log("http.error." + response.getStatus(), fullMessage);
             }
             String userMessage = null;
-            if(ex == null){
+            if (ex == null) {
                 userMessage = getUserMessage(response.getStatus());
-            }
-            else{
-                if(ex instanceof KnownException){
+            } else {
+                if (ex instanceof KnownException) {
                     userMessage = ex.getMessage();
-                }
-                else{
+                } else {
                     userMessage = AppContext.getAppConfig().isTestServer() ? ExceptionHelper.getFullHtmlMessage(ex) : getUserMessage(response.getStatus());
                 }
             }
@@ -73,17 +71,8 @@ public class ErrorController {
     }
 
     private static ModelAndView errorView(String message, String url) {
-        String viewName = "pc-error";
+        String viewName = "public-error";
         LayoutViewModel model = new LayoutViewModel("出错啦");
-        if(url != null){
-            if (url.startsWith("/admin")) {
-                viewName = "admin-error";
-            } else //if (url.startsWith("/app") || url.startsWith("/dealer"))
-            {
-                viewName = "app-message";
-                model = new MessageViewModel(model.getTitle());
-            }
-        }
         ModelAndView mv = new ModelAndView(viewName);
         model.setError(message);
         mv.addObject("model", model);

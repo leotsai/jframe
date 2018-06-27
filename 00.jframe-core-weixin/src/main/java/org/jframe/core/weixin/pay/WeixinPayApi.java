@@ -187,7 +187,7 @@ public class WeixinPayApi {
         }
     }
 
-    public void doGetSandboxSignKey() throws Exception {
+    public void doGetSandboxSignKey() {
 //        WXPayConfigImpl config = WXPayConfigImpl.getInstance();
 //        HashMap<String, String> data = new HashMap<String, String>();
 //        data.put("mch_id", config.getMchID());

@@ -1,4 +1,7 @@
-﻿(function () {
+﻿//2017-08-23 11:19  修复了IE浏览器上传bug
+//2017-11-23 16:52  增加支持多文件上传
+//2017-12-14 21:11  移除了不需要的属性
+(function () {
     if (window.FileUpload) {
         return;
     }
@@ -12,18 +15,17 @@
         this.dropId = null;
         this.canCancel = true;
         this._xhr = null;
-        this.optimizeImage = false;
-        this.imageWidth = 1024;
-        this.imageHeight = 768;
     };
 
     window.FileUpload.prototype.init = function () {
         var obj = this;
+
         $('#' + this.id).change(function () {
-            if (obj.autoUpload) {
+            if (obj.autoUpload){
                 obj.upload();
             }
         });
+
         if (this.supportsFormData()) {
             if (this.dropId != null) {
                 var drop = $('#' + this.dropId)[0];
@@ -53,25 +55,27 @@
         return window.FormData != undefined;
     };
 
-    FileUpload.prototype.upload = function() {
+    FileUpload.prototype.upload = function () {
         var args = {
             isCancelled: false
         };
-        this.onBeforeUploading(args);
+        this.onCancelUploading(args);
         if (args.isCancelled) {
             return;
         }
         if (this.supportsFormData()) {
-            this._uploadUsingFormData($("#" + this.id)[0].files[0]);
+            this._uploadUsingFormData($("#" + this.id)[0].files);
         } else {
-            this._uploadUsingFrame($("#" + this.id)[0].files[0]);
+            var filename = $("#" + this.id).val();
+            filename = filename.substr(filename.lastIndexOf("\\") + 1, filename.length);
+            this._uploadUsingFrame(filename);
         }
     };
 
-    FileUpload.prototype._uploadUsingFrame = function (file) {
+    FileUpload.prototype._uploadUsingFrame = function (fileName) {
         var obj = this;
         var $frame = $('#uploadFrame');
-        if ($frame.length == 0) {
+        if ($frame==0) {
             $frame = $('<iframe id="uploadFrame" width="0" height="0" name="uploadFrame" src=""></iframe>');
             $frame.appendTo("body");
             $frame.load(function () {
@@ -80,34 +84,37 @@
                 var response = $frame.contents().text();
                 try {
                     var json = $.parseJSON(response);
-                    obj.onUploaded(json, file.name);
+                    obj.onUploaded(json, fileName);
                 } catch (ex) {
                     $(obj).trigger("onError", response);
                     alert("解析JSON错误，请重试。");
                 }
+                $('#uploadFrame').remove();
             });
         }
         this._showProgress();
-        var $form = $("#" + this.id).closest("form");
-        var action = $form.attr("action");
-        $form.attr("action", this._getActualUrl());
+        var $file = $("#" + this.id);
+        var $form = $file.wrap('<form method="post" target="uploadFrame" enctype="multipart/form-data" action="' + this._getActualUrl() + '">').closest("form");
         var form = $form[0];
-        form.target = 'uploadFrame';
         form.submit();
-        $form.attr("action", action);
+        $file.unwrap();
     };
 
-    FileUpload.prototype._getActualUrl = function() {
+    FileUpload.prototype._getActualUrl = function () {
         if (typeof (this.url) == "function") {
             return this.url();
         }
         return this.url;
     };
 
-    FileUpload.prototype._uploadUsingFormData = function (file) {
+    FileUpload.prototype._uploadUsingFormData = function (files) {
         var obj = this;
         var xhr = new XMLHttpRequest();
         this._xhr = xhr;
+        var fileNames = [];
+        for (var i = 0; i < files.length; i++) {
+            fileNames.push(files[i].name);
+        }
         xhr.addEventListener("load", function (e) {
             obj._removeProgress();
             var json = '';
@@ -117,7 +124,7 @@
                 $(obj).trigger("onError", 'JSON序列化错误');
                 alert("解析JSON错误，请重试。");
             }
-            obj.onUploaded(json, file.name);
+            obj.onUploaded(json, fileNames);
         }, false);
         xhr.addEventListener("error", function (e) {
             alert("网络或服务器错误，请重试。");
@@ -130,39 +137,37 @@
         }, false);
         xhr.open("POST", obj._getActualUrl());
 
-        var isImage = obj._isImage(file.name);
-
-        if (isImage && obj.maxSize != null && file.size > obj.maxSize) {
-            alert(obj.maxSizeError);
-            return;
-        }
-        if (obj.extensions != null) {
-            var name = file.name;
-            var ext = name.substring(name.lastIndexOf("."), name.length).toLowerCase();
-            if (obj.extensions.indexOf(ext) < 0) {
-                alert("文件格式错误，支持的格式为：" + obj.extensions.join());
+        for (var fi = 0; fi < files.length; fi++) {
+            var file = files[fi];
+            var isImage = obj._isImage(file.name);
+            if (isImage && obj.maxSize != null && file.size > obj.maxSize) {
+                alert(obj.maxSizeError);
                 return;
+            }
+            if (obj.extensions != null) {
+                var name = file.name;
+                var ext = name.substring(name.lastIndexOf("."), name.length).toLowerCase();
+                if (obj.extensions.indexOf(ext) < 0) {
+                    alert("文件格式错误，支持的格式为：" + obj.extensions.join());
+                    return;
+                }
             }
         }
         this._showProgress();
         var formData = new FormData();
-        if (isImage && obj.optimizeImage) {
-            ImageOptimizer.getBase64(file, obj.imageWidth, obj.imageHeight, function(base64) {
-                formData.append("base64image", base64);
-                xhr.send(formData);
-            });
-        } else {
-            formData.append("file", file);
-            xhr.send(formData);
+        for (var di = 0; di < files.length; di++) {
+            formData.append("files", files[di]);
         }
+        this.onBeforeUploading(fileNames);
+        xhr.send(formData);
     };
 
-    FileUpload.prototype._isImage = function(fileName) {
+    FileUpload.prototype._isImage = function (fileName) {
         var ext = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
         return [".jpg", ".jpeg", ".bmp", ".gif", ".png"].indexOf(ext) > -1;
     };
 
-    FileUpload.prototype._showProgress = function() {
+    FileUpload.prototype._showProgress = function () {
         var me = this;
         var filename = $("#" + this.id).val();
         filename = filename.substr(filename.lastIndexOf("\\") + 1);
@@ -201,23 +206,28 @@
 
     FileUpload.prototype._removeProgress = function () {
         $(".fileupload").remove();
+        $("#" + this.id).val("");
     };
 
-    FileUpload.prototype._changeProgress = function(loaded, total) {
+    FileUpload.prototype._changeProgress = function (loaded, total) {
         var width = loaded * 100 / total;
         $(".fileupload .progress-value").width(width + "%");
     };
 
-    FileUpload.prototype._resetUploadButton = function() {
+    FileUpload.prototype._resetUploadButton = function () {
         $("#" + this.id).val("");
     };
 
-    FileUpload.prototype.onUploaded = function (json) {
-        
+    FileUpload.prototype.onUploaded = function (json, fileNames) {
+
     };
 
-    FileUpload.prototype.onBeforeUploading = function (args) {
-        
+    FileUpload.prototype.onCancelUploading = function (args) {
+
+    };
+
+    FileUpload.prototype.onBeforeUploading = function (fileNames) {
+
     };
 
 })();

@@ -1,13 +1,13 @@
-﻿(function() {
+﻿(function () {
     mvcApp.utils = {
-        onEnterKeydown: function(inputSelector, callback) {
-            $(inputSelector).keydown(function(e) {
+        onEnterKeydown: function (inputSelector, callback) {
+            $(inputSelector).keydown(function (e) {
                 if (e.keyCode === 13) {
                     callback();
                 }
             });
         },
-        getCookieValue: function(name) {
+        getCookieValue: function (name) {
             var cookieValue = null;
             if (document.cookie && document.cookie !== '') {
                 var cookies = document.cookie.split(';');
@@ -21,16 +21,36 @@
             }
             return cookieValue;
         },
-        removeCookie: function(name) {
+        removeCookie: function (name) {
             var value = this.getCookieValue(name);
             if (value != null) {
                 var exp = new Date();
                 exp.setFullYear(2000);
-                document.cookie = name + "=" + value + ";path=/;expires=" + exp.toGMTString();
+                document.cookie = name + "=" + value + ";path=/;expires=" + exp.toString();
             }
         },
-        setCookie: function(name, value, expire) {
-            document.cookie = name + "=" + value + ";path=/;expires=" + expire.toGMTString();
+        setCookie: function (name, value, expire, path) {
+            if (path == undefined) {
+                document.cookie = name + "=" + value + ";path=/;expires=" + expire.toGMTString();
+            } else {
+                document.cookie = name + "=" + value + ";path=" + path + ";expires=" + expire.toGMTString();
+            }
+        },
+        getFullUrl: function (src) {
+            if (src == undefined) {
+                return src;
+            }
+            if (src.indexOf('http://') > -1 || src.indexOf('https://') > -1) {
+                return src;
+            }
+            if (src.indexOf('/') > -1) {
+                return location.origin + src;
+            }
+            var connector = '/';
+            if (location.pathname.lastIndexOf('/') === location.pathname.length - 1) {
+                connector = '';
+            }
+            return location.origin + location.pathname + connector + src;
         },
         centerImagesOnLoaded: function ($imgs, size) {
             $imgs.load(function () {
@@ -97,8 +117,12 @@
             return key;
         },
         bindListOnce: function ($ul, handleItemCallback) {
+            if (typeof ($ul) === "string") {
+                alert("请传jquery对象");
+                return;
+            }
             $ul.children(":not(.initialized)").each(function () {
-                if ($(this).hasClass("btn-loadmore")) {
+                if ($(this).hasClass("list-loadmore")) {
                     return;
                 }
                 $(this).addClass("initialized");
@@ -139,6 +163,31 @@
                 if (obj.hasOwnProperty(p)) {
                     text += p + ":" + obj[p] + lineBreak;
                 }
+            }
+            return text;
+        },
+        serializeToKeyValues: function (obj, prefix) {
+            var text = '';
+            prefix = prefix == null ? "" : prefix;
+            for (var p in obj) {
+                if (!obj.hasOwnProperty(p)) {
+                    continue;
+                }
+                var value = obj[p];
+                if (value instanceof Array) {
+                    for (var i = 0; i < value.length; i++) {
+                        text += "&" +mvcApp.utils.serializeToKeyValues(value[i], prefix + p + "[" + i + "].");
+                    }
+                }
+                else if (typeof value === "object") {
+                    text += mvcApp.utils.serializeToKeyValues(value, prefix + p + ".");
+                }
+                else if (typeof value !== "function") {
+                    text += "&" + prefix + p + "=" + value;
+                }
+            }
+            if (text.indexOf("&") === 0) {
+                text = text.substr(1);
             }
             return text;
         }

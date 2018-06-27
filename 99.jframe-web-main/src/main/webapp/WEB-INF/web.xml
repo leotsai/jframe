@@ -8,7 +8,7 @@
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        <listener-class>org.jframe.web.MvcContextLoaderListener</listener-class>
     </listener>
     <servlet>
         <servlet-name>spring</servlet-name>

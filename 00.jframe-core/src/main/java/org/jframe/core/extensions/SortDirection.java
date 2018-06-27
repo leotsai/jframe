@@ -5,5 +5,5 @@ package org.jframe.core.extensions;
  */
 public enum SortDirection {
     ASC,
-    DESC;
+    DESC
 }

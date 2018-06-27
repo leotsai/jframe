@@ -7,5 +7,5 @@ public enum PaymentStatus {
     HTTP_ERROR,
     AWAITING,
     FAILED,
-    SUCCESS;
+    SUCCESS
 }

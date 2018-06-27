@@ -134,7 +134,7 @@ public class Crypto {
         return this.decryptCipher.doFinal(bytes);
     }
 
-    private Key getKey(byte[] bytes) throws Exception {
+    private Key getKey(byte[] bytes) {
         byte[] bytes8 = new byte[8];
         for (int i = 0; i < bytes.length && i < bytes8.length; i++) {
             bytes8[i] = bytes[i];

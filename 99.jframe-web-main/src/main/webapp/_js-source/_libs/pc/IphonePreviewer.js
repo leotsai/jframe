@@ -1,7 +1,7 @@
 ﻿(function() {
     if (window.IphonePreviewer) {
         return;
-    };
+    }
     window.IphonePreviewer = function() {
 
     };

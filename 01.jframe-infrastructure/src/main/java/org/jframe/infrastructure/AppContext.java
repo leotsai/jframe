@@ -133,7 +133,7 @@ public class AppContext implements ApplicationContextAware {
         return getBean(RedisConfig.class);
     }
 
-    public static JframeWeixinConfig getWeixinWpkConfig() {
+    public static JframeWeixinConfig getJframeWeixinConfig() {
         return getBean(JframeWeixinConfig.class);
     }
 

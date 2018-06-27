@@ -43,7 +43,7 @@ public class BaseHttpSSLSocketFactory extends SSLSocketFactory {
 
 	@Override
 	public Socket createSocket(String arg0, int arg1, InetAddress arg2, int arg3)
-			throws IOException, UnknownHostException {
+			throws IOException {
 		return getSSLContext().getSocketFactory().createSocket(arg0, arg1,
 				arg2, arg3);
 	}
@@ -54,8 +54,7 @@ public class BaseHttpSSLSocketFactory extends SSLSocketFactory {
 	}
 
 	@Override
-	public Socket createSocket(String arg0, int arg1) throws IOException,
-			UnknownHostException {
+	public Socket createSocket(String arg0, int arg1) throws IOException {
 		return getSSLContext().getSocketFactory().createSocket(arg0, arg1);
 	}
 

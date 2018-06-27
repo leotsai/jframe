@@ -73,7 +73,7 @@
             this.slider.slideToHiddenSelectedIfNecessary();
         },
         getFullUrl: function(src) {
-            return src.replace(/s50x50/g, 'full');
+            return src.replace(/s60x60/g, 'full');
         },
         renderThumbnails: function(selectedIndex) {
             var me = this;

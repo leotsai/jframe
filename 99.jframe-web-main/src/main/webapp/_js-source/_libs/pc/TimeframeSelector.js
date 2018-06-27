@@ -16,8 +16,9 @@
     };
 
     TimeframeSelector.prototype.bindValues = function () {
+        var me = this;
         var selectedDate = $(".date-options").val();
-        $(".date-selector .date-from, .date-selector .date-to").hide();
+        $(".date-selector .date-from, .date-selector .date-to, .custom-time").hide();
         switch (selectedDate) {
             case "Today":
                 bindTextboxes(new Date(), new Date());
@@ -44,9 +45,11 @@
                 bindTextboxes(new Date().addDays(-30), new Date());
                 break;
             case "Custom":
-                $(".date-selector .date-from, .date-selector .date-to").removeAttr("disabled").show();
+                $(".date-selector .date-from, .date-selector .date-to,.custom-time").removeAttr("disabled").show();
                 break;
-            case "":
+            case "ThisYear":
+                bindTextboxes(new Date().toYearStart(), new Date().toYearEnd());
+                break;
             default:
                 $(".date-selector .date-from, .date-selector .date-to").val('');
                 break;
@@ -55,6 +58,17 @@
         function bindTextboxes(from, to) {
             $(".date-from").val(from.toCNDateString());
             $(".date-to").val(to.toCNDateString());
+            var event = $.Event("onSelectionChanged");
+            event.value = {
+                from:from.toCNDateString(),
+                to:to.toCNDateString()
+            };
+            $(me).trigger(event);
         }
+
     };
+    TimeframeSelector.prototype.onSelectionChanged = function(handler){
+        $(this).bind("onSelectionChanged", handler);
+    };
+
 })();

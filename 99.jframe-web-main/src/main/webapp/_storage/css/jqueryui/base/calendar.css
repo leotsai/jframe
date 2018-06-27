@@ -1,0 +1,240 @@
+
+.dates_box {
+    position: absolute;
+    width: 250px;
+    -webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .1);
+    -moz-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .1);
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .1);
+    background: #fff
+}
+
+.dates_box_top {
+    height: 26px;
+    padding: 5px;
+    background-color: #C7000B;
+}
+
+.dates_choose {
+    float: left;
+    width: 116px;
+    position: relative
+}
+
+.choose_btn {
+    float: left;
+    width: 20px;
+    height: 24px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    background: #C7000B
+}
+
+.dates_choose .sign {
+    display: inline-block;
+    height: 0;
+    line-height: 0;
+    width: 0;
+    border: 4px dashed transparent;
+    vertical-align: middle;
+    cursor: pointer
+}
+
+.next_choose {
+    float: right;
+}
+
+.choose_btn .sign {
+    margin-top: 7px
+}
+
+.prev_choose .sign {
+    border-left-width: 0;
+    border-right-color: #fff
+}
+
+.next_choose .sign {
+    border-right-width: 0;
+    border-left-color: #fff
+}
+
+.ipt_wrap {
+    float: left;
+    width: 74px;
+    height: 24px;
+    line-height: 24px;
+    background: #c7000b;
+    overflow: hidden;
+    color: #fff;
+}
+
+.ipt_wrap input {
+    vertical-align: -1px;
+    *vertical-align: middle;
+    background: none;
+    color: #fff;
+}
+
+.ipt_wrap .dlt_status {
+    border: none
+}
+
+.ipt_wrap .sign {
+    border-bottom-width: 0;
+    border-top-color: #fff;
+    margin-right: 4px
+}
+
+.ipt_wrap small {
+    font-size: 12px;
+    margin-right: 5px
+}
+
+.dates_mm {
+    float: right
+}
+
+.dates_table {
+    width: 250px;
+    border-collapse: collapse
+}
+
+.dates_table thead tr th {
+    background: #b1171f;
+    height: 28px;
+    line-height: 28px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.dates_table tr td {
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.dates_table tr td:hover, .dates_mm_list span:hover, .dates_yy_list span:hover {
+    background: #C7000B;
+    color: #fff;
+    cursor: pointer
+}
+
+.other_day {
+    color: #aaa
+}
+
+.disable_day {
+    color: #ddd;
+    background: #f7f7f7
+}
+
+ .dates_mm_list span.current, .dates_yy_list span.current {
+    background: #ebebeb
+}
+.current_day {
+    /*background: #C7000B;*/
+    /*color: #fff;*/
+}
+.dates_click {
+    background: #eee
+}
+
+.dates_bottom {
+    padding: 5px;
+    height: auto;
+    overflow: hidden
+}
+
+.time_tag {
+    padding: 0 4px;
+    margin-right: 4px;
+    line-height: 24px;
+}
+
+.dates_hms {
+    float: left;
+    /*border: 1px solid #ccc;*/
+    width: 100%
+}
+
+.dates_hms li {
+    float: left;
+    height: 24px;
+    line-height: 22px;
+    vertical-align: middle;
+    font-size: 12px;
+}
+.dates_hms li.time_tag {
+    line-height: 24px;
+}
+.dates_hms li input {
+    width: 14px;
+    height: 14px;
+    text-align: center;
+    vertical-align: middle;
+    border:0;
+    outline: 0;
+}
+
+.dates_hms li input.dlt_status {
+    width: 18px;
+    border: none
+}
+
+.dates_btn {
+    float: right;
+    width: 117px;
+    border: 1px solid #ccc;
+    border-right: none
+}
+
+.dates_btn a {
+    float: left;
+    cursor: pointer;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 7px;
+    background: #eee;
+    border-right: 1px solid #ccc;
+    font-size: 12px;
+    color: #C7000B;
+}
+
+.dates_btn a:hover, .choose_btn:hover {
+    background: #aa020c;
+}
+.dates_btn a:hover {
+    background: #C7000B;
+    color: #fff;
+}
+.dates_mm_list, .dates_yy_list {
+    width: 113px;
+    height: 175px;
+    overflow-y: auto;
+    position: absolute;
+    left: -1px;
+    top: 24px;
+    background: #fff;
+    border: 1px solid #ccc
+}
+.dates_mm_list {
+    width: 120px;
+    overflow: hidden;
+}
+
+.dates_mm_list span {
+    float: left;
+    line-height: 28px;
+    text-align: center;
+    width: 60px;
+    font-size: 14px;
+}
+
+.dates_yy_list span {
+    display: block;
+    line-height: 24px;
+    text-align: center;
+    font-size: 14px
+}

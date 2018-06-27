@@ -39,15 +39,9 @@ public class RequestHelper {
     public static boolean returnJson(HttpServletRequest request) {
         boolean returnJson;
         if (isAjax(request)) {
-            returnJson = true;
-            if (acceptHtml(request)) {
-                returnJson = false;
-            }
+            returnJson = !acceptHtml(request);
         } else {
-            returnJson = false;
-            if (acceptJson(request)) {
-                returnJson = true;
-            }
+            returnJson = acceptJson(request);
         }
         return returnJson;
     }

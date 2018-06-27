@@ -14,7 +14,7 @@ public class HanyuPinyinHelper {
 
     public static HanyuPinyinOutputFormat format = null;
 
-    public static enum Type {
+    public enum Type {
         UPPERCASE,              //全部大写
         LOWERCASE,              //全部小写
         FIRSTUPPER              //首字母大写

@@ -35,7 +35,7 @@ public class XmlHelper {
         marshaller.marshal(obj, file);
     }
 
-    public static String serialize(Object obj) throws JAXBException, UnsupportedEncodingException, IOException{
+    public static String serialize(Object obj) throws JAXBException, IOException{
         JAXBContext context = JAXBContext.newInstance(obj.getClass());
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
