@@ -44,15 +44,7 @@
         $("#btnRegister").cssDisable().html("Processing...");
         $("#cbAgree").attr("disabled", "disabled");
 
-        mvcApp.ajax.post('/register', $("form").serialize(), function (result) {
-            $("#cbAgree").removeAttr("disabled");
-            if (result.success) {
-                window.location.replace("/me");
-            } else {
-                mvcApp.notification.alertError(result.message);
-                $("#btnRegister").cssEnable().html("Submit");
-            }
-        });
+        mvcApp.notification.alertInfo("register success")
     }
     function setBtnRegisterStatus()
     {

@@ -3,7 +3,7 @@
  */
 (function() {
     var urls = {
-        login: "/login"
+        login: "/demo/login"
     };
     var returnUrl = '';
 
@@ -35,7 +35,7 @@
         mvcApp.ajax.post(urls.login, $form.serialize(), function (result) {
             if (result.success) {
                 $btn.html("Login succeeded...");
-                window.location = returnUrl === "" ? "/admin" : returnUrl;
+                window.location = returnUrl === "" ? "/" : returnUrl;
             } else {
                 $btn.cssEnable().html("Login");
                 mvcApp.notification.alertError(result.message);

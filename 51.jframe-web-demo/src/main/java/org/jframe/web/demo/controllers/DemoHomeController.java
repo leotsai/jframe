@@ -4,11 +4,10 @@ import org.jframe.core.extensions.JList;
 import org.jframe.data.entities.Permission;
 import org.jframe.web.core.PermissionDefinition;
 import org.jframe.web.demo.Menu;
+import org.jframe.web.demo.score.DemoLayoutViewModel;
 import org.jframe.web.security.Authorize;
-import org.jframe.web.viewModels.LayoutViewModel;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,8 +37,9 @@ public class DemoHomeController extends _DemoControllerBase {
     @Authorize(permissions = {Codes.SELECT})
     public ModelAndView demo() {
         return super.tryView("demo-home-index", () -> {
-            LayoutViewModel model = new LayoutViewModel();
+            DemoLayoutViewModel model = new DemoLayoutViewModel();
             model.setTitle("demo index");
+            model.setCurrentPage(Menu.demo());
             return model;
         });
     }

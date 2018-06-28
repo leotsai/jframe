@@ -20,19 +20,19 @@ import java.io.IOException;
 public class WxSecurityManager {
 
     public static void redirectToWeixinAuth(HttpServletRequest request, HttpServletResponse response, String state) throws IOException {
-        String returnUrl = AppContext.getAppConfig().getHost() + "/app/weixin/oauth?returnUrl=" + HttpHelper.urlEncode(HttpHelper.getPathAndQuery(request));
+        String returnUrl = AppContext.getAppConfig().getHost() + "/weixin/oauth?returnUrl=" + HttpHelper.urlEncode(HttpHelper.getPathAndQuery(request));
         String weixinLoginUrl = JframeWeixinApi.getInstance().getOAuthLoginUrl_UserInfo(returnUrl, state);
         response.sendRedirect(weixinLoginUrl);
     }
 
     public static void redirectToWeixinAutoLogin(HttpServletRequest request, HttpServletResponse response, String state) throws IOException {
-        String returnUrl = AppContext.getAppConfig().getHost() + "/app/weixin/autoLogin?returnUrl=" + HttpHelper.urlEncode(HttpHelper.getPathAndQuery(request));
+        String returnUrl = AppContext.getAppConfig().getHost() + "/weixin/autoLogin?returnUrl=" + HttpHelper.urlEncode(HttpHelper.getPathAndQuery(request));
         String weixinLoginUrl = JframeWeixinApi.getInstance().getOAuthLoginUrl_UserInfo(returnUrl, state);
         response.sendRedirect(weixinLoginUrl);
     }
 
     public static void redirectToWeixinAuth_Silently(HttpServletRequest request, HttpServletResponse response, String state) throws IOException {
-        String returnUrl = AppContext.getAppConfig().getHost() + "/app/weixin/silentOauth?returnUrl=" + HttpHelper.urlEncode(HttpHelper.getPathAndQuery(request));
+        String returnUrl = AppContext.getAppConfig().getHost() + "/weixin/silentOauth?returnUrl=" + HttpHelper.urlEncode(HttpHelper.getPathAndQuery(request));
         String silentOauthUrl = JframeWeixinApi.getInstance().getOAuthLoginUrl_Silently(returnUrl, state);
         response.sendRedirect(silentOauthUrl);
     }

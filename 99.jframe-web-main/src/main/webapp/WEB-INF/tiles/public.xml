@@ -4,11 +4,11 @@
 
 <tiles-definitions>
 
-    <definition name="public-index" template="/modules/_public/index.jsp">
+    <definition name="public-index" template="/modules/_public/views/index.jsp">
         <put-attribute name="title" value="index"/>
     </definition>
 
-    <definition name="public-error" template="/modules/_public/error.jsp">
+    <definition name="public-error" template="/modules/_public/views/error.jsp">
         <put-attribute name="title" value="error"/>
     </definition>
 

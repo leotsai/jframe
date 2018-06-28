@@ -31,4 +31,11 @@ public class LoginController extends _DemoControllerBase {
         return super.tryView("demo-account-login", () -> model);
     }
 
+    @RestPost
+    public StandardJsonResult login() {
+        return super.tryJson(() -> {
+
+        });
+    }
+
 }

@@ -1,10 +1,7 @@
 package org.jframe.data;
 
 import org.jframe.core.hibernate.DbContext;
-import org.jframe.data.sets.CaptchaSet;
-import org.jframe.data.sets.RoleSet;
-import org.jframe.data.sets.UserRoleRLSet;
-import org.jframe.data.sets.UserSet;
+import org.jframe.data.sets.*;
 
 /**
  * Created by leo on 2017-05-31.
@@ -14,6 +11,7 @@ public class JframeDbContext extends DbContext {
     private RoleSet roleSet;
     private UserRoleRLSet userRoleRLSet;
     private CaptchaSet captchaSet;
+    private OAuthWeixinUserSet oAuthWeixinUserSet;
 
     public JframeDbContext() {
         super(JframeHibernateSessionFactory.getInstance());
@@ -49,5 +47,12 @@ public class JframeDbContext extends DbContext {
             this.captchaSet = new CaptchaSet(this);
         }
         return captchaSet;
+    }
+
+    public OAuthWeixinUserSet getOAuthWeixinUserSet() {
+        if (this.oAuthWeixinUserSet == null) {
+            this.oAuthWeixinUserSet = new OAuthWeixinUserSet(this);
+        }
+        return oAuthWeixinUserSet;
     }
 }

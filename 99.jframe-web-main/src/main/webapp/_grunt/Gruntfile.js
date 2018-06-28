@@ -47,8 +47,7 @@ function getDemoConfigs() {
             index: [libs.fileUpload, libs.webImageUploader, libs.cascadingSelector]
         },
         account: {
-            index: [],
-            login: [libs.loginManager],
+            login: [],
             register: [libs.fileUpload, libs.webImageUploader]
         }
     };

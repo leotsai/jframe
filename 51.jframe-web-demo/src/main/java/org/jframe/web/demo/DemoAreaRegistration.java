@@ -50,7 +50,7 @@ public class DemoAreaRegistration implements AreaRegistration {
         JList<String> allCodes = new JList<>();
         Map<String, PermissionDefinition> map = AppContext.getBeans(PermissionDefinition.class);
         for (String key : map.keySet()) {
-            if (!key.startsWith("wpk.web.admin.controllers.")) {
+            if (!key.startsWith("org.jframe.web.demo.controllers.")) {
                 continue;
             }
             PermissionDefinition definition = map.get(key);
