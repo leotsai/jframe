@@ -15,12 +15,11 @@
     <title>${model.title}</title>
 
     <link href="/_storage/css/jqueryui/base/jquery-ui.css" rel="stylesheet"/>
-    <link href="/modules/demo/css/core.css" rel="stylesheet"/>
-    <link href="/modules/demo/css/pad.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+    <link href="/modules/_public/css/core.css" rel="stylesheet"/>
+    <link href="/modules/_public/css/pad.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
 
     <script src="/_storage/js/jquery/jquery-1.7.2.min.js"></script>
     <script src="/_storage/js/jquery/jquery-ui-1.8.20.min.js"></script>
-    <script src="/modules/demo/js/core.js"></script>
 
 </head>
 <body>
@@ -31,7 +30,7 @@
                 jframe.org
             </a>
             <div id="slogan">
-                The demo website for <a target="_blank" href="https://github.com/leotsai/jframe">https://github.com/leotsai/jframe</a>
+                The website for <a target="_blank" href="https://github.com/leotsai/jframe">https://github.com/leotsai/jframe</a>
                 <a class="btn" target="_blank" href="https://github.com/leotsai/mvcsolution">go to github</a>
             </div>
         </div>

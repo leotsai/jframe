@@ -26,6 +26,16 @@
             }
             doLogin();
         });
+
+        $('.form-group input').focus(function () {
+            $(this).closest('.form-group').addClass('focus');
+        }).blur(function () {
+            if ($(this).val()) {
+                $(this).closest('.form-group').addClass('focus');
+            } else {
+                $(this).closest('.form-group').removeClass('focus');
+            }
+        });
     });
 
     function doLogin() {

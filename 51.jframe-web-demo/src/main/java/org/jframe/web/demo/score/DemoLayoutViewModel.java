@@ -74,6 +74,9 @@ public class DemoLayoutViewModel<T> extends LayoutViewModel {
     }
 
     public JList<MenuItem> getTopMenu() {
+        if (topMenu == null) {
+            topMenu = this.getTopMenuItems();
+        }
         return this.getTopMenuItems();
     }
 
