@@ -1,4 +1,4 @@
-package org.jframe.web.admin.controllers.menu.demo;
+package org.jframe.web.admin.controllers.menu.setting;
 
 import org.jframe.web.menu.MenuItem;
 

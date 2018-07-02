@@ -23,7 +23,7 @@ public class EmployeeIndexViewModel extends AdminLayoutViewModel {
     }
 
     public EmployeeIndexViewModel build(){
-        super.setCurrentPage(Menu.demo().permission());
+        super.setCurrentPage(Menu.setting().permission());
         this.departments = AppContext.getBean(DepartmentService.class).getAll();
         this.department = this.departments.firstOrNull();
         JList<Role> allRoles = AppContext.getBean(RoleService.class).getAll();

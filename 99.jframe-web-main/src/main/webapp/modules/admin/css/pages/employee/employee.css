@@ -56,7 +56,7 @@
     padding-left: 30px;
     font-size: 14px;
     color: #fff;
-    background: #312f32 url("images/file-open.png") no-repeat 15px center;
+    background: #312f32 url("../../images/file-open.png") no-repeat 15px center;
     line-height: 30px;
     font-weight: normal;
 }
@@ -72,7 +72,7 @@
     font-size: 14px;
     border-bottom: 1px solid #eee;
     line-height: 40px;
-    background: url("images/file.png") no-repeat left center;
+    background: url("../../images/file.png") no-repeat left center;
     padding-left: 30px;
     color: #333;
 }
@@ -260,7 +260,7 @@
     line-height: 28px;
     font-size: 14px;
     color: #333;
-    background: url("images/perminssion1.png") no-repeat 15px;
+    background: url("../../images/perminssion1.png") no-repeat 15px;
     border-top: 1px solid #fff;
 }
 .part-all.selected {
@@ -268,7 +268,7 @@
     color: #fff;
 }
 .part-all.selected a {
-    background-image: url("images/perminssion2.png");
+    background-image: url("../../images/perminssion2.png");
     color: #fff;
 }
 .part-list {
@@ -328,7 +328,7 @@
     border:0;
     width: 22px;
     height:22px;
-    background: url("images/btn-success.png") no-repeat center;
+    background: url("../../images/btn-success.png") no-repeat center;
 
 }
 .editor-form {
@@ -384,7 +384,7 @@
 }
 
 .choose-employee {
-    background: url("images/no-choose.png") no-repeat left;
+    background: url("../../images/no-choose.png") no-repeat left;
     padding-left: 30px;
     float: left;
     overflow: hidden;
@@ -395,7 +395,7 @@
     border-bottom: 1px solid #eee;
 }
 .choose-employee.selected {
-    background-image: url("images/filter02.png");
+    background-image: url("../../images/filter02.png");
 }
 
 .choose-employee .cell1 {

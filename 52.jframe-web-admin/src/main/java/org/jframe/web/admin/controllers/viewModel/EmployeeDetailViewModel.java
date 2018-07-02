@@ -20,7 +20,7 @@ public class EmployeeDetailViewModel extends AdminLayoutViewModel {
     private JMap<String, JMap<String,JList<String>>> rolePermissions;
 
     public EmployeeDetailViewModel build(Long employeeId){
-        super.setCurrentPage(Menu.demo().permission());
+        super.setCurrentPage(Menu.setting().permission());
         this.employee = AppContext.getBean(EmployeeService.class).get(employeeId);
         this.departments = AppContext.getBean(DepartmentService.class).getAll();
         this.rolePermissions = AppContext.getBean(EmployeeService.class).getRolePermissonsByUserId(employee.getUserId());

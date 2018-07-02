@@ -49,7 +49,7 @@ public class EmployeeController extends _AdminControllerBase {
 
         @Override
         public void registerMenuPermissions() {
-            Menu.demo().permission().apc(SELECT, EDIT, DELETE);
+            Menu.setting().permission().apc(SELECT, EDIT, DELETE);
         }
     }
 

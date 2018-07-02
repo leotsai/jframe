@@ -37,7 +37,7 @@ public class DepartmentController extends _AdminControllerBase {
 
         @Override
         public void registerMenuPermissions() {
-            Menu.demo().permission().apc(ADDDEPARTMENT, EDITDEPARTMENT, DELETEDEPARTMENT);
+            Menu.setting().permission().apc(ADDDEPARTMENT, EDITDEPARTMENT, DELETEDEPARTMENT);
         }
     }
 

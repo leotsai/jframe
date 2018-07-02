@@ -33,7 +33,7 @@ public class EmployeeEditViewModel extends AdminLayoutViewModel {
     }
 
     public EmployeeEditViewModel build(Long employeeId, Long departmentId) {
-        super.setCurrentPage(Menu.demo().permission());
+        super.setCurrentPage(Menu.setting().permission());
         RoleService roleService = AppContext.getBean(RoleService.class);
         if (!Objects.isNull(employeeId)) {
             this.employee = AppContext.getBean(EmployeeService.class).getById(employeeId);

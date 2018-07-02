@@ -51,7 +51,9 @@
                     <c:forEach items="${model.leftMenu}" var="item">
                         <li id="nav-${item.id}" class="${item.id == model.currentPage.parent.id?'selected':''}">
                             <a href="${item.url}">${item.text}
-                                <span class="arrow"></span>
+                                <c:if test="${not empty item.children}">
+                                    <span class="arrow"></span>
+                                </c:if>
                             </a>
                             <ul class="nav-sub-items">
                                 <c:if test="${not empty item.children}">

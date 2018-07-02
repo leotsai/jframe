@@ -15,11 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminHomeController extends _AdminControllerBase {
 
     @RequestMapping
-    public ModelAndView demo() {
+    public ModelAndView home() {
         return super.tryView("admin-home-index", () -> {
             AdminLayoutViewModel model = new AdminLayoutViewModel();
-            model.setTitle("demo index");
-            model.setCurrentPage(Menu.demo());
+            model.setTitle("home index");
+            model.setCurrentPage(Menu.home());
             return model;
         });
     }

@@ -3,7 +3,8 @@ package org.jframe.web.admin.controllers;
 import org.jframe.core.extensions.JList;
 import org.jframe.core.helpers.ClassHelper;
 import org.jframe.core.helpers.StringHelper;
-import org.jframe.web.admin.controllers.menu.Demo;
+import org.jframe.web.admin.controllers.menu.Home;
+import org.jframe.web.admin.controllers.menu.Setting;
 import org.jframe.web.menu.MenuItem;
 
 import java.lang.reflect.Method;
@@ -14,10 +15,15 @@ import java.util.function.Predicate;
  */
 public class Menu {
 
-    private static Demo demo = new Demo();
+    private static Home home = new Home();
+    private static Setting setting = new Setting();
 
-    public static Demo demo() {
-        return demo;
+    public static Home home() {
+        return home;
+    }
+
+    public static Setting setting() {
+        return setting;
     }
 
 
