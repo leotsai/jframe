@@ -40,7 +40,7 @@
                     <li id="navHome"><a href="/demo">Demo Home</a></li>
                 </ul>
                 <ul id="loginStatus" class="menu clearfix">
-                    <li id="navLogin"><a href="/demo/login">Demo Login</a></li>
+                    <li id="navLogin"><a href="/admin/login">Demo Login</a></li>
                     <li id="navRegister"><a href="/demo/register">Demo Register</a></li>
                 </ul>
             </div>

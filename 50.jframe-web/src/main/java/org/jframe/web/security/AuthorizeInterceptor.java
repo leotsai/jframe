@@ -86,7 +86,7 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
             this.writeAjaxIntercept(response, code);
         } else {
             String returnUrl = HttpHelper.getPathAndQuery(request);
-            response.sendRedirect("/demo/login?returnUrl=" + HttpHelper.urlEncode(returnUrl) + "&code=" + code.getCode());
+            response.sendRedirect("/admin/login?returnUrl=" + HttpHelper.urlEncode(returnUrl) + "&code=" + code.getCode());
         }
     }
 
