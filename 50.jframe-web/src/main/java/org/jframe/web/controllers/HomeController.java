@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2018/6/26
  */
 @Controller("web-home")
-@RequestMapping("/")
+//@RequestMapping("/")
 public class HomeController extends _ControllerBase {
 
-    @GetMapping
-    public ModelAndView index(HttpServletResponse response) {
-        return super.tryView("public-index", () -> {
-            LayoutViewModel model = new LayoutViewModel<>("index");
-            return model;
-        });
-    }
+//    @GetMapping
+//    public ModelAndView index(HttpServletResponse response) {
+//        return super.tryView("public-index", () -> {
+//            LayoutViewModel model = new LayoutViewModel<>("index");
+//            return model;
+//        });
+//    }
 }
