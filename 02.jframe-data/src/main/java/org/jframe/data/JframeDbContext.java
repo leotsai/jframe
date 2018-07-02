@@ -13,6 +13,9 @@ public class JframeDbContext extends DbContext {
     private CaptchaSet captchaSet;
     private OAuthWeixinUserSet oAuthWeixinUserSet;
     private DbCacheSet dbCacheSet;
+    private EmployeeSet employeeSet;
+    private PermissionSet permissionSet;
+    private DepartmentSet departmentSet;
 
     public JframeDbContext() {
         super(JframeHibernateSessionFactory.getInstance());
@@ -62,5 +65,26 @@ public class JframeDbContext extends DbContext {
             this.dbCacheSet = new DbCacheSet(this);
         }
         return dbCacheSet;
+    }
+
+    public EmployeeSet getEmployeeSet() {
+        if (this.employeeSet == null) {
+            this.employeeSet = new EmployeeSet(this);
+        }
+        return employeeSet;
+    }
+
+    public PermissionSet getPermissionSet() {
+        if (this.permissionSet == null) {
+            this.permissionSet = new PermissionSet(this);
+        }
+        return permissionSet;
+    }
+
+    public DepartmentSet getDepartmentSet() {
+        if (this.departmentSet == null) {
+            this.departmentSet = new DepartmentSet(this);
+        }
+        return departmentSet;
     }
 }

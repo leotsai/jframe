@@ -1,5 +1,6 @@
 package org.jframe.services.impl;
 
+import org.jframe.core.extensions.JList;
 import org.jframe.core.extensions.KnownException;
 import org.jframe.core.helpers.HttpHelper;
 import org.jframe.core.helpers.StringHelper;
@@ -10,6 +11,7 @@ import org.jframe.data.JframeDbContext;
 import org.jframe.data.entities.Image;
 import org.jframe.data.entities.OAuthWeixinUser;
 import org.jframe.data.entities.User;
+import org.jframe.data.entities.UserRoleRL;
 import org.jframe.data.enums.CaptchaUsage;
 import org.jframe.data.enums.Gender;
 import org.jframe.data.redis.RedisApi;
@@ -250,6 +252,15 @@ public class UserServiceImpl extends ServiceBase implements UserService {
     @Override
     public OAuthWeixinUser getWeixinUser(String openId) {
         return super.getFromDb(db -> db.getOAuthWeixinUserSet().getByOpenId(openId));
+    }
+
+    @Override
+    public JList<User> getUsersByRoleId(Long roleId) {
+        return super.getFromDb(db -> {
+            JList<UserRoleRL> userRoleRLs = db.getUserRoleRLSet().getByRoleId(roleId);
+            JList<Long> userIds = userRoleRLs.select(UserRoleRL::getUserId);
+            return db.getUserSet().getAll(userIds);
+        });
     }
 
 

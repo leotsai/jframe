@@ -50,15 +50,17 @@
                 <c:if test="${not empty model.leftMenu}">
                     <c:forEach items="${model.leftMenu}" var="item">
                         <li id="nav-${item.id}" class="${item.id == model.currentPage.parent.id?'selected':''}">
-                            <a href="javascript:;">${item.text}
+                            <a href="${item.url}">${item.text}
                                 <span class="arrow"></span>
                             </a>
                             <ul class="nav-sub-items">
-                                <c:forEach items="${item.children}" var="subItem">
-                                    <li class="${subItem.id == model.currentPage.id?'selected':''}">
-                                        <a href="${not empty subItem.url?subItem.url:'javascript:;'}">${subItem.text}</a>
-                                    </li>
-                                </c:forEach>
+                                <c:if test="${not empty item.children}">
+                                    <c:forEach items="${item.children}" var="subItem">
+                                        <li class="${subItem.id == model.currentPage.id?'selected':''}">
+                                            <a href="${not empty subItem.url?subItem.url:'javascript:;'}">${subItem.text}</a>
+                                        </li>
+                                    </c:forEach>
+                                </c:if>
                             </ul>
                         </li>
                     </c:forEach>

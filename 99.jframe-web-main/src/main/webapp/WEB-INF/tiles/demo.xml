@@ -7,6 +7,8 @@
     <!-- Base Definition -->
     <definition name="demoLayout" template="/modules/demo/views/_shared/layout.jsp">
         <put-attribute name="title" value=""/>
+        <put-attribute name="topMenu" value=""/>
+        <put-attribute name="leftMenu" value=""/>
     </definition>
     <definition name="demo-error" template="/modules/demo/views/_shared/error.jsp">
         <put-attribute name="title" value=""/>
@@ -24,6 +26,19 @@
     <definition name="demo-home-index" extends="demoLayout">
         <put-attribute name="body" value="/modules/demo/views/home/index.jsp"/>
     </definition>
+
+    <definition name="demo-employee-index" extends="demoLayout">
+        <put-attribute name="body" value="/modules/demo/views/employee/index.jsp"/>
+    </definition>
+    <definition name="demo-employee-list" template="/modules/demo/views/employee/list.jsp"/>
+    <definition name="demo-employee-detail" extends="demoLayout">
+        <put-attribute name="body" value="/modules/demo/views/employee/detail.jsp"/>
+    </definition>
+    <definition name="demo-employee-edit" extends="demoLayout">
+        <put-attribute name="body" value="/modules/demo/views/employee/edit.jsp"/>
+    </definition>
+    <definition name="demo-roleSetting-permission" template="/modules/demo/views/employee/permission.jsp"/>
+
 
 
 </tiles-definitions>

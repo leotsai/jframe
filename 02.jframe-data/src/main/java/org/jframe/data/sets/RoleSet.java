@@ -26,4 +26,17 @@ public class RoleSet extends DbSet<Role> {
         return super.db.getList(sql, userId);
     }
 
+    public Role getSuperAdmin() {
+        return super.getFirst("where is_system =true and name=:p0", Role.Names.SUPER_ADMIN);
+    }
+
+    public JList<Role> getAllRoleIsNotSystem() {
+        String sql = " select * from " + super.getTable() + " where is_system =false ";
+        return super.db.getList(sql, Role.class);
+    }
+
+    public JList<Role> getAllByUserId(Long userId) {
+        return super.db.getList("select r.* from s_user_role_rls u LEFT JOIN s_roles r on u.role_id=r.id where user_id=:p0 ", Role.class, userId);
+    }
+
 }

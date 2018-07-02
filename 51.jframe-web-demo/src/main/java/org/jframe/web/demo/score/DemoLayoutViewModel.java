@@ -57,7 +57,7 @@ public class DemoLayoutViewModel<T> extends LayoutViewModel {
             return new JList<>();
         }
         for (MenuItem item : this.getMenu()) {
-            if (item.getId().equals(this.currentPage.getParent().getParent().getId())) {
+            if (item.getId().equals(this.currentPage.getRootItem().getId())) {
                 return item.getChildren();
             }
         }

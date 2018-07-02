@@ -50,6 +50,11 @@ function getDemoConfigs() {
             login: [],
             register: [],
             findPassword: []
+        },
+        employee: {
+            index: [libs.grid, libs.hashQuery],
+            detail: [],
+            edit: []
         }
     };
 }

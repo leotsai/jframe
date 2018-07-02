@@ -3,6 +3,7 @@ package org.jframe.data.sets;
 import org.jframe.core.extensions.JList;
 import org.jframe.core.hibernate.DbContext;
 import org.jframe.core.hibernate.DbSet;
+import org.jframe.data.entities.Role;
 import org.jframe.data.entities.UserRoleRL;
 
 /**
@@ -28,4 +29,8 @@ public class UserRoleRLSet extends DbSet<UserRoleRL> {
         return super.getList("where role_id =:p0", roleId);
     }
 
+    public Integer getSuperAdminCount() {
+        String sql = "select count(1) from s_user_role_rls rl join s_roles ro on rl.role_id = ro.id  where ro.name =:p0";
+        return db.count(sql, Role.Names.SUPER_ADMIN);
+    }
 }
