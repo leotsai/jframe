@@ -1,0 +1,105 @@
+body {
+    background-color: #5f0405;
+}
+
+.register {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: #5f0405 url("../../images/login-bg.png") no-repeat center;
+}
+
+.register-box {
+    margin-top: 200px;
+}
+
+#formRegister {
+    width: 280px;
+    margin: 0 auto;
+    padding: 18px;
+    background: #fff;
+}
+
+.form-group {
+    width: 278px;
+    border: 1px solid #dcdcdc;
+    height: 36px;
+    margin-top: 22px;
+    overflow: hidden;
+}
+
+.form-group.focus {
+    border-color: #df7878;
+}
+
+.form-group label {
+    display: block;
+    float: left;
+    height: 36px;
+    width: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.form-group input {
+    float: left;
+    width: 238px;
+    border: 0;
+    height: 36px;
+    outline: 0;
+}
+
+input.wd138 {
+    width: 138px;
+}
+
+.captcha {
+    display: block;
+    float: left;
+    width: 100px;
+    height: 38px;
+}
+.code{
+    padding: 0 7px;
+    line-height: 36px;
+    text-align: center;
+    border:1px solid #df0615;
+    border-radius: 30px;
+    color: #df0615;
+    font-size: 11pt;
+}
+
+.last span img {
+    display: block;
+    height: 38px;
+    width: 100%;
+}
+
+#errmes {
+    height: 40px;
+}
+
+.sub-btn {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.sub-btn a {
+    display: block;
+    width: 100%;
+    line-height: 38px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    background-color: #c20000;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+

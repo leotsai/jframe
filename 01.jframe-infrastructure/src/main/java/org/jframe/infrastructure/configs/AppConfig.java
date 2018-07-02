@@ -50,6 +50,9 @@ public class AppConfig {
     @Value("${app.entityPackage}")
     private String entityPackage;
 
+    @Value("${app.isDeveloperMode}")
+    private boolean isDeveloperMode;
+
 
     //---------------------------------------------
 
@@ -103,5 +106,9 @@ public class AppConfig {
 
     public String getEntityPackage() {
         return entityPackage;
+    }
+
+    public boolean isDeveloperMode() {
+        return isDeveloperMode;
     }
 }

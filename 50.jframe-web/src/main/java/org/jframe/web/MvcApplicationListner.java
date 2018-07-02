@@ -9,6 +9,7 @@ import org.jframe.core.logging.LogHelper;
 import org.jframe.core.unionpay.sdk.SDKConfig;
 import org.jframe.core.weixin.core.WxKeyManager;
 import org.jframe.data.JframeHibernateSessionFactory;
+import org.jframe.data.caching.DbCacheContext;
 import org.jframe.infrastructure.AppContext;
 import org.jframe.infrastructure.alipay.JframeAlipayApi;
 import org.jframe.infrastructure.logging.JframeMongoLogAppender;
@@ -75,6 +76,7 @@ public class MvcApplicationListner implements ApplicationListener {
             INITIALIZERS.add(JframeUnionpayApi.getInstance());
             INITIALIZERS.add(JframeAlipayApi.getInstance());
             INITIALIZERS.add(JframeWeixinPayApi.getInstance());
+            INITIALIZERS.add(DbCacheContext.getInstance());
 
             INITIALIZERS.forEach(x -> {
                 try {

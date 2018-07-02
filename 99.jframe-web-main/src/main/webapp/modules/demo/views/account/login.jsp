@@ -5,12 +5,12 @@
     <link href="/_storage/css/jqueryui/base/jquery-ui.css" rel="stylesheet"/>
     <link href="/modules/demo/css/core.css" rel="stylesheet"/>
     <link href="/modules/demo/css/pad.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
-    <link href="/modules/demo/css/pages/account/login.css" rel="stylesheet"/>
     <script src="/_storage/js/jquery/jquery-1.7.2.min.js"></script>
     <script src="/_storage/js/jquery/jquery-ui-1.8.20.min.js"></script>
     <script src="/modules/demo/js/core.js"></script>
 
     <script src="/modules/demo/js/account/login.js"></script>
+    <link href="/modules/demo/css/pages/account/login.css" rel="stylesheet"/>
 </head>
 <body>
 <input type="hidden" id="hfReturnUrl" value="${model.value}"/>

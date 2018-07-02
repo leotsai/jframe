@@ -70,8 +70,6 @@ public class CookieHelper {
     public static void removeCookiesOnLoggingOut() {
         CookieHelper.removeAuthToken();
         CookieHelper.removeWeixinOpenId();
-        CookieHelper.removeGuestUuid();
-//        HttpHelper.getCurrentRequest().changeSessionId();
     }
 
     private static String getValue(String name) {

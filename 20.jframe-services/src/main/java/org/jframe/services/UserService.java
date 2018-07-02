@@ -1,5 +1,6 @@
 package org.jframe.services;
 
+import org.jframe.data.entities.OAuthWeixinUser;
 import org.jframe.data.entities.User;
 import org.jframe.data.enums.CaptchaUsage;
 import org.jframe.services.security.UserSession;
@@ -20,11 +21,21 @@ public interface UserService {
 
     User register(String username, String password);
 
+    void resetPassword(String username, String password);
+
     void resetPassword(String username, String oldPassword, String newPassword);
 
     void logout(Long userId);
 
     UserSession getUserSession(String username);
 
+    boolean canBindWeixin(String username, String openId);
+
+    void bindWeixin(Long userId, String openId);
+
+    void bindWeixin(String username, String openId);
+
     User getUserByWeixinOpenId(String openid);
+
+    OAuthWeixinUser getWeixinUser(String openId);
 }

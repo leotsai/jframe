@@ -3,19 +3,28 @@ package org.jframe.services.impl;
 import org.jframe.core.extensions.KnownException;
 import org.jframe.core.helpers.HttpHelper;
 import org.jframe.core.helpers.StringHelper;
+import org.jframe.core.http.WebClient;
+import org.jframe.core.logging.LogHelper;
 import org.jframe.core.security.Crypto;
 import org.jframe.data.JframeDbContext;
+import org.jframe.data.entities.Image;
+import org.jframe.data.entities.OAuthWeixinUser;
 import org.jframe.data.entities.User;
 import org.jframe.data.enums.CaptchaUsage;
+import org.jframe.data.enums.Gender;
 import org.jframe.data.redis.RedisApi;
+import org.jframe.data.sets.OAuthWeixinUserSet;
 import org.jframe.infrastructure.AppContext;
+import org.jframe.services.AliyunOssApi;
 import org.jframe.services.CaptchaService;
 import org.jframe.services.UserService;
 import org.jframe.services.core.ServiceBase;
 import org.jframe.services.security.UserSession;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Created by leo on 2017-08-23.
@@ -51,6 +60,21 @@ public class UserServiceImpl extends ServiceBase implements UserService {
             db.save(dbUser);
             return dbUser;
         }
+    }
+
+    @Override
+    public void resetPassword(String username, String password) {
+        super.useTransaction(db -> {
+            User user = db.getUserSet().get(username);
+            if (user == null) {
+                throw new KnownException("该账号不存在");
+            }
+            if (user.isDisabled()) {
+                throw new KnownException("该账号已被禁用");
+            }
+            user.resetPassword(password);
+            db.save(user);
+        });
     }
 
     @Override
@@ -136,8 +160,96 @@ public class UserServiceImpl extends ServiceBase implements UserService {
     }
 
     @Override
+    public boolean canBindWeixin(String username, String openId) {
+        try (JframeDbContext db = new JframeDbContext()) {
+            User user = db.getUserSet().get(username);
+            if (user == null) {
+                return false;
+            }
+            return db.getOAuthWeixinUserSet().canBind(user.getId(), openId);
+        }
+    }
+
+    @Override
+    public void bindWeixin(Long userId, String openId) {
+        try (JframeDbContext db = new JframeDbContext()) {
+            User dbUser = db.getUserSet().get(userId);
+            if (dbUser == null) {
+                throw new KnownException("用户不存在");
+            }
+            OAuthWeixinUserSet set = db.getOAuthWeixinUserSet();
+            if (null != set.getByUserId(userId)) {
+                throw new KnownException("该用户已绑定微信");
+            }
+            OAuthWeixinUser dbWeixinUser = set.getByOpenId(openId);
+            if (dbWeixinUser == null) {
+                throw new KnownException("微信号不存在");
+            }
+            if (dbWeixinUser.getUserId() != null) {
+                throw new KnownException("该微信已绑定用户");
+            }
+            db.beginTransaction();
+            try {
+                if (StringHelper.isNullOrWhitespace(dbUser.getNickname()) || dbUser.getNickname().contains("****")) {
+                    String weixinNickname = dbWeixinUser.getNickname();
+                    if (!StringHelper.isNullOrWhitespace(weixinNickname)) {
+                        String fixedNickname = StringHelper.cleanEmoji(weixinNickname);
+                        if (!StringHelper.isNullOrWhitespace(fixedNickname)) {
+                            if (fixedNickname.length() > 20) {
+                                fixedNickname = fixedNickname.substring(0, 20);
+                            }
+                            dbUser.setNickname(fixedNickname);
+                        }
+                    }
+                }
+                if (dbUser.getGender() == Gender.UNKNOWN && dbWeixinUser.getGender() != Gender.UNKNOWN) {
+                    dbUser.setGender(dbWeixinUser.getGender());
+                }
+                if (StringHelper.isNullOrWhitespace(dbUser.getImageKey())
+                        || Objects.equals(Image.Keys.UserDefaultAvatar, dbUser.getImageKey())) {
+                    String wexinHeadimgUrl = dbWeixinUser.getHeadimgUrl();
+                    if (!StringHelper.isNullOrWhitespace(wexinHeadimgUrl)) {
+                        try (WebClient client = new WebClient()) {
+                            InputStream stream = client.downloadStream(wexinHeadimgUrl);
+                            String key = UUID.randomUUID().toString() + ".jpg";
+                            AliyunOssApi.getImages().putFile(key, stream);
+                            dbUser.setImageKey(key);
+                        } catch (Exception e) {
+                            LogHelper.log("绑定微信", "下载微信头像失败：" + e.getMessage());
+                        }
+                    }
+                }
+                dbUser.setSubscribed(dbWeixinUser.isSubscribed());
+                db.save(dbUser);
+                dbWeixinUser.setUserId(userId);
+                db.save(dbWeixinUser);
+                db.commitTransaction();
+            } catch (Exception e) {
+                db.rollback();
+                throw e;
+            }
+        }
+    }
+
+    @Override
+    public void bindWeixin(String username, String openId) {
+        super.useTransaction(db -> {
+            User user = db.getUserSet().get(username);
+            if (user == null) {
+                throw new KnownException("用户不存在");
+            }
+            this.bindWeixin(user.getId(), openId);
+        });
+    }
+
+    @Override
     public User getUserByWeixinOpenId(String openid) {
         return super.getFromDb(db -> db.getUserSet().getByWeixinOpenId(openid));
+    }
+
+    @Override
+    public OAuthWeixinUser getWeixinUser(String openId) {
+        return super.getFromDb(db -> db.getOAuthWeixinUserSet().getByOpenId(openId));
     }
 
 

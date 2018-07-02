@@ -1,9 +1,9 @@
 /**
  * Created by Leo on 2017/1/9.
  */
-(function() {
+(function () {
     var urls = {
-        login: "/demo/login"
+        doLogin: "/demo/login/doLogin"
     };
     var returnUrl = '';
 
@@ -41,8 +41,7 @@
     function doLogin() {
         var $form = $("#btnLogin").closest("form");
         var $btn = $("#btnLogin");
-        $btn.cssDisable().html("Login...");
-        mvcApp.ajax.post(urls.login, $form.serialize(), function (result) {
+        mvcApp.ajax.busyPost(urls.doLogin, $form.serialize(), function (result) {
             if (result.success) {
                 $btn.html("Login succeeded...");
                 window.location = returnUrl === "" ? "/" : returnUrl;
@@ -50,6 +49,6 @@
                 $btn.cssEnable().html("Login");
                 mvcApp.notification.alertError(result.message);
             }
-        });
+        }, "Login...", true);
     }
 })();

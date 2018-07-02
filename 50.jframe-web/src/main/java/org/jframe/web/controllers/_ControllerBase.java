@@ -10,6 +10,7 @@ import org.jframe.core.helpers.RequestHelper;
 import org.jframe.core.logging.LogHelper;
 import org.jframe.core.web.StandardJsonResult;
 import org.jframe.infrastructure.AppContext;
+import org.jframe.web.security.WebContext;
 import org.jframe.web.viewModels.LayoutViewModel;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,7 +23,7 @@ import java.io.IOException;
 public class _ControllerBase {
 
     protected String getErrorViewPath() {
-        return "/modules/_shared/error.jsp";
+        return "/modules/_public/views/error.jsp";
     }
 
     protected String getAreaPathPrefix() {
@@ -114,6 +115,10 @@ public class _ControllerBase {
 
         mv.addObject("model", model);
         return mv;
+    }
+
+    protected Long getUserId() {
+        return WebContext.getCurrent().getSession().getId();
     }
 
     protected void validate(boolean valueIsValid, String errorMessage) {

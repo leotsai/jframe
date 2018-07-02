@@ -82,6 +82,9 @@ public class User extends EntityBase {
     @Column(name = "true_name", columnDefinition = "varchar(50) null COMMENT '真实姓名'")
     private String trueName;
 
+    @Column(name = "is_subscribed", columnDefinition = "bool not null default false COMMENT '是否关注微信公众号，冗余oauthweixinuser表对应字段，两个字段同时维护'")
+    private boolean isSubscribed;
+
     public User() {
         this.loginTimes = 0;
         this.gender = Gender.UNKNOWN;
@@ -89,6 +92,7 @@ public class User extends EntityBase {
         this.isDisabled = false;
         this.imageKey = Image.Keys.UserDefaultAvatar;
         this.isLoggedIn = false;
+        this.isSubscribed = false;
     }
 
     public User(String username, String decryptedPassword) {
@@ -263,5 +267,13 @@ public class User extends EntityBase {
 
     public void setTrueName(String trueName) {
         this.trueName = trueName;
+    }
+
+    public boolean isSubscribed() {
+        return isSubscribed;
+    }
+
+    public void setSubscribed(boolean subscribed) {
+        isSubscribed = subscribed;
     }
 }

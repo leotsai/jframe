@@ -34,7 +34,6 @@ public class DemoHomeController extends _DemoControllerBase {
     }
 
     @RequestMapping
-    @Authorize(permissions = {Codes.SELECT})
     public ModelAndView demo() {
         return super.tryView("demo-home-index", () -> {
             DemoLayoutViewModel model = new DemoLayoutViewModel();

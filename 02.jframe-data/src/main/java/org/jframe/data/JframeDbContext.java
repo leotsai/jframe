@@ -12,6 +12,7 @@ public class JframeDbContext extends DbContext {
     private UserRoleRLSet userRoleRLSet;
     private CaptchaSet captchaSet;
     private OAuthWeixinUserSet oAuthWeixinUserSet;
+    private DbCacheSet dbCacheSet;
 
     public JframeDbContext() {
         super(JframeHibernateSessionFactory.getInstance());
@@ -54,5 +55,12 @@ public class JframeDbContext extends DbContext {
             this.oAuthWeixinUserSet = new OAuthWeixinUserSet(this);
         }
         return oAuthWeixinUserSet;
+    }
+
+    public DbCacheSet getDbCacheSet() {
+        if (this.dbCacheSet == null) {
+            this.dbCacheSet = new DbCacheSet(this);
+        }
+        return dbCacheSet;
     }
 }

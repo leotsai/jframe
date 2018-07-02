@@ -48,10 +48,12 @@ function getDemoConfigs() {
         },
         account: {
             login: [],
-            register: [libs.fileUpload, libs.webImageUploader]
+            register: [],
+            findPassword: []
         }
     };
 }
+
 function getImportedLibs(libList) {
     var list = [];
 
@@ -66,9 +68,11 @@ function getImportedLibs(libList) {
             }
         }
     }
+
     addAll(libList);
     return list;
 }
+
 module.exports = function (grunt) {
     var pages = {
         demo: getDemoConfigs()
@@ -98,6 +102,7 @@ module.exports = function (grunt) {
     function subFolder(name) {
         return folder + '_core/' + name + '/*.js';
     }
+
     var core = {files: {}};
     core.files[outputRoot + "demo/js/core.js"] = [coreFolder, subFolder("_pc")];
 

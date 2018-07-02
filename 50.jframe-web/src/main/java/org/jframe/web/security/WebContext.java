@@ -93,7 +93,6 @@ public class WebContext {
             redisSession.setex(cacheKey, AppContext.getAppConfig().getSessionExpireSeconds(), JsonHelper.serialize(this.session));
         }
         CookieHelper.setAuthToken(identity.toEncryptedRaw());
-        CookieHelper.removeGuestUuid();
         this.isAuthenticated = true;
     }
 

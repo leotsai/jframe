@@ -8,13 +8,16 @@
     <definition name="demoLayout" template="/modules/demo/views/_shared/layout.jsp">
         <put-attribute name="title" value=""/>
     </definition>
-    <definition name="demo-account-login" template="/modules/demo/views/account/login.jsp">
-        <put-attribute name="title" value=""/>
-    </definition>
     <definition name="demo-error" template="/modules/demo/views/_shared/error.jsp">
         <put-attribute name="title" value=""/>
     </definition>
+    <definition name="demo-account-login" template="/modules/demo/views/account/login.jsp">
+        <put-attribute name="title" value=""/>
+    </definition>
     <definition name="demo-account-register" template="/modules/demo/views/account/register.jsp">
+        <put-attribute name="title" value=""/>
+    </definition>
+    <definition name="demo-account-findPassword" template="/modules/demo/views/account/find-password.jsp">
         <put-attribute name="title" value=""/>
     </definition>
 
