@@ -64,7 +64,8 @@ public class _ControllerBase {
 
     protected ModelAndView tryView(String path, ThrowableFunction0<Object> getModel, Action1<ModelAndView> mvBuilder) {
         ModelAndView mv = new ModelAndView();
-        String viewName = path.endsWith(".jsp") ? this.getAreaPathPrefix() + path : path;
+        String prefix = this.getAreaPathPrefix();
+        String viewName = path.endsWith(".jsp") ?  (prefix == null ? path : prefix + path) : path;
         try {
             mv.setViewName(viewName);
             if (getModel != null) {

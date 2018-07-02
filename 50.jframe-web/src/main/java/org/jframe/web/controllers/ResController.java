@@ -21,9 +21,7 @@ public class ResController extends _ControllerBase {
         response.setContentType("text/javascript");
 
         String cdn = AppContext.getAppConfig().getCdnHostOfImages();
-
         boolean mock = AppContext.getAppConfig().isMock();
-
         String authCookieName = AppContext.getAppConfig().getAuthCookieName();
 
         return "window.appConfig={cdn:'" + cdn + "',mock:" + mock + ",authCookieName:'" + authCookieName + "'};";
