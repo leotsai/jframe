@@ -15,7 +15,7 @@ public class PageResult<T> {
     private JList<T> list;
 
     public PageResult() {
-
+        this.list = new JList<>();
     }
 
     public PageResult(PageRequest request, List<T> list) {

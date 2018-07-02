@@ -9,6 +9,15 @@ public class PageRequest {
     private String sort;
     private SortDirection sortDirection;
 
+    public PageRequest(){
+
+    }
+
+    public PageRequest(int pageIndex, int pageSize){
+        this.pageIndex = pageIndex;
+        this.pageSize = pageSize;
+    }
+
     public int getSkip(){
         return this.pageIndex * this.pageSize;
     }

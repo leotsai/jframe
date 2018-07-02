@@ -1,13 +1,22 @@
-package org.jframe.web.viewModels;
+package org.jframe.services.pc.dtos;
 
 /**
  * Created by Leo on 2018/7/2.
  */
-public class StaticViewModel {
-    private String html;
+public class CaseDetailDto {
+    private Long id;
     private String title;
     private String keywords;
     private String description;
+    private String content;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -33,11 +42,11 @@ public class StaticViewModel {
         this.description = description;
     }
 
-    public String getHtml() {
-        return html;
+    public String getContent() {
+        return content;
     }
 
-    public void setHtml(String html) {
-        this.html = html;
+    public void setContent(String content) {
+        this.content = content;
     }
 }
