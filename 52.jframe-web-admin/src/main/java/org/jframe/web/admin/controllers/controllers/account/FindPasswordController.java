@@ -40,7 +40,7 @@ public class FindPasswordController extends _AdminControllerBase {
     CaptchaService captchaService;
 
     @GetMapping
-    public ModelAndView index(@RequestParam String returnUrl) {
+    public ModelAndView index(String returnUrl) {
         return super.tryView("admin-account-findPassword", () -> {
             return null;
         });

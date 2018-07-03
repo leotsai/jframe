@@ -6,6 +6,7 @@ package org.jframe.core.app;
  */
 public interface AppInitializer {
 
-    void initialize();
+    String init();
+
     void close();
 }

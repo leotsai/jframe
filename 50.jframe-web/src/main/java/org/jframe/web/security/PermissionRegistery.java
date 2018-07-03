@@ -19,10 +19,20 @@ import java.util.Objects;
  * Created by Leo on 2018/1/12.
  */
 public class PermissionRegistery implements AppInitializer {
+    private static final PermissionRegistery instance = new PermissionRegistery();
+
+    public static PermissionRegistery getInstance() {
+        return instance;
+    }
+
+    private PermissionRegistery() {
+
+    }
 
     @Override
-    public void initialize() {
-        PermissionRegistery.initAllPermissions();
+    public String init() {
+        String result = initAllPermissions();
+        return this.getClass().getName() + " initialize success!\n    " + result;
     }
 
     @Override
@@ -30,15 +40,15 @@ public class PermissionRegistery implements AppInitializer {
 
     }
 
-    public static void initAllPermissions() {
+    public String initAllPermissions() {
         try {
-            doWork();
+            return doWork();
         } catch (Exception ex) {
-            LogHelper.log("系统-初始化PermissionRegistery", ex);
+            throw new KnownException("系统-初始化PermissionRegistery,失败");
         }
     }
 
-    private static void doWork() throws Exception {
+    private String doWork() throws Exception {
         JList<Permission> permissions = getPermissions();
         validateDuplicatePermissions(permissions);
 
@@ -74,11 +84,10 @@ public class PermissionRegistery implements AppInitializer {
             }
             db.commitTransaction();
         }
-        LogHelper.log("系统", sb.toString());
-        System.out.println(sb.toString());
+        return sb.toString();
     }
 
-    private static void validateDuplicatePermissions(JList<Permission> permissions) {
+    private void validateDuplicatePermissions(JList<Permission> permissions) {
         StringBuilder sb = new StringBuilder();
         permissions.toGroupedMap(x -> x.getCode()).forEach((x, y) -> {
             if (y.size() > 1) {
@@ -87,10 +96,7 @@ public class PermissionRegistery implements AppInitializer {
         });
         String error = sb.toString();
         if (!StringHelper.isNullOrWhitespace(error)) {
-            error = "\n\n代码中定义了重复的权限。详情如下：" + error;
-            LogHelper.logRaw("代码错误", error);
-            System.err.println(error);
-            throw new KnownException("\n\n严重代码错误！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！\n\n");
+            throw new KnownException("代码中定义了重复的权限。详情如下：" + error);
         }
     }
 
@@ -114,7 +120,6 @@ public class PermissionRegistery implements AppInitializer {
                 if (innerPermission == null) {
                     String error = "\n" + innerClass.getName() + " 权限配置缺失：" + code + " 未注册到字典";
                     errorSb.append(error);
-                    System.err.println(error);
                     permissions.add(new Permission("未分组", "未分组", null, code));
                 } else {
                     permissions.add(innerPermission);
@@ -124,7 +129,6 @@ public class PermissionRegistery implements AppInitializer {
             if (redundantPermissions.size() > 0) {
                 String error = "\n" + innerClass.getName() + " 权限配置多余，数量：" + permissions.size();
                 errorSb.append(error);
-                System.err.println(error);
             }
         }
 

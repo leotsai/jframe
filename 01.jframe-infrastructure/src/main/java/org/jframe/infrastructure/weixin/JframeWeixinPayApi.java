@@ -21,8 +21,8 @@ public class JframeWeixinPayApi extends WeixinPayApi implements AppInitializer {
     }
 
     @Override
-    public void initialize() {
-
+    public String init() {
+        return this.getClass().getName() + " initialize success!";
     }
 
     @Override

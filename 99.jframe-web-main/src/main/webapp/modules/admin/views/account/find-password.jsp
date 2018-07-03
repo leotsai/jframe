@@ -1,58 +1,51 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="/modules/admin/js/account/findPassword.js"></script>
-<link rel="stylesheet" href="/modules/admin/css/findPassword.css">
+<html>
+<head>
+    <title>${model.title}</title>
+    <link href="/_storage/css/jqueryui/base/jquery-ui.css" rel="stylesheet"/>
+    <link href="/modules/admin/css/core.css" rel="stylesheet"/>
+    <link href="/modules/admin/css/pad.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+    <script src="/_storage/js/jquery/jquery-1.7.2.min.js"></script>
+    <script src="/_storage/js/jquery/jquery-ui-1.8.20.min.js"></script>
+    <script src="/modules/admin/js/core.js"></script>
+
+    <script src="/modules/admin/js/account/findPassword.js"></script>
+    <link href="/modules/admin/css/pages/account/register.css" rel="stylesheet"/>
+</head>
+<body>
 <input type="hidden" id="hfReturnUrl" value="${model.value}"/>
-<%--<input type="hidden" id="differentPort" value="${model.origin}"/>--%>
-<div class="page ${model.origin}">
-    <div class="header">
-        <a class="btn-back" href="javascript:void(0);"></a>
-        ${model.title}
-    </div>
-    <div class="content">
-        <div class="panel-content ${model.origin}">
-            <div class="logo"><a href="javascript:;"></a></div>
-            <div class="login-tab findPassword ">
-                <h2 class="find-psw-title">忘记密码
-                    <label class="select"></label>
-                </h2>
-            </div>
-            <form id="formForgetPwd" method="POST">
-                <ul class="login-form">
-                    <li id="tableForget" class="">
-                        <div class="login-items">
-                            <input id="txtUsername" type="tel" class="phone-number" name="username" placeholder="请输入您手机号" autocomplete="off">
-                            <a href="javascript:;" class="close-btn"></a>
-                        </div>
-                        <div id="captcha-item-center" class="login-items captcha-items">
-                            <input id="txtCaptcha" type="text" name="captcha" placeholder="请输入图片验证码"
-                                   autocomplete="off">
-                            <img src="/captcha/refresh" class="captcha"/>
-                        </div>
-                        <div class="submit-btn"><button type="button" id="nextBtn">下一步</button></div>
-                    </li>
-                    <li id="tableReset" class="hide ${model.origin}">
-                        <div class="login-items query-code captcha-items">
-                            <input id="txtSmsCaptcha" type="text" placeholder="请输入短信验证码" autocomplete="off">
-                            <a href="javascript:;" class="code sent-captcha" id="btnSendSms">获取验证码</a>
-                        </div>
-                        <div class="login-items password-items">
-                            <input class="use-password" type="hidden" id="txtPassword"/>
-                            <input class="pwd hide-pwd" type="password" placeholder="请设置6-20位登陆密码" autocomplete="off"/>
-                            <input class="pwd show-pwd hide" type="text" placeholder="请设置6-20位登陆密码" autocomplete="off"/>
-                            <a href="javascript:;" class="eye"></a>
-                        </div>
-                        <div class="login-items password-items">
-                            <input class="use-password" type="hidden" id="txtPasswordSure"/>
-                            <input class="pwd hide-pwd" type="password" placeholder="请确认密码" autocomplete="off"/>
-                            <input class="pwd show-pwd hide" type="text" placeholder="请确认密码" autocomplete="off"/>
-                            <a href="javascript:;" class="eye"></a>
-                        </div>
-                        <div class="tips">密码由6-20位字母、数字或半角符号组成，不能是8位以下纯数字/ 字母/半角符号，字母需区分大小写</div>
-                        <div class="submit-btn"><button type="button" id="btnReset">确定</button></div>
-                    </li>
-                </ul>
+<div class="panel">
+    <div class="register">
+        <div class="register-box">
+            <form id="formRegister">
+                <div class="form-group">
+                    <label for="txtUsername" class=""></label>
+                    <input id="txtUsername" type="tel" class="" name="" placeholder="请输入你的手机号"/>
+                </div>
+                <div id="captcha" class="form-group">
+                    <label for="txtCaptcha" class=""></label>
+                    <input id="txtCaptcha" type="text" class="wd138" name="" placeholder="请输入验证码"/>
+                    <span><img src="/captcha/refresh" class="captcha"/></span>
+                </div>
+                <div class="form-group">
+                    <label for="txtSmsCaptcha" class=""></label>
+                    <input id="txtSmsCaptcha" type="tel" class="wd138" name="" placeholder="请输入短信验证码"/>
+                    <a href="javascript:;" class="code" id="btnSendSms">获取验证码</a>
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword" class=""></label>
+                    <input id="txtPassword" type="password" class="" name="" placeholder="请输入你的密码"/>
+                </div>
+                <div class="form-group">
+                    <label for="txtPasswordSure" class=""></label>
+                    <input id="txtPasswordSure" type="password" class="" name="" placeholder="请确认密码"/>
+                </div>
+                <div class="sub-btn">
+                    <a id="btnReset" href="javascript:;">reset</a>
+                </div>
             </form>
         </div>
-        <div class="footer-line ${model.origin}"><div><span class="line-customer">五品库官方商城</span><span class="line-dealer">我是经销商</span></div></div>
     </div>
 </div>
+</body>
+</html>

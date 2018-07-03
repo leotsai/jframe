@@ -29,10 +29,11 @@ public class WxKeyManager implements AppInitializer {
     }
 
     @Override
-    public void initialize() {
+    public String init() {
         if (this.cacheProvider == null) {
             throw new KnownException(this.getClass().getName() + " cacheProvider is null");
         }
+        return this.getClass().getName() + " initialize success!";
     }
 
     public String getAccessToken(WeixinApi api) {

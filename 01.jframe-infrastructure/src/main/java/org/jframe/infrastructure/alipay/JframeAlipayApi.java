@@ -20,8 +20,9 @@ public class JframeAlipayApi extends AlipayApi implements AppInitializer {
     }
 
     @Override
-    public void initialize() {
+    public String init() {
         super.initialize(AppContext.getAlipayMobileConfig());
+        return this.getClass().getName() + " initialize success!";
     }
 
     @Override

@@ -40,9 +40,8 @@ public abstract class HibernateSessionFactory {
 
     public void initialize() {
         Configuration configuration = this.getConfiguration();
-        if(configuration == null){
-            System.out.println(this.getClass().getName()+" configuration is null, initialization aborted!");
-            return;
+        if (configuration == null) {
+            throw new KnownException(this.getClass().getName() + " configuration is null, initialization aborted!");
         }
         JList<Class> list = this.getEntityClasses();
         for (Class clazz : list) {
@@ -57,13 +56,7 @@ public abstract class HibernateSessionFactory {
             configuration.addAnnotatedClass(clazz);
             this.entities.put(clazz, table.name());
         }
-        try {
-            factory = configuration.buildSessionFactory();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw ex;
-        }
-        System.out.println(this.getClass().getName() + " hibernate initialized");
+        factory = configuration.buildSessionFactory();
     }
 
     protected abstract Configuration getConfiguration();

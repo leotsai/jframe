@@ -48,7 +48,7 @@ public class DbCacheContext implements AppInitializer {
             deletedList.forEach(item -> db.delete(item));
 
             db.commitTransaction();
-            System.out.println("初始化DbCacheContext. 增加: " + addedList.size() + ", 删除: " + deletedList.size());
+            System.out.println("    初始化DbCacheContext. 增加: " + addedList.size() + ", 删除: " + deletedList.size());
         }
         this.refresh();
         this.getContexts().forEach(x -> x.initialize(version));
@@ -109,9 +109,9 @@ public class DbCacheContext implements AppInitializer {
     }
 
     @Override
-    public void initialize() {
+    public String init() {
         this.initializeAll().start();
-
+        return this.getClass().getName() + " initialize success!";
     }
 
     @Override

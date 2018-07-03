@@ -19,7 +19,6 @@ public class AliyunSmsApi {
 
     public void initialize(SmsConfig config) {
         this.config = config;
-        System.out.println("aliyun SMS API initialized");
     }
 
     public void trySend(SmsTemplate template) {

@@ -13,7 +13,7 @@ import org.jframe.infrastructure.AppContext;
 
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.Properties;
+import java.util.Date;
 
 /**
  * Created by leo on 2017-10-21.
@@ -35,11 +35,12 @@ public class JframeHibernateSessionFactory extends HibernateSessionFactory imple
     }
 
     @Override
-    public void initialize(){
+    public String init() {
         String packageName = AppContext.getAppConfig().getEntityPackage() + ".";
         JList<Class> classes = ClassHelper.getClasses(AppContext.getStartupDirectory(), packageName);
         DtoResultTransformer.checkDtoEntityConstructors(classes);
         super.initialize();
+        return this.getClass().getName() + " initialize success!";
     }
 
     @Override

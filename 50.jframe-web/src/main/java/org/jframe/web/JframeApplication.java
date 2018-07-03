@@ -22,6 +22,7 @@ import org.jframe.infrastructure.security.JframeCrypto;
 import org.jframe.infrastructure.sms.JframeSmsApi;
 import org.jframe.infrastructure.unionpay.JframeUnionpayApi;
 import org.jframe.infrastructure.weixin.JframeWeixinPayApi;
+import org.jframe.web.security.PermissionRegistery;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -36,7 +37,6 @@ public class JframeApplication extends Application {
 
     @Override
     protected void registerInitializers(JList<AppInitializer> initializers) {
-        initializers.add(JframeMongoDatabaseFactory.getInstance());
         initializers.add(JframeHibernateSessionFactory.getInstance());
         initializers.add(JframeCrypto.getInstance());
         initializers.add(WxKeyManager.getInstance().setCacheProvider(new RedisWxCacheProvider()));
@@ -45,17 +45,20 @@ public class JframeApplication extends Application {
         initializers.add(JframeUnionpayApi.getInstance().setProperties(super.appProperties));
         initializers.add(JframeAlipayApi.getInstance());
         initializers.add(JframeWeixinPayApi.getInstance());
+        initializers.add(PermissionRegistery.getInstance());
         initializers.add(DbCacheContext.getInstance());
     }
 
     @Override
     protected LogAppender getLogAppender() {
-         return new JframeMongoLogAppender(AppContext.getAppConfig().getLogsDbName(), true);
+        JframeMongoDatabaseFactory.getInstance().initialize();
+        return new JframeMongoLogAppender(AppContext.getAppConfig().getLogsDbName(), true);
     }
 
     @Override
-    protected void onStarted(){
+    protected void onBeforeInitializing() {
         AppContext.setStartupDirectory(super.startupDirectory);
     }
+
 
 }

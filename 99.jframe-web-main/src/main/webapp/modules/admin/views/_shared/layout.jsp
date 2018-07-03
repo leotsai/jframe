@@ -41,7 +41,7 @@
 
         </ul>
         <div id="quit">
-            <a href="#">退 出</a>
+            <a href="/logout">退 出</a>
         </div>
     </div>
     <div id="side" class="side">

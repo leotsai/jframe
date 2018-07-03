@@ -30,6 +30,7 @@ public abstract class Application implements ApplicationListener {
     private final JList<AppInitializer> initializers = new JList<>();
 
     protected abstract void registerInitializers(JList<AppInitializer> initializers);
+
     protected abstract LogAppender getLogAppender();
 
     @Override
@@ -54,26 +55,36 @@ public abstract class Application implements ApplicationListener {
             this.startupDirectory = context.getServletContext().getRealPath("/");
             LogHelper.startLogger(this.getLogAppender());
             this.loadAppProperties();
+            this.onBeforeInitializing();
 
             this.registerAllAreas();
             this.registerInitializers(this.initializers);
-            this.initializers.forEach(x -> {
+            for (int i = 0; i < this.initializers.size(); i++) {
+                AppInitializer appInitializer = this.initializers.get(i);
                 try {
-                    x.initialize();
-                    System.out.println(x.getClass().getName() + " initialized");
-                } catch (Exception e) {
+                    Long startTime = System.currentTimeMillis();
+                    String result = appInitializer.init();
+                    Long finishTime = System.currentTimeMillis();
+                    System.out.println((i + 1) + ":【" + (finishTime - startTime) + "ms】" + result);
+                } catch (Throwable e) {
                     if (e instanceof KnownException) {
+                        System.err.println(e.getMessage());
                         LogHelper.log("AppInitializer.initialize.failed", e.getMessage());
                     } else {
-                        LogHelper.log("AppInitializer.initialize.failed", x.getClass().getName() + ":" + e);
+                        System.err.println(appInitializer.getClass().getName() + " initialize failed:" + e);
+                        LogHelper.log("AppInitializer.initialize.failed", appInitializer.getClass().getName() + ":" + e);
                     }
                 }
-            });
+            }
             this.onStarted();
         }
     }
 
-    protected void onStarted(){
+    protected void onBeforeInitializing() {
+
+    }
+
+    protected void onStarted() {
 
     }
 
