@@ -63,12 +63,12 @@ public class Article extends EntityBase {
         this.description = description;
     }
 
-    public int getReads() {
-        return reads;
+    public int getPv() {
+        return pv;
     }
 
-    public void setReads(int reads) {
-        this.reads = reads;
+    public void setPv(int pv) {
+        this.pv = pv;
     }
 
     public String getAuthor() {
