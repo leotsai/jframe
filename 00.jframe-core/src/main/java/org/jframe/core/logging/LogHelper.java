@@ -12,7 +12,6 @@ import java.util.Enumeration;
  */
 public class LogHelper {
     private static LogAppender appender;
-    private static boolean autoAppendHttpHeaders;
 
     public static void logRaw(String group, String rawMessage) {
         try {
@@ -38,7 +37,7 @@ public class LogHelper {
             }
             StringBuilder sb = new StringBuilder("【" + new Date() + "】" + message);
             sb.append("\r\nserver: " + appender.getServerName() + "\r\n");
-            if(autoAppendHttpHeaders){
+            if(appender.autoAppendHttpHeaders()){
                 appendHttpRequest(sb);
             }
             appender.entry(group, sb.toString());
@@ -67,7 +66,7 @@ public class LogHelper {
             }
             StringBuilder sb = new StringBuilder("【" + new Date() + "】" + ex.getClass().getName() + ": " + ex.getMessage() + "\r\n");
             sb.append("\r\nserver: " + appender.getServerName() + "\r\n");
-            if(autoAppendHttpHeaders){
+            if(appender.autoAppendHttpHeaders()){
                 appendHttpRequest(sb);
             }
             sb.append("-------------------------------------\r\n");
@@ -97,8 +96,7 @@ public class LogHelper {
         }
     }
 
-    public static void startLogger(LogAppender appenderInstance, boolean autoAppendHttpHeaders) {
-        LogHelper.autoAppendHttpHeaders = autoAppendHttpHeaders;
+    public static void startLogger(LogAppender appenderInstance) {
         if (appender == null || appender.isStarted() == false) {
             LogHelper.appender = appenderInstance;
             appender.start();

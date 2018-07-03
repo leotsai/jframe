@@ -1,4 +1,4 @@
-package org.jframe.web.core;
+package org.jframe.core.web;
 
 /**
  * Created by Leo on 2018/1/17.

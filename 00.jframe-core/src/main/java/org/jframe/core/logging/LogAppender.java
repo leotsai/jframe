@@ -10,4 +10,5 @@ public interface LogAppender {
     boolean isStarted();
     boolean printStackTrace();
     String getServerName();
+    boolean autoAppendHttpHeaders();
 }
