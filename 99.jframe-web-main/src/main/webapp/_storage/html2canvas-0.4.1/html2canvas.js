@@ -83,7 +83,7 @@
                     args: args
                 });
             }
-            args = []; //for some odd reason, setting .length = 0 didn't work in safari
+            args = []; //for some odd reason, system .length = 0 didn't work in safari
             method =
                 prefix =
                     definition =
@@ -1068,7 +1068,7 @@
 
         function getCSSInt(element, attribute) {
             var val = parseInt(getCSS(element, attribute), 10);
-            return (isNaN(val)) ? 0 : val; // borders in old IE are throwing 'medium' for demo.html
+            return (isNaN(val)) ? 0 : val; // borders in old IE are throwing 'medium' for system.html
         }
 
         function renderRect (ctx, x, y, w, h, bgcolor) {

@@ -41,7 +41,7 @@ libs.app.weixinImageUploader = [libs.app.weixinJsSdk, folder + "_libs/app/Weixin
 libs.pc.imageViewer = [libs.pc.slider, libs.pc.imageZoomer, folder + "_libs/pc/ImageViewer.js"];
 
 
-function getDemoConfigs() {
+function getAdminConfigs() {
     return {
         home: {
             index: [libs.fileUpload, libs.webImageUploader, libs.cascadingSelector]
@@ -50,6 +50,11 @@ function getDemoConfigs() {
             login: [],
             register: [],
             findPassword: []
+        },
+        employee: {
+            index: [libs.grid, libs.hashQuery],
+            detail: [],
+            edit: []
         }
     };
 }
@@ -75,7 +80,7 @@ function getImportedLibs(libList) {
 
 module.exports = function (grunt) {
     var pages = {
-        demo: getDemoConfigs()
+        admin: getAdminConfigs()
     };
 
     var concat = {};
@@ -104,9 +109,9 @@ module.exports = function (grunt) {
     }
 
     var core = {files: {}};
-    core.files[outputRoot + "demo/js/core.js"] = [coreFolder, subFolder("_pc")];
+    core.files[outputRoot + "admin/js/core.js"] = [coreFolder, subFolder("_pc")];
 
-    core.files[outputSource + "demo/js/core.js"] = [coreFolder, subFolder("_pc")];
+    core.files[outputSource + "admin/js/core.js"] = [coreFolder, subFolder("_pc")];
 
     concat.core = core;
 

@@ -1,0 +1,120 @@
+
+
+.page {
+    padding: 0;
+    background: none;
+}
+
+.btn-handle {
+    padding: 20px 16px 16px 16px;
+    background-color: #fff;
+}
+.btn-back {
+    padding: 0;
+    width: 120px;
+    margin-right: 100px;
+}
+.detail-info {
+    margin-top: 20px;
+    padding: 20px 0;
+    background-color: #fff;
+}
+.detail-info h3 {
+    padding-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+    line-height: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-info h3 span {
+    display: inline-block;
+    height: 20px;
+    border-left: 5px solid #c7000b;
+    padding-left: 10px;
+}
+
+.user-info{
+    border-bottom: 1px solid #eee;
+    padding: 16px 16px 20px 16px;
+}
+.user-info h4 {
+    font-size: 16px;
+    color: #333;
+}
+.user-info-list {
+    overflow: hidden;
+}
+.user-info-list > li {
+    float: left;
+    width: 280px;
+    margin:20px 20px 0 0;
+}
+.user-info-list > li label {
+    font-size: 14px;
+    color: #999;
+    display: inline-block;
+    width: 80px;
+}
+.user-info-list > li label span {
+    color: #c7000b;
+}
+.user-info-list > li span {
+    font-size: 14px;
+    color: #333;
+}
+
+.employee-info {
+    padding: 16px 16px 20px 16px;
+}
+.employee-info h4 {
+    font-size: 16px;
+    color: #78090f;
+}
+
+.employee-info-list {
+    width: 100%;
+    margin-top: 20px;
+}
+.employee-info-list > li {
+    overflow: hidden;
+    padding: 20px 0 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.employee-info-list > li .name {
+    float: left;
+    width: 102px;
+    padding: 24px 0;
+    background-color: #efeff5;
+    font-size: 20px;
+    color: #333333;
+    text-align: center;
+}
+.employee-info-list > li .name span {
+    display: block;
+    height: 20px;
+    line-height: 20px;
+}
+.employee-info-list > li > ul.value-list {
+    margin-left: 122px;
+    overflow: hidden;
+    border-bottom: 1px dashed #eee;
+    margin-bottom: 10px;
+}
+.employee-info-list > li > ul.value-list.nobor {
+    border-bottom: 0;
+}
+.employee-info-list > li > ul.value-list li {
+    float: left;
+    width: 168px;
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+    color: #333333;
+    margin-right: 20px;
+    background-color: #efeff5;
+    margin-bottom: 10px;
+}
+
+

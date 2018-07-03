@@ -1,5 +1,6 @@
 package org.jframe.services;
 
+import org.jframe.core.extensions.JList;
 import org.jframe.data.entities.OAuthWeixinUser;
 import org.jframe.data.entities.User;
 import org.jframe.data.enums.CaptchaUsage;
@@ -38,4 +39,7 @@ public interface UserService {
     User getUserByWeixinOpenId(String openid);
 
     OAuthWeixinUser getWeixinUser(String openId);
+
+    JList<User> getUsersByRoleId(Long roleId);
+
 }

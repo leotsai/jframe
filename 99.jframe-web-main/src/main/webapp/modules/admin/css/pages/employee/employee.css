@@ -1,0 +1,499 @@
+
+.page{
+    padding: 0;
+}
+.employee-index {
+    background: none;
+    overflow: hidden;
+}
+
+.side-tab-list {
+    width: 254px;
+    min-height:100%;
+    float: left;
+    background-color: #fff;
+}
+.side-tab-list .tab-headers li {
+    margin: 0;
+    width: 50%;
+}
+.side-tab-list .tab-headers li a {
+    background: none;
+    font-size: 16px;
+    color: #333;
+}
+.side-tab-list .tab-headers li.selected a {
+    background-color: #c7000b;
+    color: #fff;
+}
+/***********/
+.tab-headers {
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+.tab-side-contents {
+}
+.tab-side-contents .items .items-1{
+    line-height: 40px;
+    padding: 0 15px;
+}
+.tab-side-contents .items .items-1 a {
+    font-size: 14px;
+    color: #333;
+    display: block;
+}
+.tab-side-contents .items .items-1 a.selected {
+    color: #C7000B;
+}
+.tab-side-contents .items .items-1 span {
+    color: #C7000B;
+}
+.tab-side-contents .items .items-2 {
+    width: 100%;
+    height: auto;
+}
+.tab-side-contents .items .items-2 h5{
+    padding-left: 30px;
+    font-size: 14px;
+    color: #fff;
+    background: #312f32 url("../../images/file-open.png") no-repeat 15px center;
+    line-height: 30px;
+    font-weight: normal;
+}
+
+.department-list {
+    padding: 0 15px;
+}
+.department-list > li {
+    width: 100%;
+}
+.department-list > li a {
+    display: block;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    line-height: 40px;
+    background: url("../../images/file.png") no-repeat left center;
+    padding-left: 30px;
+    color: #333;
+}
+.department-list > li.selected a,
+.department-list > li a:hover {
+    color: #d7000b;
+}
+
+.role-list {
+    padding: 0 15px;
+    margin-top: 10px;
+}
+.role-list > li {
+    width: 100%;
+}
+.role-list > li a {
+    display: block;
+    font-size: 14px;
+    line-height: 40px;
+    color: #222222;
+    padding-left: 15px;
+    border-bottom: 1px solid #eee;
+}
+.role-list > li.selected a,
+.role-list > li a:hover {
+    background-color: #efeff5;
+}
+.tab-side-contents .items-3 {
+    padding: 0 15px;
+    margin-top: 20px;
+}
+.tab-side-contents .items-3 .btn {
+    width: 100%;
+    padding: 0;
+}
+
+/*******/
+.role-setting {
+    background-color: #fff;
+    width: 100%;
+    min-height: 100%;
+}
+.btn-handle {
+    text-align: center;
+    padding: 20px 0;
+}
+
+/**********/
+.content-table {
+    padding: 18px;
+}
+.tab-main-contents .pager {
+    border:0;
+    padding: 18px;
+}
+
+.handle-cont {
+    padding: 18px 0;
+}
+.handle-cont a {
+    font-size: 16px;
+    color: #c7000b;
+    padding: 0 18px;
+}
+.handle-cont a.right-border {
+    display: inline-block;
+    border-right: 2px solid #eee;
+}
+
+.content-table .grid {
+    margin-top: 20px;
+}
+
+
+/******/
+.manage-content {
+    margin-left: 274px;
+    background-color: #fff;
+}
+
+.btnBack {
+    width: 120px;
+    padding: 0;
+    margin-left: 20px;
+}
+
+.info-cont {
+    padding: 5px 0 0 0;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+.role-setting .info-cont {
+    border: 0;
+}
+.info-cont h3 {
+    font-size: 20px;
+    color: #333;
+    line-height: 20px;
+    margin-top: 20px;
+}
+
+.info-cont h3 span {
+    display: inline-block;
+    height: 20px;
+    border-left: 5px solid #c7000b;
+    padding-left: 10px;
+}
+
+.info-cont .note {
+    padding:10px 0 0 18px;
+    font-size: 14px;
+    color: #999999;
+    line-height: 24px;
+    width: 88%;
+    word-break: break-all;
+}
+.role-setting .handle-btn {
+    position: absolute;
+    right: 18px;
+    bottom: 10px;
+}
+.role-setting .btn-permission {
+    height: 36px;
+    display: block;
+    line-height: 36px;
+    color: #312f32;
+    border:1px solid #312f32;
+    border-radius: 5px;
+    padding: 0 10px;
+    text-align: center;
+
+}
+.role-setting .handle-btn .btn-permission span {
+    color: #d7000b;
+}
+
+.role-setting-box {
+    padding: 0 18px;
+}
+.role-setting-box h5 {
+    font-size: 16px;
+    color: #fff;
+    background-color: #312f32;
+    line-height: 38px;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+
+.permission-list {
+    width: 100%;
+}
+.permission-list>li {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.permission-part {
+    overflow: hidden;
+}
+
+.part-all {
+    width: 102px;
+    float: left;
+    margin-top: 15px;
+    background-color: #efeff5;
+    color: #333333;
+}
+.part-all h6 {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    height: 68px;
+    position: relative;
+}
+.part-all h6 span {
+    display: block;
+    height: 20px;
+    position: relative;
+    top: 24px;
+}
+.part-all a {
+    display: block;
+    text-align: center;
+    line-height: 28px;
+    font-size: 14px;
+    color: #333;
+    background: url("../../images/perminssion1.png") no-repeat 15px;
+    border-top: 1px solid #fff;
+}
+.part-all.selected {
+    background-color: #312f32;
+    color: #fff;
+}
+.part-all.selected a {
+    background-image: url("../../images/perminssion2.png");
+    color: #fff;
+}
+.part-list {
+    overflow: hidden;
+    margin: 5px 0 0 132px;
+}
+.part-list>li {
+    float: left;
+    width: 168px;
+    margin: 10px 18px 0 0;
+}
+.part-list>li a {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    line-height: 32px;
+    text-align: center;
+    background-color: #efeff5;
+}
+.part-list>li.selected a {
+    background-color: #312f32;
+    color: #fff;
+}
+
+    /*****/
+.group-info {
+    padding: 20px;
+}
+.group-info h4 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.group-info label {
+    font-size: 14px;
+    color: #333;
+    width: 80px;
+    display: inline-block;
+}
+
+.phone-number {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #eee;
+}
+
+.phone-number .btn {
+    margin-left: 15px;
+}
+
+.group-info .message {
+    color: #C7000B;
+    font-size: 16px;
+    padding-left: 10px;
+}
+.group-info .btn-success {
+    border:0;
+    width: 22px;
+    height:22px;
+    background: url("../../images/btn-success.png") no-repeat center;
+
+}
+.editor-form {
+    width: 950px;
+    overflow: hidden;
+}
+
+.form-group-info {
+    float: left;
+    width: 430px;
+    padding-bottom: 20px;
+    overflow: hidden;
+    line-height: 38px;
+    position: relative;
+}
+.wd-auto {
+    width: 100%;
+}
+.form-group-info.center {
+    text-align: center;
+}
+.form-group-info label {
+    float: left;
+    width: 80px;
+}
+.form-group-info label.wd {
+    width: 40px;
+    margin-left: 20px;
+}
+.form-group-info input.txt,
+.form-group-info span,
+.form-group-info select{
+    float: left;
+}
+.form-group-info .txt.select-wd1 {
+    width:80px;
+}
+.form-group-info .txt.date{
+    width: 160px;
+    background-position: 128px;
+}
+.form-group-info .txt {
+    width: 300px;
+}
+
+.employee-list {
+    margin-left: 80px;
+}
+.employee-list>li {
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.choose-employee {
+    background: url("../../images/no-choose.png") no-repeat left;
+    padding-left: 30px;
+    float: left;
+    overflow: hidden;
+}
+.p-employee{
+    display: inline-block;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+}
+.choose-employee.selected {
+    background-image: url("../../images/filter02.png");
+}
+
+.choose-employee .cell1 {
+    margin-right: 20px;
+}
+.choose-employee .cell2 {
+    margin-right: 20px;
+    color: #999;
+}
+.choose-employee .sys-icon{
+    width: 50px;
+    text-align: center;
+    color: #78090f;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid #78090f;
+    line-height: 20px;
+    letter-spacing: 4px;
+    padding-left: 4px;
+    position: relative;
+    top: 7px;
+    font-style: normal;
+}
+
+
+span.form-error {
+    position: absolute;
+    left: 80px;
+    bottom:0;
+}
+span#name-error {
+    bottom: -5px;
+}
+span#phone-error{
+    top:0;
+}
+.lab {
+    display: inline-block;
+    width: 70px;
+    padding-right: 10px;
+    float: left;
+    line-height: 38px;
+}
+
+
+/****添加角色******/
+
+#formRoleEditor .info-cont {
+    position: relative;
+}
+#formRoleEditor span.form-error {
+    position: relative;
+    left: 10px;
+    top:0;
+    line-height: 38px;
+    display: inline-block;
+}
+.top-title a{
+    font-size: 16px;
+    color: #C7000B;
+    padding-left: 18px;
+}
+.edit-role {
+   padding: 18px;
+}
+
+.edit-role div {
+    overflow: hidden;
+}
+.edit-role div label {
+    float: left;
+    line-height: 38px;
+    width: 100px;
+    font-size: 14px;
+    color: #333;
+}
+.edit-role div.group1 {
+    margin-top: 10px;
+}
+.edit-role div textarea {
+    width: 600px;
+    height: 100px;
+    border: 1px solid #9fa0a0;
+    resize: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

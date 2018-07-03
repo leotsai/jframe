@@ -39,6 +39,13 @@ public class MenuItem {
         }
     }
 
+    public MenuItem getRootItem() {
+        if (this.getParent() != null) {
+            return this.getParent().getRootItem();
+        }
+        return this;
+    }
+
     @Override
     public MenuItem clone() {
         return new MenuItem(this.id, this.text, this.icon, this.url);
