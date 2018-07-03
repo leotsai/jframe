@@ -1,5 +1,7 @@
 package org.jframe.data.entities;
 
+import org.jframe.data.core.EntityBase;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "s_articles")
-public class Article {
+public class Article extends EntityBase {
 
     @Column(name = "title", columnDefinition = "varchar(255) not null COMMENT '文章标题'")
     private String title;
