@@ -25,8 +25,8 @@ public class Article extends EntityBase {
     @Column(name = "description", columnDefinition = "longtext null COMMENT '描述'")
     private String description;
 
-    @Column(name = "reads", columnDefinition = "int not null COMMENT '阅读量'")
-    private int reads = 0;
+    @Column(name = "pv", columnDefinition = "int not null COMMENT '阅读量'")
+    private int pv = 0;
 
     @Column(name = "author", columnDefinition = "longtext null COMMENT '作者'")
     private String author;
