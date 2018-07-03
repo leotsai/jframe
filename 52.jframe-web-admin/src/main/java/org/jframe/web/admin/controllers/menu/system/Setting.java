@@ -1,15 +1,15 @@
-package org.jframe.web.admin.controllers.menu;
+package org.jframe.web.admin.controllers.menu.system;
 
-import org.jframe.web.admin.controllers.menu.setting.Permission;
+import org.jframe.web.admin.controllers.menu.system.setting.Permission;
 import org.jframe.web.menu.MenuItem;
 
 /**
- * @author qq
- * @date 2018/6/26
+ * @author:qq
+ * @date:2018/1/18
  */
 public class Setting extends MenuItem {
     public Setting() {
-        super(2, "setting", "设置", "setting", "/admin/employee");
+        super(1, "l2Setting", "设置", "setting", "#");
     }
 
     private final Permission permission = new Permission();

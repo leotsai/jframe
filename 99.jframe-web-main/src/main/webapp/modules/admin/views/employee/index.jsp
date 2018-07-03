@@ -18,7 +18,7 @@
                         <div class="items-1"><a href="javascript:;" class="btn-super-manager">超级管理员<span id="superAdminCount" /></a></div>
                     </c:if>
                     <div class="items-2">
-                        <h5>五品库（杭州）电子商务有限公司</h5>
+                        <h5>root</h5>
                         <ul class="department-list">
                             <c:forEach items="${model.departments}" var="item">
                                 <li class="${model.department.id==item.id?'selected':''}"><a data-id="${item.id}" data-name="${item.name}" href="javascript:;">${item.name}<span></span></a></li>

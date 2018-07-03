@@ -42,7 +42,7 @@ public class RoleSettingController extends _AdminControllerBase {
 
         @Override
         public void registerMenuPermissions() {
-            Menu.setting().permission().apc(DICT);
+            Menu.system().setting().permission().apc(DICT);
         }
     }
 

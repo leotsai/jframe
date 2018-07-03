@@ -21,6 +21,7 @@ import org.jframe.infrastructure.sms.JframeSmsApi;
 import org.jframe.infrastructure.unionpay.JframeUnionpayApi;
 import org.jframe.infrastructure.weixin.JframeWeixinPayApi;
 import org.jframe.web.core.AreaRegistration;
+import org.jframe.web.security.PermissionRegistery;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
@@ -67,6 +68,7 @@ public class MvcApplicationListner implements ApplicationListener {
             SDKConfig.getConfig().loadProperties(appProperties);
             this.registerAllAreas();
 
+
             INITIALIZERS.add(JframeMongoDatabaseFactory.getInstance());
             INITIALIZERS.add(JframeHibernateSessionFactory.getInstance().setConfiguration(AppContext.getStartupDirectory()));
             INITIALIZERS.add(JframeCrypto.getInstance());
@@ -77,6 +79,7 @@ public class MvcApplicationListner implements ApplicationListener {
             INITIALIZERS.add(JframeAlipayApi.getInstance());
             INITIALIZERS.add(JframeWeixinPayApi.getInstance());
             INITIALIZERS.add(DbCacheContext.getInstance());
+            INITIALIZERS.add(new PermissionRegistery());
 
             INITIALIZERS.forEach(x -> {
                 try {
@@ -90,6 +93,7 @@ public class MvcApplicationListner implements ApplicationListener {
                     }
                 }
             });
+
         }
     }
 
