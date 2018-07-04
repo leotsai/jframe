@@ -59,23 +59,28 @@ public abstract class Application implements ApplicationListener {
 
             this.registerAllAreas();
             this.registerInitializers(this.initializers);
+            int successCount = 0;
+            int failCount = 0;
             for (int i = 0; i < this.initializers.size(); i++) {
                 AppInitializer appInitializer = this.initializers.get(i);
                 try {
                     Long startTime = System.currentTimeMillis();
                     String result = appInitializer.init();
                     Long finishTime = System.currentTimeMillis();
+                    successCount++;
                     System.out.println((i + 1) + ":【" + (finishTime - startTime) + "ms】" + result);
                 } catch (Throwable e) {
+                    failCount++;
                     if (e instanceof KnownException) {
-                        System.err.println(e.getMessage());
+                        System.err.println("【failed】" + e.getMessage());
                         LogHelper.log("AppInitializer.initialize.failed", e.getMessage());
                     } else {
-                        System.err.println(appInitializer.getClass().getName() + " initialize failed:" + e);
+                        System.err.println("【failed】" + appInitializer.getClass().getName() + " initialize failed:" + e);
                         LogHelper.log("AppInitializer.initialize.failed", appInitializer.getClass().getName() + ":" + e);
                     }
                 }
             }
+            System.out.println("\n初始化总数：" + this.initializers.size() + "，成功：" + successCount + "，失败：" + failCount + "\n");
             this.onStarted();
         }
     }

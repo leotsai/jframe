@@ -10,7 +10,7 @@ import org.jframe.web.viewModels.LayoutViewModel;
 public class CaseIndexViewModel extends LayoutViewModel {
 
 
-    public CaseIndexViewModel(){
+    public CaseIndexViewModel() {
         this.setTitle("cases");
         this.setKeywords("cases, jframe");
         this.setDescription("cases");
