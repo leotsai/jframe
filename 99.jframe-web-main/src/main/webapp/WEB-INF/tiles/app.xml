@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="appLayout" template="/modules/app/views/_shared/layout.jsp">
+        <put-attribute name="title" value=""/>
+    </definition>
+    <definition name="app-weixinDialog" template="/modules/app/views/_shared/weixinDialog.jsp"/>
+
+    <definition name="app-home-index" extends="appLayout">
+        <put-attribute name="body" value="/modules/app/views/home/index.jsp"/>
+    </definition>
+
+    <definition name="app-account-login" extends="appLayout">
+        <put-attribute name="body" value="/modules/app/views/account/login.jsp"/>
+    </definition>
+    <definition name="app-account-register" extends="appLayout">
+        <put-attribute name="body" value="/modules/app/views/account/register.jsp"/>
+    </definition>
+    <definition name="app-account-findPassword" extends="appLayout">
+        <put-attribute name="body" value="/modules/app/views/account/findPassword.jsp"/>
+    </definition>
+</tiles-definitions>
