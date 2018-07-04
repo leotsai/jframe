@@ -1,4 +1,4 @@
-package org.jframe.web.admin.controllers.controllers;
+package org.jframe.web.admin.controllers;
 
 import org.jframe.core.extensions.JList;
 import org.jframe.core.web.RestPost;
@@ -6,8 +6,8 @@ import org.jframe.core.web.StandardJsonResult;
 import org.jframe.data.entities.Department;
 import org.jframe.data.entities.Permission;
 import org.jframe.service.admin.DepartmentService;
+import org.jframe.web.admin.Menu;
 import org.jframe.web.core.PermissionDefinition;
-import org.jframe.web.admin.controllers.Menu;
 import org.jframe.web.security.Authorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

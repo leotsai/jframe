@@ -1,4 +1,4 @@
-package org.jframe.web.admin.controllers.controllers;
+package org.jframe.web.admin.controllers;
 
 import org.jframe.data.entities.Role;
 import org.jframe.web.controllers._ControllerBase;

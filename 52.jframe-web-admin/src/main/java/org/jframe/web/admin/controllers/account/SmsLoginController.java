@@ -1,4 +1,4 @@
-package org.jframe.web.admin.controllers.controllers.account;
+package org.jframe.web.admin.controllers.account;
 
 import org.jframe.core.extensions.KnownException;
 import org.jframe.core.helpers.StringHelper;
@@ -11,7 +11,7 @@ import org.jframe.infrastructure.helpers.CookieHelper;
 import org.jframe.services.CaptchaService;
 import org.jframe.services.UserService;
 import org.jframe.services.dto.LoginResultDto;
-import org.jframe.web.admin.controllers.controllers._AdminControllerBase;
+import org.jframe.web.admin.controllers._AdminControllerBase;
 import org.jframe.web.enums.WeixinAuthMode;
 import org.jframe.web.security.Authorize;
 import org.jframe.web.security.WebContext;

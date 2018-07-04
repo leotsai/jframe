@@ -1,7 +1,7 @@
-package org.jframe.web.admin.controllers.controllers;
+package org.jframe.web.admin.controllers;
 
-import org.jframe.web.admin.controllers.Menu;
-import org.jframe.web.admin.controllers.score.AdminLayoutViewModel;
+import org.jframe.web.admin.Menu;
+import org.jframe.web.admin.score.AdminLayoutViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;

@@ -1,8 +1,8 @@
-package org.jframe.web.admin.controllers.score;
+package org.jframe.web.admin.score;
 
 import org.jframe.core.extensions.JList;
 import org.jframe.services.security.UserSession;
-import org.jframe.web.admin.controllers.Menu;
+import org.jframe.web.admin.Menu;
 import org.jframe.web.menu.MenuItem;
 import org.jframe.web.security.WebContext;
 import org.jframe.web.viewModels.LayoutViewModel;

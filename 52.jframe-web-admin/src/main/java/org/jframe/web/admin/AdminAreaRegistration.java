@@ -1,4 +1,4 @@
-package org.jframe.web.admin.controllers;
+package org.jframe.web.admin;
 
 import org.jframe.core.extensions.JList;
 import org.jframe.core.extensions.KnownException;

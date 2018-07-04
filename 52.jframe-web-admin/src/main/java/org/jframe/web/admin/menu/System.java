@@ -1,7 +1,6 @@
-package org.jframe.web.admin.controllers.menu;
+package org.jframe.web.admin.menu;
 
-import org.jframe.web.admin.controllers.menu.system.Setting;
-import org.jframe.web.admin.controllers.menu.system.setting.Permission;
+import org.jframe.web.admin.menu.system.Setting;
 import org.jframe.web.menu.MenuItem;
 
 /**

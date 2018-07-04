@@ -17,10 +17,12 @@
         <module>21.jframe-services-pc</module>
         <module>22.jframe-services-admin</module>
         <module>23.jframe-services-api</module>
+        <module>24.jframe-services-app</module>
         <module>50.jframe-web</module>
         <module>51.jframe-web-pc</module>
         <module>52.jframe-web-admin</module>
         <module>53.jframe-web-api</module>
+        <module>54.jframe-web-app</module>
         <module>99.jframe-web-main</module>
 
     </modules>

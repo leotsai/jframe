@@ -1,4 +1,4 @@
-package org.jframe.web.admin.controllers.controllers;
+package org.jframe.web.admin.controllers;
 
 import org.jframe.core.extensions.JList;
 import org.jframe.core.web.RestPost;
@@ -11,7 +11,7 @@ import org.jframe.service.admin.RoleSettingService;
 import org.jframe.service.admin.dto.RolePermissionDto;
 import org.jframe.services.UserService;
 import org.jframe.services.security.UserSession;
-import org.jframe.web.admin.controllers.Menu;
+import org.jframe.web.admin.Menu;
 import org.jframe.web.core.PermissionDefinition;
 import org.jframe.web.security.Authorize;
 import org.jframe.web.security.WebContext;

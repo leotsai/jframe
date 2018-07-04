@@ -1,4 +1,4 @@
-package org.jframe.web.admin.controllers.viewModel;
+package org.jframe.web.admin.viewModel;
 
 import org.jframe.core.extensions.JList;
 import org.jframe.data.entities.Department;
@@ -9,8 +9,8 @@ import org.jframe.service.admin.DepartmentService;
 import org.jframe.service.admin.EmployeeService;
 import org.jframe.service.admin.RoleService;
 import org.jframe.service.admin.dto.EmployeeEditDto;
-import org.jframe.web.admin.controllers.Menu;
-import org.jframe.web.admin.controllers.score.AdminLayoutViewModel;
+import org.jframe.web.admin.Menu;
+import org.jframe.web.admin.score.AdminLayoutViewModel;
 
 import java.util.Objects;
 

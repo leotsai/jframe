@@ -1,10 +1,10 @@
-package org.jframe.web.admin.controllers;
+package org.jframe.web.admin;
 
 import org.jframe.core.extensions.JList;
 import org.jframe.core.helpers.ClassHelper;
 import org.jframe.core.helpers.StringHelper;
-import org.jframe.web.admin.controllers.menu.Home;
-import org.jframe.web.admin.controllers.menu.System;
+import org.jframe.web.admin.menu.Home;
+import org.jframe.web.admin.menu.System;
 import org.jframe.web.menu.MenuItem;
 
 import java.lang.reflect.Method;

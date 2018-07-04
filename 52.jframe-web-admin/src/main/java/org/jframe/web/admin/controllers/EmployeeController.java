@@ -1,4 +1,4 @@
-package org.jframe.web.admin.controllers.controllers;
+package org.jframe.web.admin.controllers;
 
 import org.jframe.core.extensions.JList;
 import org.jframe.core.extensions.KnownException;
@@ -11,11 +11,11 @@ import org.jframe.data.entities.Permission;
 import org.jframe.service.admin.EmployeeService;
 import org.jframe.services.UserService;
 import org.jframe.services.security.UserSession;
+import org.jframe.web.admin.Menu;
+import org.jframe.web.admin.viewModel.EmployeeDetailViewModel;
+import org.jframe.web.admin.viewModel.EmployeeIndexViewModel;
 import org.jframe.web.core.PermissionDefinition;
-import org.jframe.web.admin.controllers.Menu;
-import org.jframe.web.admin.controllers.viewModel.EmployeeDetailViewModel;
-import org.jframe.web.admin.controllers.viewModel.EmployeeEditViewModel;
-import org.jframe.web.admin.controllers.viewModel.EmployeeIndexViewModel;
+import org.jframe.web.admin.viewModel.EmployeeEditViewModel;
 import org.jframe.web.security.Authorize;
 import org.jframe.web.security.WebContext;
 import org.springframework.beans.factory.annotation.Autowired;

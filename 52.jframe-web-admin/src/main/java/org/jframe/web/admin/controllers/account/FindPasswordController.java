@@ -1,22 +1,21 @@
-package org.jframe.web.admin.controllers.controllers.account;
+package org.jframe.web.admin.controllers.account;
 
+import org.jframe.core.extensions.KnownException;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.web.RestPost;
 import org.jframe.core.web.StandardJsonResult;
 import org.jframe.data.entities.OAuthWeixinUser;
-import org.jframe.data.entities.User;
 import org.jframe.data.enums.CaptchaUsage;
 import org.jframe.infrastructure.helpers.CookieHelper;
 import org.jframe.services.CaptchaService;
 import org.jframe.services.UserService;
 import org.jframe.services.dto.LoginResultDto;
-import org.jframe.web.admin.controllers.controllers._AdminControllerBase;
+import org.jframe.web.admin.controllers._AdminControllerBase;
 import org.jframe.web.enums.WeixinAuthMode;
 import org.jframe.web.security.Authorize;
 import org.jframe.web.security.WebContext;
 import org.jframe.web.security.WebIdentity;
 import org.jframe.web.security.WeixinAutoLogin;
-import org.jframe.web.viewModels.LayoutViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +24,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author luohang
- * @date 2017-09-21 14:20:11
+ * @date 2017-09-21 09:49:12
  */
-@Controller("admin-register-controller")
-@RequestMapping("/admin/register")
+@Controller("admin-findPassword-controller")
+@RequestMapping("/admin/findPassword")
 @Authorize(anonymous = true)
 @WeixinAutoLogin(mode = WeixinAuthMode.OAUTH)
-public class RegisterController extends _AdminControllerBase {
+public class FindPasswordController extends _AdminControllerBase {
 
     @Autowired
     UserService userService;
@@ -39,25 +38,33 @@ public class RegisterController extends _AdminControllerBase {
     @Autowired
     CaptchaService captchaService;
 
-
     @GetMapping
     public ModelAndView index(String returnUrl) {
-        return super.tryView("admin-account-register", () -> {
-            LayoutViewModel model = new LayoutViewModel("注册", returnUrl);
-            return model;
+        return super.tryView("admin-account-findPassword", () -> {
+            return null;
         });
     }
 
-    @RestPost("/doRegister")
-    public StandardJsonResult<LoginResultDto> doRegister(String username, String password, String smsCaptcha) {
+    @RestPost("/checkSmsCaptcha")
+    public StandardJsonResult checkSmsCaptcha(String username, String smsCaptcha) {
         return super.tryJson(() -> {
             StringHelper.validate_notNullOrWhitespace(username, "手机号不能为空");
-            StringHelper.validate_notNullOrWhitespace(password, "登陆密码不能为空");
             StringHelper.validate_notNullOrWhitespace(smsCaptcha, "请输入短信验证码");
+            captchaService.validateSmsCaptcha(username, smsCaptcha, CaptchaUsage.RESET_PASSWORD);
+            captchaService.markLatestCaptchaUnused(username, CaptchaUsage.RESET_PASSWORD, smsCaptcha);
+        });
+    }
 
-            captchaService.validateSmsCaptcha(username, smsCaptcha, CaptchaUsage.REGISTER);
-            User user = userService.register(username, password);
+    @RestPost("/resetPassword")
+    public StandardJsonResult<LoginResultDto> resetPassword(String username, String password, String smsCaptcha) {
+        return super.tryJson(() -> {
+            if (StringHelper.isNullOrWhitespace(username) || StringHelper.isNullOrWhitespace(password)) {
+                throw new KnownException("用户名密码不能为空");
+            }
+            StringHelper.validate_notNullOrWhitespace(smsCaptcha, "短信验证码不能为空");
 
+            captchaService.validateSmsCaptcha(username, smsCaptcha, CaptchaUsage.RESET_PASSWORD);
+            userService.resetPassword(username, password);
             userService.passwordLogin(username, password, "");
             WebContext.getCurrent().login(new WebIdentity(username, password));
 
