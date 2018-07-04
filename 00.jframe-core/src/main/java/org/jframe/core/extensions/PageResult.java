@@ -1,6 +1,9 @@
 package org.jframe.core.extensions;
 
 
+import org.apache.commons.lang3.StringUtils;
+import org.jframe.core.helpers.HttpHelper;
+
 import java.util.List;
 import java.util.function.Function;
 
@@ -8,6 +11,11 @@ import java.util.function.Function;
  * Created by leo on 2017-05-26.
  */
 public class PageResult<T> {
+    /**
+     * 分页插件中最多显示的快捷页码个数
+     */
+    private static final int MAX_TAG_COUNT = 10;
+
     private int totalRows;
     private int totalPages;
     private int pageIndex;
@@ -81,6 +89,81 @@ public class PageResult<T> {
         return "<input type=\"hidden\" class=\"total-pages\" value=\"" + this.totalPages + "\"/>"
                 + "<input type=\"hidden\" class=\"page-index\" value=\"" + this.pageIndex + "\"/>"
                 + "<input type=\"hidden\" class=\"page-rows\" value=\"" + this.totalRows + "\"/>";
+    }
+
+    public String render() {
+        return render("pageIndex");
+    }
+
+    public String render(String paramName) {
+        String uri = getUriAndParams(paramName);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<ul>");
+        appendPrevious(uri, sb);
+        int start = pageIndex / MAX_TAG_COUNT * MAX_TAG_COUNT;
+        int nextStart = (pageIndex / MAX_TAG_COUNT + 1) * MAX_TAG_COUNT;
+        int end = nextStart > totalPages ? totalPages : nextStart;
+        do {
+            sb.append("<li class=\"page");
+            if (start == pageIndex) {
+                sb.append(" selected");
+            }
+            sb.append("\"><a href=\"").append(assembleUrl(uri, start)).append("\">").append(++start).append("</a></li>");
+        } while (start < end);
+        appendNext(uri, sb);
+        sb.append("</ul>");
+        sb.append("<div class=\"pager-summary\">");
+        sb.append("<span>共").append(totalRows).append("条记录</span>");
+        sb.append("<span>").append(pageIndex + 1).append("/").append(0 == totalPages ? 1 : totalPages).append("页</span>");
+        sb.append("</div>");
+
+        return sb.toString();
+    }
+
+    private void appendNext(String uri, StringBuilder sb) {
+        sb.append("<li class=\"next");
+        if (totalPages <= pageIndex + 1) {
+            sb.append(" disabled");
+        }
+        sb.append("\"><a href=\"");
+        if (totalPages <= pageIndex + 1) {
+            sb.append("javascript:void(0);");
+        } else {
+            sb.append(assembleUrl(uri, pageIndex < totalPages ? pageIndex + 1 : totalPages));
+        }
+        sb.append("\">下一页</a></li>");
+    }
+
+    private void appendPrevious(String uri, StringBuilder sb) {
+        sb.append("<li class=\"previous");
+        if (0 == pageIndex) {
+            sb.append(" disabled");
+        }
+        sb.append("\"><a href=\"");
+        if (0 == pageIndex) {
+            sb.append("javascript:void(0);");
+        } else {
+            sb.append(assembleUrl(uri, pageIndex > 1 ? pageIndex - 1 : 0));
+        }
+        sb.append("\">上一页</a></li>");
+    }
+
+    private String getUriAndParams(String paramName) {
+        String requestURI = HttpHelper.getCurrentRequest().getRequestURI();
+        String queryString = HttpHelper.getCurrentRequest().getQueryString();
+        if (StringUtils.isNotBlank(queryString)) {
+            if (queryString.indexOf(paramName) > -1) {
+                queryString = queryString.replaceAll("^&*" + paramName + "=\\d+$", "");
+            }
+            return requestURI + "?" + queryString + "&" + paramName + "=";
+        } else {
+            return requestURI + "?" + paramName + "=";
+        }
+    }
+
+    private String assembleUrl(String uri, int pageIndex) {
+        return uri + pageIndex;
     }
 
     //-----------------------------------

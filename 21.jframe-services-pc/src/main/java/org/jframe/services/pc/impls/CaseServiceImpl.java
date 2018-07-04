@@ -29,7 +29,7 @@ public class CaseServiceImpl extends ServiceBase implements CaseService {
             }
         }
         result.setTotalPages(100);
-        result.setTotalPages(request.getPageSize() * result.getTotalPages());
+        result.setTotalRows(result.getTotalPages() * result.getPageSize());
         return result;
     }
 

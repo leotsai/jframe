@@ -15,22 +15,22 @@
 
 
 <div class="pager">
-    <%--${model.cases.render()}--%>
+    ${model.cases.render()}
 
-    <ul>
-        <c:if test="${model.cases.hasPreviousPage()}">
-            <li class="previous"><a href="/pc/case?i=${model.cases.pageIndex-1}">prev</a></li>
-        </c:if>
+    <%--<ul>--%>
+        <%--<c:if test="${model.cases.hasPreviousPage()}">--%>
+            <%--<li class="previous"><a href="/pc/case?i=${model.cases.pageIndex-1}">prev</a></li>--%>
+        <%--</c:if>--%>
 
 
-        <c:forEach var="i" begin="0" end="10" step="1">
-            <li>
-                <a href="/pc/case?i=${model.cases.pageIndex + i}">${model.cases.pageIndex + i + 1}</a>
-            </li>
-        </c:forEach>
+        <%--<c:forEach var="i" begin="0" end="10" step="1">--%>
+            <%--<li>--%>
+                <%--<a href="/pc/case?i=${model.cases.pageIndex + i}">${model.cases.pageIndex + i + 1}</a>--%>
+            <%--</li>--%>
+        <%--</c:forEach>--%>
 
-        <c:if test="${model.cases.hasNextPage()}">
-            <li class="next"><a href="/pc/case?i=${model.cases.pageIndex + 1}">next</a></li>
-        </c:if>
-    </ul>
+        <%--<c:if test="${model.cases.hasNextPage()}">--%>
+            <%--<li class="next"><a href="/pc/case?i=${model.cases.pageIndex + 1}">next</a></li>--%>
+        <%--</c:if>--%>
+    <%--</ul>--%>
 </div>

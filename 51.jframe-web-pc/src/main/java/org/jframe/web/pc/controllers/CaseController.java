@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class CaseController extends _PcControllerBase {
 
     @GetMapping("")
-    public ModelAndView index(@RequestParam(name = "i", required = false) Integer pageIndex){
+    public ModelAndView index(@RequestParam(name = "pageIndex", required = false) Integer pageIndex){
         return super.tryView("pc-case-index", ()->{
             CaseIndexViewModel model = new CaseIndexViewModel();
             PageRequest request = new PageRequest(0, 10);
