@@ -74,6 +74,10 @@ public class AppContext {
         return getBean(JframeUnionpayConfig.class);
     }
 
+    public static HibernateConfig getHibernateConfig() {
+        return getBean(HibernateConfig.class);
+    }
+
     public static <T extends WeixinPayConfig> WeixinPayConfig getWeixinPayConfig(Class<T> clazz) {
         return getBean(clazz);
     }
