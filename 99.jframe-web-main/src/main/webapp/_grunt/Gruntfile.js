@@ -59,6 +59,16 @@ function getAdminConfigs() {
     };
 }
 
+function getAppConfigs() {
+    return {
+        account: {
+            login: [],
+            register: [],
+            findPassword: []
+        }
+    };
+}
+
 function getImportedLibs(libList) {
     var list = [];
 
@@ -80,7 +90,8 @@ function getImportedLibs(libList) {
 
 module.exports = function (grunt) {
     var pages = {
-        admin: getAdminConfigs()
+        admin: getAdminConfigs(),
+        app: getAppConfigs()
     };
 
     var concat = {};
@@ -110,8 +121,10 @@ module.exports = function (grunt) {
 
     var core = {files: {}};
     core.files[outputRoot + "admin/js/core.js"] = [coreFolder, subFolder("_pc")];
+    core.files[outputRoot + "app/js/core.js"] = [coreFolder, subFolder("_weixin")];
 
     core.files[outputSource + "admin/js/core.js"] = [coreFolder, subFolder("_pc")];
+    core.files[outputSource + "app/js/core.js"] = [coreFolder, subFolder("_weixin")];
 
     concat.core = core;
 

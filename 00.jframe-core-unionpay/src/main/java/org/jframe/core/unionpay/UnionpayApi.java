@@ -21,7 +21,6 @@ public class UnionpayApi {
 
     public void initialize(UnionpayConfig config) {
         this.config = config;
-        System.out.println("unionpay api initialized, merid = " + config.getMerId());
     }
 
     public String buildPayAndOpenCardForm(BigDecimal amount, String requestUuid) {

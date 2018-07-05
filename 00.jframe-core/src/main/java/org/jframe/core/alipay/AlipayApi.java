@@ -31,7 +31,6 @@ public class AlipayApi {
 
     public void initialize(AlipayMobileConfig config) {
         this.config = config;
-        System.out.println("alipay api initialized, appid = " + config.getAppId());
     }
 
     public QueryOrderStatusResult queryOrderStatus(String outTradeNo, String tradeNo) {

@@ -19,6 +19,12 @@ public class JframeCrypto extends Crypto implements AppInitializer {
     }
 
     @Override
+    public String init() {
+        super.initialize();
+        return this.getClass().getName() + " initialize success!";
+    }
+
+    @Override
     public void close() {
 
     }

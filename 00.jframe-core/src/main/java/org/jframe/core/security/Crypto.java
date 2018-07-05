@@ -36,10 +36,8 @@ public class Crypto {
 
             decryptCipher = Cipher.getInstance(this.algorithm);
             decryptCipher.init(Cipher.DECRYPT_MODE, key);
-            System.out.println("crypto initialized");
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.err.println("crypto initialized failed");
         }
     }
 

@@ -1,5 +1,6 @@
 package org.jframe.web.controllers;
 
+import org.apache.commons.io.FileUtils;
 import org.jframe.core.extensions.Action1;
 import org.jframe.core.extensions.KnownException;
 import org.jframe.core.extensions.ThrowableAction;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Created by leo on 2016-12-16.
@@ -126,6 +129,11 @@ public class _ControllerBase {
         if (!valueIsValid) {
             throw new KnownException(errorMessage);
         }
+    }
+
+    protected String readFileText(String relativePath) throws Exception {
+        Path physicalPath = Paths.get(AppContext.getStartupDirectory(), relativePath);
+        return FileUtils.readFileToString(physicalPath.toFile(), "UTF-8");
     }
 
 }

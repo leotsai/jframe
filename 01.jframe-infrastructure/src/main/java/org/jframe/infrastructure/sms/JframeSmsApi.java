@@ -22,8 +22,9 @@ public class JframeSmsApi extends AliyunSmsApi implements AppInitializer {
     }
 
     @Override
-    public void initialize() {
+    public String init() {
         super.initialize(AppContext.getSmsConfig());
+        return this.getClass().getName() + " initialize success!";
     }
 
     @Override

@@ -61,7 +61,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
 
     <mvc:default-servlet-handler/>
-    <bean id="appListerner" class="org.jframe.web.MvcApplicationListner" />
+    <bean id="appListerner" class="org.jframe.web.JframeApplication" />
 
 
     <!-- 启动包扫描功能，以便注册带有@Controller、@service、@repository、@Component等注解的类成为spring的bean -->

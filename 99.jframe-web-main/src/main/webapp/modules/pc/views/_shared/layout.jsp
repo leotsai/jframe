@@ -31,6 +31,8 @@
             <div class="inner">
                 <ul id="mainMenu" class="menu clearfix">
                     <li id="navHome"><a href="/">home</a></li>
+                    <li id="navCase"><a href="/pc/case">cases</a></li>
+                    <li id="navAbout"><a href="/pc/home/about">about</a></li>
                 </ul>
                 <ul id="loginStatus" class="menu clearfix">
                     <li id="navLogin"><a href="/login">login</a></li>

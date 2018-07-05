@@ -1,0 +1,400 @@
+#body {
+	background-color: #fff;
+}
+
+.panel-content {
+	width: 100%;
+	height: auto;
+	padding: 0 25px;
+}
+
+.logo{
+	padding-top:40px;
+}
+.logo a {
+	display: block;
+	width: 100%;
+	height: 45px;
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 258px 45px;
+}
+.customer .logo a {
+	background-image: url("pages/images/logo-customer.png");
+	background-size:310px auto;
+}
+/*employee-登录样式*/
+.employee.logo a{
+	background-image:url("pages/images/employee-logo.png");
+	background-size:310px auto;
+}
+.employee.login-tab .login-tab-captcha{
+	display: none;
+}
+.employee.login-tab-psw{
+	display: none;
+}
+.customer .login-txt,.dealer.login-txt{
+	display: none;
+}
+.employee .login-txt {
+	font-size: 22pt;
+	color: #272b26;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+}
+.employee #btnLogin{
+	background:#fb6f6b url(pages/images/login-btn-bg.png);
+	background-size: 100% 100%;
+	box-shadow: 0px 4px 14px #FB6F6B;
+}
+.employee .link{
+	display:none;
+}
+.employee.footer-line{
+	display:none;
+}
+.employee .psw-top-logo{
+	display: none;
+}
+.find-password-form{
+	background-color: #fff;
+}
+.psw-line{
+	padding: 23px 15px;
+	overflow: hidden;
+}
+.psw-line left{
+	display: inline-block;
+	float: left;
+	width:15%;
+}
+.psw-line .right{
+	float: right;
+}
+/*dealer-登录样式*/
+.dealer .logo{
+	padding-top: 36px;
+}
+.dealer .logo a {
+	background-image: url("images/new-logo-dealer.png");
+	background-size: 298px 40px;
+}
+.dealer .login-tab{
+	width:85%;
+	position: relative;
+}
+.dealer .login-tab h2 {
+	font-size: 25px;
+	color: #999;
+	font-weight: normal;
+	margin: 0;
+	padding-bottom: 15px;
+}
+.dealer .login-tab .login-tab-psw{
+	float: left;
+	/*position: relative;*/
+}
+.dealer .split-line{
+	width: 1px;
+	height: 17px;
+	border-right: 1px solid #DDDDDD;
+	position: absolute;
+	right: 55%;
+	top: 40px;
+}
+.dealer .login-tab h2 .select-style{
+	display: inline-block;
+	width:58px;
+	height: 5px;
+	background-color: #f1cd93;
+	position: absolute;
+	bottom:0;
+	left: 20px;
+	display: none;
+}
+/*dealer-h2-选中的样式*/
+.dealer .login-tab .select-font{
+	color: #333;
+}
+
+.login-tab {
+	width: 100%;
+	padding-top: 30px;
+	overflow: hidden;
+}
+.dealer .login-items {
+	border-bottom: 1px solid #eee;
+}
+.dealer .login-items input {
+	font-size: 15px;
+	color: #999 !important;
+}
+.dealer .submit-btn button {
+	background-image: linear-gradient(-30deg,
+	#f1cd93 0%,
+	#f5d49f 26%,
+	#f8d9a9 50%,
+	#f8e0b8 75%,
+	#fbe8c7 100%),
+	linear-gradient(
+			#fad44b,
+			#fad44b);
+	background-blend-mode: normal,
+	normal;
+	border-radius: 4px;
+	color: #957647;
+	font-size: 16px;
+}
+.dealer .link .btn-forget {
+	font-size:13px;
+	color: #333;
+	float: right;
+}
+.dealer .login-tab .change-btn,.dealer .btn-register,.employee.login-tab .change-btn {
+	display: none;
+}
+.dealer .query-code .sent-captcha{
+	height: 30px;
+	line-height: 30px;
+	font-size: 13px;
+	color: #957647;
+	text-align: center;
+	background-color: rgba(241, 205, 147, 0.4);
+	border-radius: 4px;
+	position: absolute;
+	right: 10px;
+	top: 15px;
+	display: block;
+	padding:0 7px;
+}
+.dealer .login-tab .login-tab-captcha{
+	float: right;
+	position: relative;
+}
+
+.customer.login-tab .login-tab-captcha{
+	display: none;
+}
+.customer .login-tab h2{
+	font-size: 22pt;
+	color: #272b26;
+	font-weight: normal;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+.login-tab .change-btn {
+	display: block;
+	float: left;
+	font-size: 10pt;
+	color: #3c3c3c;
+	border:1px solid #1b1b1b;
+	border-radius: 15px;
+	margin-left: 15px;
+	padding: 2px 8px;
+	position: relative;
+	margin-top: 10px;
+}
+
+.login-form {
+	width: 100%;
+	padding-top:20px;
+}
+.login-items {
+	width: 100%;
+	padding-top: 10px;
+	border-bottom: 1px solid #c3c3c3;
+	position: relative;
+	overflow: hidden;
+}
+.login-items input {
+	height: 50px;
+	font-size: 12pt;
+	color: #333;
+	width: 100%;
+	border:0;
+	outline: 0;
+}
+.login-items .close-btn {
+	position: absolute;
+	display: none;
+	right: 5px;
+	top: 26px;
+	width: 15px;
+	height: 15px;
+	background: url("pages/images/login-close.png") no-repeat center;
+	background-size: 100%;
+}
+.login-items.captcha-items .captcha{
+	position: absolute;
+	right: 0;
+	top: 17px;
+	height: 30px;
+	width: 109px;
+}
+.customer .query-code .code {
+	position: absolute;
+	right: 0;
+	top: 17px;
+	padding: 0 7px;
+	height: 30px;
+	display: block;
+	line-height: 30px;
+	text-align: center;
+	border:1px solid #df0615;
+	border-radius: 30px;
+	color: #df0615;
+	font-size: 11pt;
+}
+.query-code .code.has-send {
+	border:0;
+	color: #666666;
+	font-size: 10pt;
+	text-align: right;
+	background-color: #ffffff;
+}
+.submit-btn {
+	width: 100%;
+	padding-top: 36px;
+}
+.submit-btn button,.submit-btn .sub-btn {
+	display: block;
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	color: #fff;
+	background-color: #df0615;
+	border-radius: 45px;
+	border:0;
+	outline: 0;
+	font-size: 14pt;
+}
+
+.link {
+	width: 100%;
+	overflow: hidden;
+	padding-top: 20px;
+	font-size: 11pt;
+}
+
+.link .btn-register {
+	color: #df0615
+}
+.link .btn-forget {
+	color: #999;
+	float: right;
+}
+
+
+.footer-line {
+	width: 100%;
+	text-align: center;
+	padding-top: 130px;
+}
+.footer-line div {
+	margin:0 25px;
+	border-top:1px solid #dddddd;
+}
+.footer-line div span {
+	display: none;
+}
+.footer-line div span {
+	font-size: 12pt;
+	color: #e0e0e0;
+	padding: 0 15px;
+	background:#fff;
+	position: relative;
+	top:-10px;
+}
+
+.footer-line.dealer .line-dealer {
+	display: inline-block;
+}
+.footer-line.customer .line-customer {
+	display: inline-block;
+}
+
+/*注册*/
+.login-tab.reg {
+	padding-top: 20px;
+}
+.login-tab.reg .reg-tips {
+	display: block;
+}
+.login-tab .reg-tips {
+	display: none;
+	font-size: 10pt;
+	color: #666666;
+}
+.check {
+	width: 100%;
+	font-size: 9pt;
+	color: #3c3c3c;
+	line-height: 30px;
+	padding-top: 10px;
+}
+.check span {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	background:url("pages/images/login-no-checked.png") no-repeat center;
+	background-size: 100%;
+	margin-right: 5px;
+	position: relative;
+	top: 2px;
+}
+
+.check.checked span {
+	background-image: url("pages/images/login-checked.png");
+}
+
+.check a {
+	color: #df0615;
+}
+.register .submit-btn {
+	padding-top: 12px;
+}
+
+.password-items .eye {
+	position: absolute;
+	display: block;
+	right: 0;
+	top: 30px;
+	width: 25px;
+	height: 10px;
+	background:url("pages/images/hide-eye.png") no-repeat center;
+	background-size: 20px 6px;
+}
+.password-items .eye.open-eye {
+	background-image: url("pages/images/open-eye.png");
+	background-size: 20px 10px;
+}
+
+.tips {
+	font-size: 9pt;
+	color: #999999;
+	padding: 15px 0 5px 0;
+	line-height: 20px;
+}
+/*找回密码*/
+.findPassword h2{
+	position: relative;
+	padding-bottom: 15px;
+}
+.findPassword h2 .select{
+	position: absolute;
+	bottom:0;
+	left: 20px;
+}
+.findPassword .new-psw-title{
+	display: none;
+}
+/*.dealer #btnSendSms{*/
+	/*display: none;*/
+/*}*/
+/*.customer #sentCaptcha{*/
+	/*display: none;*/
+/*}*/

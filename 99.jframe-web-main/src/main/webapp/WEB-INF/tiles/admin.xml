@@ -10,6 +10,8 @@
         <put-attribute name="topMenu" value=""/>
         <put-attribute name="leftMenu" value=""/>
     </definition>
+    <definition name="admin-loginForm" template="/modules/admin/views/_shared/loginForm.jsp"/>
+
     <definition name="admin-error" template="/modules/admin/views/_shared/error.jsp">
         <put-attribute name="title" value=""/>
     </definition>

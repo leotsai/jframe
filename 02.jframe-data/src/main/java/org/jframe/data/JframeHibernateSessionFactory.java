@@ -6,12 +6,14 @@ import org.hibernate.cfg.Configuration;
 import org.jframe.core.app.AppInitializer;
 import org.jframe.core.extensions.JList;
 import org.jframe.core.extensions.KnownException;
+import org.jframe.core.helpers.ClassHelper;
+import org.jframe.core.hibernate.DtoResultTransformer;
 import org.jframe.core.hibernate.HibernateSessionFactory;
 import org.jframe.infrastructure.AppContext;
 
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.Properties;
+import java.util.Date;
 
 /**
  * Created by leo on 2017-10-21.
@@ -28,36 +30,27 @@ public class JframeHibernateSessionFactory extends HibernateSessionFactory imple
         instance = new JframeHibernateSessionFactory();
     }
 
-    private String startupDirectory;
-    private Properties properties;
-
     private JframeHibernateSessionFactory() {
 
     }
 
-    public JframeHibernateSessionFactory setConfiguration(String startupDirectory) {
-        this.startupDirectory = startupDirectory;
-        return this;
-    }
-
-    public JframeHibernateSessionFactory setConfiguration(Properties properties) {
-        this.properties = properties;
-        return this;
+    @Override
+    public String init() {
+        String packageName = AppContext.getAppConfig().getEntityPackage() + ".";
+        JList<Class> classes = ClassHelper.getClasses(AppContext.getStartupDirectory(), packageName);
+        DtoResultTransformer.checkDtoEntityConstructors(classes);
+        super.initialize();
+        return this.getClass().getName() + " initialize success!";
     }
 
     @Override
     protected Configuration getConfiguration() {
-        if (this.properties != null) {
-            return new Configuration().setProperties(this.properties);
-        }
-        File file = Paths.get(this.startupDirectory, "WEB-INF/hibernate.cfg.xml").toFile();
+        File file = Paths.get(AppContext.getStartupDirectory(), "WEB-INF/hibernate.cfg.xml").toFile();
         return new Configuration().configure(file);
     }
 
     @Override
     protected JList<Class> getEntityClasses() {
-
-
         ClassLoader classLoader = this.getClass().getClassLoader();
         try {
             ImmutableSet<ClassPath.ClassInfo> classInfos = ClassPath.from(classLoader).getTopLevelClassesRecursive(AppContext.getAppConfig().getEntityPackage());

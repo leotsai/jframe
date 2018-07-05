@@ -64,8 +64,8 @@ public class Role extends EntityBase {
 
     public static void initSystemRoles() {
         JList<Role> systemRoles = new JList<>();
-        systemRoles.add(createSystem(Names.ADMIN,  "管理后台通用管理权限，即最低admin管理权限"));
-        systemRoles.add(createSystem(Names.SUPER_ADMIN,  "拥有整个系统的最高权限"));
+        systemRoles.add(createSystem(Names.ADMIN, "管理后台通用管理权限，即最低admin管理权限"));
+        systemRoles.add(createSystem(Names.SUPER_ADMIN, "拥有整个系统的最高权限"));
 
         try (JframeDbContext db = new JframeDbContext()) {
             JList<Role> dbRoles = db.set(Role.class).getAll().where(x -> x.isSystem());
@@ -78,9 +78,8 @@ public class Role extends EntityBase {
                 update.setCsvCodes(newRole.getCsvCodes());
                 db.save(update);
             }
-            String text = "初始化系统角色，新增：" + added.size() + "，更新：" + updated.size();
+            String text = "    初始化系统角色，新增：" + added.size() + "，更新：" + updated.size();
             System.out.println(text);
-            LogHelper.logRaw("系统", text);
         }
     }
 

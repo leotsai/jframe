@@ -11,10 +11,12 @@ import org.jframe.infrastructure.mongodb.JframeMongoDatabaseFactory;
 public class JframeMongoLogAppender extends MongoLogAppender {
 
     private final String databaseName;
+    private final boolean autoAppendHttpHeaders;
 
-    public JframeMongoLogAppender(String databaseName) {
+    public JframeMongoLogAppender(String databaseName, boolean autoAppendHttpHeaders) {
         super.setIntervalSeconds(5);
         this.databaseName = databaseName;
+        this.autoAppendHttpHeaders = autoAppendHttpHeaders;
     }
 
     @Override
@@ -25,6 +27,11 @@ public class JframeMongoLogAppender extends MongoLogAppender {
     @Override
     public String getServerName() {
         return AppContext.getAppConfig().getServerName();
+    }
+
+    @Override
+    public boolean autoAppendHttpHeaders() {
+        return this.autoAppendHttpHeaders;
     }
 
     @Override

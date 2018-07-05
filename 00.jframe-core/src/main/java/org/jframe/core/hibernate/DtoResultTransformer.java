@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.transform.ResultTransformer;
 import org.jframe.core.extensions.JList;
 import org.jframe.core.extensions.JMap;
+import org.jframe.core.extensions.KnownException;
 import org.jframe.core.logging.LogHelper;
 
 import java.util.List;
@@ -49,12 +50,11 @@ public class DtoResultTransformer implements ResultTransformer {
                         clazz.newInstance();
                     }
                     catch (Exception ex){
-                        LogHelper.log("_checkDtoEntityConstructors","检查DtoEntity的实现类是否具有无参构造函数，失败：" + clazz.toString());
+                        throw new KnownException("检查DtoEntity的实现类是否具有无参构造函数，失败"+clazz.toString());
                     }
                 }
             }
         }
-        System.out.println("检查DtoEntity的实现类是否具有无参构造函数，通过\n\n");
     }
 
 }

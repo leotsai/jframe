@@ -20,8 +20,9 @@ public class JframeRedisPoolContext extends RedisPoolContext implements AppIniti
     }
 
     @Override
-    public void initialize() {
+    public String init() {
         super.initialize(AppContext.getRedisConfig());
+        return this.getClass().getName() + " initialize success!";
     }
 
 }

@@ -1,14 +1,13 @@
 package org.jframe.infrastructure.mongodb;
 
-import org.jframe.core.app.AppInitializer;
-import org.jframe.infrastructure.AppContext;
 import org.jframe.core.mongodb.MongoDatabaseFactory;
 import org.jframe.core.mongodb.MongoDbContext;
+import org.jframe.infrastructure.AppContext;
 
 /**
  * Created by leo on 2017-10-22.
  */
-public class JframeMongoDatabaseFactory extends MongoDatabaseFactory implements AppInitializer {
+public class JframeMongoDatabaseFactory extends MongoDatabaseFactory {
 
     private final static JframeMongoDatabaseFactory instance = new JframeMongoDatabaseFactory();
 
@@ -19,7 +18,6 @@ public class JframeMongoDatabaseFactory extends MongoDatabaseFactory implements 
     private JframeMongoDatabaseFactory() {
     }
 
-    @Override
     public void initialize() {
         super.initialize(AppContext.getMongodbConfig());
     }

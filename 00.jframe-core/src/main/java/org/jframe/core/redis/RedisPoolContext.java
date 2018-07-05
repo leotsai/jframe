@@ -21,7 +21,6 @@ public class RedisPoolContext {
             else{
                 this.pool = new JedisPool(new JedisPoolConfig(), config.getAddress(), config.getPort(), timeout, config.getPassword());
             }
-            System.out.println("Redis Pool initialized");
         }
     }
 
