@@ -80,7 +80,7 @@ public abstract class Application implements ApplicationListener {
                     }
                 }
             }
-            System.out.println("\n初始化总数：" + this.initializers.size() + "，成功：" + successCount + "，失败：" + failCount + "\n");
+            System.out.println("\nall initializer finished, total：" + this.initializers.size() + ", succeed：" + successCount + ", failed：" + failCount + "\n");
             this.onStarted();
         }
     }

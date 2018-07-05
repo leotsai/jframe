@@ -10,10 +10,9 @@ import org.jframe.core.helpers.ClassHelper;
 import org.jframe.core.hibernate.DtoResultTransformer;
 import org.jframe.core.hibernate.HibernateSessionFactory;
 import org.jframe.infrastructure.AppContext;
+import org.jframe.infrastructure.configs.HibernateConfig;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.Date;
+import java.util.Properties;
 
 /**
  * Created by leo on 2017-10-21.
@@ -45,8 +44,10 @@ public class JframeHibernateSessionFactory extends HibernateSessionFactory imple
 
     @Override
     protected Configuration getConfiguration() {
-        File file = Paths.get(AppContext.getStartupDirectory(), "WEB-INF/hibernate.cfg.xml").toFile();
-        return new Configuration().configure(file);
+        HibernateConfig hibernateConfig = AppContext.getHibernateConfig();
+        Configuration configuration = new Configuration();
+        configuration.setProperties(hibernateConfig.toProperties());
+        return configuration;
     }
 
     @Override
