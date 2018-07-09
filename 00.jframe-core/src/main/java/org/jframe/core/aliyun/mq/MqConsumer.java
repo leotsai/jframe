@@ -13,7 +13,6 @@ public abstract class MqConsumer {
 
     public void initialize(MqConsumerConfig config){
         if(this.consumer != null){
-            System.out.println("Aliyun MQ Consumer duplicated initializing. topic name：" + this.topic);
             return;
         }
         this.topic = config.getTopic();
@@ -21,7 +20,6 @@ public abstract class MqConsumer {
             this.consumer = ONSFactory.createConsumer(this.getProperties(config));
             this.consumer.subscribe(this.topic, "*", (message, context) -> this.consumeMessage(message, context));
             this.consumer.start();
-            System.out.println("Aliyun MQ Consumer initialized. topic name：" + this.topic);
         }
         catch (Exception ex){
             ex.printStackTrace();

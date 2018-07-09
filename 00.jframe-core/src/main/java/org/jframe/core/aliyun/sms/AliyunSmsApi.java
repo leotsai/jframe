@@ -34,9 +34,6 @@ public class AliyunSmsApi {
     }
 
     public void send(SmsTemplate template) throws Exception {
-        if (this.config.getKey().equals("LOCAL_DEV")) {
-            return;
-        }
         IClientProfile profile = DefaultProfile.getProfile(SmsConfig.REGION_ID, this.config.getKey(), this.config.getSecret());
         DefaultProfile.addEndpoint(SmsConfig.ENDPOINT_NAME, SmsConfig.REGION_ID, SmsConfig.PRODUCT, SmsConfig.DOMAIN);
         IAcsClient acsClient = new DefaultAcsClient(profile);
