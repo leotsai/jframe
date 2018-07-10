@@ -53,6 +53,9 @@ public class AppConfig {
     @Value("${app.isDeveloperMode}")
     private boolean isDeveloperMode;
 
+    @Value("${app.logPattern}")
+    private String logPattern;
+
 
     //---------------------------------------------
 
@@ -110,5 +113,9 @@ public class AppConfig {
 
     public boolean isDeveloperMode() {
         return isDeveloperMode;
+    }
+
+    public String getLogPattern() {
+        return logPattern;
     }
 }

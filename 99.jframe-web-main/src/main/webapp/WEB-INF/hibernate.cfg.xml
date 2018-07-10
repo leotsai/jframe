@@ -10,7 +10,7 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://127.0.0.1:3306/jframe?characterEncoding=utf8&amp;useSSL=false</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">111111</property>
+        <property name="connection.password">123456</property>
         <!-- 数据库连接池的大小 -->
         <property name="connection.pool_size">5</property>
         <!-- 每次从数据库中取出并放到JDBC的Statement中的记录条数。Fetch Size设的越大，读数据库的次数越少，速度越快，Fetch Size越小，读数据库的次数越多，速度越慢-->

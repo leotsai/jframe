@@ -17,6 +17,7 @@ public class JframeDbContext extends DbContext {
     private PermissionSet permissionSet;
     private DepartmentSet departmentSet;
     private ArticleSet articleSet;
+    private LogMySqlSet logMySqlSet;
 
     public JframeDbContext() {
         super(JframeHibernateSessionFactory.getInstance());
@@ -24,6 +25,13 @@ public class JframeDbContext extends DbContext {
 
     public JframeDbContext(boolean transactional) {
         super(JframeHibernateSessionFactory.getInstance(), transactional);
+    }
+
+    public LogMySqlSet getLogMySqlSet() {
+        if (this.logMySqlSet == null) {
+            this.logMySqlSet = new LogMySqlSet(this);
+        }
+        return this.logMySqlSet;
     }
 
     public ArticleSet getArticleSet() {

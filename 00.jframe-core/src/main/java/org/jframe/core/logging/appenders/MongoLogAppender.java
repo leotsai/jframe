@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by leo on 2017-08-21.
  */
-public abstract class MongoLogAppender extends _LogAppenderBase{
+public abstract class MongoLogAppender extends _LogAppenderBase {
     private final ConcurrentHashMap<String, Vector<Document>> map;
 
     public MongoLogAppender() {
@@ -19,12 +19,12 @@ public abstract class MongoLogAppender extends _LogAppenderBase{
     }
 
     @Override
-    public void doWork(){
+    public void doWork() {
         this.writeToDb();
     }
 
     @Override
-    public void entry(String group, String message) {
+    public void entry(String group, String message, int type, String location) {
         if (!this.map.containsKey(group)) {
             this.map.put(group, new Vector<>());
         }
@@ -32,7 +32,9 @@ public abstract class MongoLogAppender extends _LogAppenderBase{
         Document document = new Document("year-month", now.toString("yyyy-MM"))
                 .append("date", now.toDateString())
                 .append("time", now.toDateTimeString())
-                .append("log", message);
+                .append("log", message)
+                .append("type", type)
+                .append("location", location);
         this.map.get(group).add(document);
     }
 

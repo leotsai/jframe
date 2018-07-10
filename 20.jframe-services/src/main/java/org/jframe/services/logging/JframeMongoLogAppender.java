@@ -1,4 +1,4 @@
-package org.jframe.infrastructure.logging;
+package org.jframe.services.logging;
 
 import org.jframe.core.logging.appenders.MongoLogAppender;
 import org.jframe.core.mongodb.MongoDbContext;
