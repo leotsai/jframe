@@ -2,6 +2,7 @@ package org.jframe.core.logging;
 
 import org.jframe.core.helpers.ExceptionHelper;
 import org.jframe.core.helpers.HttpHelper;
+import org.jframe.core.logging.enums.LogArea;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -18,7 +19,7 @@ public class LogHelper {
             if (appender == null || appender.isStarted() == false) {
                 return;
             }
-            appender.entry(group, rawMessage);
+            appender.entry(group, rawMessage, LogArea.UNKNOWN.getValue(), getLocation(new Throwable()));
         } catch (Exception ex) {
             try {
                 if (appender.printStackTrace()) {
@@ -37,10 +38,10 @@ public class LogHelper {
             }
             StringBuilder sb = new StringBuilder("【" + new Date() + "】" + message);
             sb.append("\r\nserver: " + appender.getServerName() + "\r\n");
-            if(appender.autoAppendHttpHeaders()){
+            if (appender.autoAppendHttpHeaders()) {
                 appendHttpRequest(sb);
             }
-            appender.entry(group, sb.toString());
+            appender.entry(group, sb.toString(), LogArea.WARN.getValue(), getLocation(new Throwable()));
         } catch (Exception ex) {
             try {
                 if (appender.printStackTrace()) {
@@ -58,7 +59,7 @@ public class LogHelper {
                 return;
             }
             if (ex == null) {
-                appender.entry(group, "");
+                appender.entry(group, "", LogArea.UNKNOWN.getValue(), "");
                 return;
             }
             if (appender.printStackTrace()) {
@@ -66,12 +67,12 @@ public class LogHelper {
             }
             StringBuilder sb = new StringBuilder("【" + new Date() + "】" + ex.getClass().getName() + ": " + ex.getMessage() + "\r\n");
             sb.append("\r\nserver: " + appender.getServerName() + "\r\n");
-            if(appender.autoAppendHttpHeaders()){
+            if (appender.autoAppendHttpHeaders()) {
                 appendHttpRequest(sb);
             }
             sb.append("-------------------------------------\r\n");
             sb.append(ExceptionHelper.getFullHtmlMessage(ex));
-            appender.entry(group, sb.toString());
+            appender.entry(group, sb.toString(), LogArea.ERROR.getValue(), getLocation(ex));
         } catch (Exception ex2) {
             try {
                 if (appender.printStackTrace()) {
@@ -113,6 +114,13 @@ public class LogHelper {
         } else {
             System.out.println("appender is null or not started");
         }
+    }
+
+    public static String getLocation(Throwable ex) {
+        StringBuilder sb = new StringBuilder();
+        StackTraceElement[] stacks = ex.getStackTrace();
+        sb.append("class:").append(stacks[1].getClassName()).append(";method:").append(stacks[1].getMethodName()).append(";number:").append(stacks[1].getLineNumber());
+        return sb.toString();
     }
 
 }

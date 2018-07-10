@@ -9,7 +9,6 @@ import org.jframe.data.JframeHibernateSessionFactory;
 import org.jframe.data.caching.DbCacheContext;
 import org.jframe.infrastructure.AppContext;
 import org.jframe.infrastructure.alipay.JframeAlipayApi;
-import org.jframe.infrastructure.logging.JframeMongoLogAppender;
 import org.jframe.infrastructure.mongodb.JframeMongoDatabaseFactory;
 import org.jframe.infrastructure.mq.JframeMqConsumer;
 import org.jframe.infrastructure.mq.JframeMqProducer;
@@ -20,6 +19,7 @@ import org.jframe.infrastructure.security.JframeCrypto;
 import org.jframe.infrastructure.sms.JframeSmsApi;
 import org.jframe.infrastructure.unionpay.JframeUnionpayApi;
 import org.jframe.infrastructure.weixin.JframeWeixinPayApi;
+import org.jframe.services.logging.JframeMongoLogAppender;
 import org.jframe.web.security.PermissionRegistery;
 
 /**
@@ -49,6 +49,7 @@ public class JframeApplication extends Application {
         JframeMongoDatabaseFactory.getInstance().initialize();
         return new JframeMongoLogAppender(AppContext.getAppConfig().getLogsDbName(), true);
     }
+
 
     @Override
     protected void onBeforeInitializing() {
