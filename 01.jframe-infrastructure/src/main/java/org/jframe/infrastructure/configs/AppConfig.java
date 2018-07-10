@@ -53,9 +53,6 @@ public class AppConfig {
     @Value("${app.isDeveloperMode}")
     private boolean isDeveloperMode;
 
-    @Value("${app.logPattern}")
-    private String logPattern;
-
     @Value("${app.sms.ipLimit}")
     private int smsIpLimit;
 
@@ -130,10 +127,6 @@ public class AppConfig {
 
     public boolean isDeveloperMode() {
         return isDeveloperMode;
-    }
-
-    public String getLogPattern() {
-        return logPattern;
     }
 
     public int getSmsIpLimit() {
