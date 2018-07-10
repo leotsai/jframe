@@ -1,4 +1,4 @@
-package org.jframe.data.redis;
+package org.jframe.services;
 
 import org.jframe.core.helpers.RequestHelper;
 import org.jframe.infrastructure.AppContext;

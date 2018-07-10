@@ -7,9 +7,9 @@ import org.jframe.data.entities.OAuthWeixinUser;
 import org.jframe.data.entities.User;
 import org.jframe.data.enums.CaptchaUsage;
 import org.jframe.infrastructure.helpers.CookieHelper;
-import org.jframe.services.CaptchaService;
 import org.jframe.services.UserService;
 import org.jframe.services.dto.LoginResultDto;
+import org.jframe.services.utils.SmsUtil;
 import org.jframe.web.app.controllers._AppControllerBase;
 import org.jframe.web.app.viewModel.RegisterViewModel;
 import org.jframe.web.enums.WeixinAuthMode;
@@ -36,10 +36,6 @@ public class RegisterController extends _AppControllerBase {
     @Autowired
     UserService userService;
 
-    @Autowired
-    CaptchaService captchaService;
-
-
     @GetMapping
     public ModelAndView index(String returnUrl, String phone) {
         return super.tryView("app-account-register", () -> {
@@ -55,7 +51,7 @@ public class RegisterController extends _AppControllerBase {
             StringHelper.validate_notNullOrWhitespace(password, "登陆密码不能为空");
             StringHelper.validate_notNullOrWhitespace(smsCaptcha, "请输入短信验证码");
 
-            captchaService.validateSmsCaptcha(username, smsCaptcha, CaptchaUsage.REGISTER);
+            SmsUtil.validate(username, smsCaptcha, CaptchaUsage.REGISTER);
             User user = userService.register(username, password);
 
 //            if (user.isFirstlyRegistered()) {

@@ -6,7 +6,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.logging.LogHelper;
 

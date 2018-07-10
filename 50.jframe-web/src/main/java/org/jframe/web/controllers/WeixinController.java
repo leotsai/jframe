@@ -2,7 +2,7 @@ package org.jframe.web.controllers;
 
 import org.jframe.core.extensions.JDate;
 import org.jframe.core.extensions.JList;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.logging.LogHelper;
 import org.jframe.core.web.RestPost;

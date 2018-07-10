@@ -1,6 +1,6 @@
 package org.jframe.web.app.controllers.account;
 
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.web.RestPost;
 import org.jframe.core.web.StandardJsonResult;
@@ -8,9 +8,9 @@ import org.jframe.data.entities.OAuthWeixinUser;
 import org.jframe.data.entities.User;
 import org.jframe.data.enums.CaptchaUsage;
 import org.jframe.infrastructure.helpers.CookieHelper;
-import org.jframe.services.CaptchaService;
 import org.jframe.services.UserService;
 import org.jframe.services.dto.LoginResultDto;
+import org.jframe.services.utils.SmsUtil;
 import org.jframe.web.app.controllers._AppControllerBase;
 import org.jframe.web.enums.WeixinAuthMode;
 import org.jframe.web.security.Authorize;
@@ -34,9 +34,6 @@ public class SmsLoginController extends _AppControllerBase {
     @Autowired
     UserService userService;
 
-    @Autowired
-    CaptchaService captchaService;
-
     @RestPost("/doLogin")
     public StandardJsonResult<LoginResultDto> doLogin(String username, String smsCaptcha) {
         return super.tryJson(() -> {
@@ -45,8 +42,7 @@ public class SmsLoginController extends _AppControllerBase {
             }
 
             if (userService.get(username)==null) {
-                captchaService.validateSmsCaptcha(username, smsCaptcha, CaptchaUsage.SMS_LOGIN);
-                captchaService.markLatestCaptchaUnused(username, CaptchaUsage.SMS_LOGIN, smsCaptcha);
+                SmsUtil.validate(username, smsCaptcha, CaptchaUsage.SMS_LOGIN,true);
                 User user = userService.register(username, "");
 
 //                try{

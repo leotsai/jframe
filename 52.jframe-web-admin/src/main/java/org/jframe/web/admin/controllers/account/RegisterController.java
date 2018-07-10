@@ -3,19 +3,15 @@ package org.jframe.web.admin.controllers.account;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.web.RestPost;
 import org.jframe.core.web.StandardJsonResult;
-import org.jframe.data.entities.OAuthWeixinUser;
 import org.jframe.data.entities.User;
 import org.jframe.data.enums.CaptchaUsage;
-import org.jframe.infrastructure.helpers.CookieHelper;
-import org.jframe.services.CaptchaService;
 import org.jframe.services.UserService;
 import org.jframe.services.dto.LoginResultDto;
+import org.jframe.services.utils.SmsUtil;
 import org.jframe.web.admin.controllers._AdminControllerBase;
-import org.jframe.web.enums.WeixinAuthMode;
 import org.jframe.web.security.Authorize;
 import org.jframe.web.security.WebContext;
 import org.jframe.web.security.WebIdentity;
-import org.jframe.web.security.WeixinAutoLogin;
 import org.jframe.web.viewModels.LayoutViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,10 +31,6 @@ public class RegisterController extends _AdminControllerBase {
     @Autowired
     UserService userService;
 
-    @Autowired
-    CaptchaService captchaService;
-
-
     @GetMapping
     public ModelAndView index(String returnUrl) {
         return super.tryView("admin-account-register", () -> {
@@ -54,7 +46,7 @@ public class RegisterController extends _AdminControllerBase {
             StringHelper.validate_notNullOrWhitespace(password, "登陆密码不能为空");
             StringHelper.validate_notNullOrWhitespace(smsCaptcha, "请输入短信验证码");
 
-            captchaService.validateSmsCaptcha(username, smsCaptcha, CaptchaUsage.REGISTER);
+            SmsUtil.validate(username,smsCaptcha,CaptchaUsage.REGISTER);
             User user = userService.register(username, password);
 
             userService.passwordLogin(username, password, "");

@@ -13,7 +13,7 @@ import com.alipay.api.response.AlipayTradeRefundResponse;
 import org.jframe.core.alipay.apiResults.QueryOrderStatusResult;
 import org.jframe.core.alipay.apiResults.QueryRefundStatusResult;
 import org.jframe.core.alipay.dtos.RefundRequestDto;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.logging.LogHelper;
 

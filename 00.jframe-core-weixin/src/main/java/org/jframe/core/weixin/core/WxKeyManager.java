@@ -1,7 +1,7 @@
 package org.jframe.core.weixin.core;
 
 import org.jframe.core.app.AppInitializer;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.weixin.AppletApi;
 import org.jframe.core.weixin.WeixinApi;
 import org.jframe.core.weixin.core.dtos.AccessTokenDto;

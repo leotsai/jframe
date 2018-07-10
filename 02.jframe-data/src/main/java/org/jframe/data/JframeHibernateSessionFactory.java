@@ -5,14 +5,12 @@ import com.google.common.reflect.ClassPath;
 import org.hibernate.cfg.Configuration;
 import org.jframe.core.app.AppInitializer;
 import org.jframe.core.extensions.JList;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.ClassHelper;
 import org.jframe.core.hibernate.DtoResultTransformer;
 import org.jframe.core.hibernate.HibernateSessionFactory;
 import org.jframe.infrastructure.AppContext;
 import org.jframe.infrastructure.configs.HibernateConfig;
-
-import java.util.Properties;
 
 /**
  * Created by leo on 2017-10-21.

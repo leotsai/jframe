@@ -2,7 +2,7 @@ package org.jframe.core.web;
 
 import org.jframe.core.app.AppInitializer;
 import org.jframe.core.extensions.JList;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.logging.LogAppender;
 import org.jframe.core.logging.LogHelper;
 import org.springframework.context.ApplicationEvent;

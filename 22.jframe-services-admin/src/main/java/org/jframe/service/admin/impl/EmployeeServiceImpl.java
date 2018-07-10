@@ -1,5 +1,6 @@
 package org.jframe.service.admin.impl;
 
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.extensions.*;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.data.entities.*;
