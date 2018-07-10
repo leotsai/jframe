@@ -17,7 +17,7 @@ import org.jframe.data.enums.Gender;
 import org.jframe.data.redis.RedisApi;
 import org.jframe.data.sets.OAuthWeixinUserSet;
 import org.jframe.infrastructure.AppContext;
-import org.jframe.services.AliyunOssApi;
+import org.jframe.infrastructure.oss.JframeOssApi;
 import org.jframe.services.CaptchaService;
 import org.jframe.services.UserService;
 import org.jframe.services.core.ServiceBase;
@@ -214,7 +214,7 @@ public class UserServiceImpl extends ServiceBase implements UserService {
                         try (WebClient client = new WebClient()) {
                             InputStream stream = client.downloadStream(wexinHeadimgUrl);
                             String key = UUID.randomUUID().toString() + ".jpg";
-                            AliyunOssApi.getImages().putFile(key, stream);
+                            JframeOssApi.getImages().putFile(key, stream);
                             dbUser.setImageKey(key);
                         } catch (Exception e) {
                             LogHelper.log("绑定微信", "下载微信头像失败：" + e.getMessage());

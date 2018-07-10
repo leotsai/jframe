@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import java.util.Properties;
+
 /**
  * Created by Leo on 2017/10/20.
  */
@@ -24,13 +26,13 @@ public class HibernateConfig {
     private String password;
 
     @Value("${hibernate.connection.poolSize}")
-    private Integer poolSize;
+    private String poolSize;
 
     @Value("${hibernate.jdbc.fetchSize}")
-    private Integer fetchSize;
+    private String fetchSize;
 
     @Value("${hibernate.jdbc.batchSize}")
-    private Integer batchSize;
+    private String batchSize;
 
     @Value("${hibernate.dialect}")
     private String dialect;
@@ -39,10 +41,26 @@ public class HibernateConfig {
     private String currentSessionContextClass;
 
     @Value("${hibernate.showSql}")
-    private Boolean showSql;
+    private String showSql;
 
     @Value("${hibernate.hbm2ddl.auto}")
     private String hbm2ddlAuto;
+
+    public Properties toProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.connection.driver_class", this.driverClass);
+        properties.setProperty("hibernate.connection.url", this.url);
+        properties.setProperty("hibernate.connection.username", this.username);
+        properties.setProperty("hibernate.connection.password", this.password);
+        properties.setProperty("hibernate.connection.pool_size", this.poolSize);
+        properties.setProperty("hibernate.jdbc.fetch_size", this.fetchSize);
+        properties.setProperty("hibernate.batch_size", this.batchSize);
+        properties.setProperty("hibernate.dialect", this.dialect);
+        properties.setProperty("hibernate.current_session_context_class", this.currentSessionContextClass);
+        properties.setProperty("hibernate.show_sql", this.showSql);
+        properties.setProperty("hibernate.hbm2ddl.auto", this.hbm2ddlAuto);
+        return properties;
+    }
 
     public String getDriverClass() {
         return driverClass;
@@ -60,15 +78,15 @@ public class HibernateConfig {
         return password;
     }
 
-    public Integer getPoolSize() {
+    public String getPoolSize() {
         return poolSize;
     }
 
-    public Integer getFetchSize() {
+    public String getFetchSize() {
         return fetchSize;
     }
 
-    public Integer getBatchSize() {
+    public String getBatchSize() {
         return batchSize;
     }
 
@@ -80,7 +98,7 @@ public class HibernateConfig {
         return currentSessionContextClass;
     }
 
-    public Boolean getShowSql() {
+    public String getShowSql() {
         return showSql;
     }
 

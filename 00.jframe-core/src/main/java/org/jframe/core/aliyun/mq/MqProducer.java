@@ -17,14 +17,12 @@ public abstract class MqProducer {
 
     public void initialize(MqProducerConfig config){
         if(this.producer != null){
-            System.out.println("Aliyun MQ Producer duplicated initializing. topic name：" + this.topic);
             return;
         }
         this.topic = config.getTopic();
         try{
             this.producer = ONSFactory.createProducer(this.getProperties(config));
             this.producer.start();
-            System.out.println("Aliyun MQ Producer initialized. topic name：" + this.topic);
         }
         catch (Exception ex){
             ex.printStackTrace();

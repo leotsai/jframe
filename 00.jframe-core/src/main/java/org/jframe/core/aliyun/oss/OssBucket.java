@@ -18,13 +18,11 @@ public class OssBucket {
 
     public <T extends OssBucket> T initialize(OssConfig config) {
         if(this.client != null){
-            System.out.println("Aliyun OSS Bucket already initialized. bucket name: " + config.getBucketName());
             return (T)this;
         }
         try {
             this.client = new OSSClient(config.getEndPoint(), config.getKey(), config.getSecret());
             this.bucketName = config.getBucketName();
-            System.out.println("Aliyun OSS Bucket initialized. bucket name: " + config.getBucketName());
             return (T)this;
         }
         catch (Exception ex){

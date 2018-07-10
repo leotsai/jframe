@@ -42,7 +42,11 @@ public class AppContext {
         return getBean(MongodbConfig.class);
     }
 
-    public static JframeMqProducerConfig getMqConfig() {
+    public static JframeMqConsumerConfig getMqConsumerConfig() {
+        return getBean(JframeMqConsumerConfig.class);
+    }
+
+    public static JframeMqProducerConfig getMqProducerConfig() {
         return getBean(JframeMqProducerConfig.class);
     }
 
