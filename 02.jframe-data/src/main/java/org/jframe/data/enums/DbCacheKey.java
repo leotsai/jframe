@@ -9,9 +9,10 @@ import java.util.Objects;
  */
 public enum DbCacheKey {
     UNKNOWN(0, "未知"),
-    ROLE(1, "s_roles表");
+    ROLE(1, "s_roles表"),
+    SETTING(2,"s_settings表");
 
-    public static final String Doc = "0：未知；1：s_roles表";
+    public static final String Doc = "0：未知；1：s_roles表；2：s_settings表";
 
     private int value;
     private String text;

@@ -98,6 +98,7 @@ public class DbCacheContext implements AppInitializer {
     private JList<VersionedCacheContext> getContexts() {
         JList<VersionedCacheContext> list = new JList<>();
         list.add(RoleContext.getInstance());
+        list.add(SettingContext.getInstance());
         return list;
     }
 

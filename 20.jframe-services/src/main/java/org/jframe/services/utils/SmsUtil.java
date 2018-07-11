@@ -6,6 +6,7 @@ import org.jframe.core.exception.SmsKnownException;
 import org.jframe.core.helpers.HttpHelper;
 import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.helpers.StringHelper;
+import org.jframe.data.caching.SettingContext;
 import org.jframe.data.enums.CaptchaUsage;
 import org.jframe.infrastructure.AppContext;
 import org.jframe.infrastructure.redis.JframeRedisSession;
@@ -26,6 +27,9 @@ public class SmsUtil {
     private static final int SEND_CYCLE_SECONDS = 12 * 60 * 60;
 
     public static void send(String phone, String code, CaptchaUsage usage) {
+        if(!SettingContext.getInstance().isEnableSms()){
+            throw new SmsKnownException("短信功能已暂停使用！");
+        }
         try (JframeRedisSession session = new JframeRedisSession()) {
             validateSendInterval(session, phone, usage);
             validateSendIp(session);
