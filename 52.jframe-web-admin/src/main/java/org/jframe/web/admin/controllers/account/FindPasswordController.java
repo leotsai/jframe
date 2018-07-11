@@ -4,7 +4,7 @@ import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.web.RestPost;
 import org.jframe.core.web.StandardJsonResult;
-import org.jframe.data.enums.CaptchaUsage;
+import org.jframe.infrastructure.sms.CaptchaUsage;
 import org.jframe.services.UserService;
 import org.jframe.services.dto.LoginResultDto;
 import org.jframe.services.utils.SmsUtil;

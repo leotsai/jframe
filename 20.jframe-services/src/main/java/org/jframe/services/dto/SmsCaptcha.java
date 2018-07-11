@@ -1,9 +1,6 @@
 package org.jframe.services.dto;
 
-import org.jframe.core.helpers.StringHelper;
-import org.jframe.data.enums.CaptchaUsage;
-
-import java.util.Date;
+import org.jframe.infrastructure.sms.CaptchaUsage;
 
 /**
  * @author qq

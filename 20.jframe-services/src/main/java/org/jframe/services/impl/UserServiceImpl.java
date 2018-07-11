@@ -12,7 +12,7 @@ import org.jframe.data.entities.Image;
 import org.jframe.data.entities.OAuthWeixinUser;
 import org.jframe.data.entities.User;
 import org.jframe.data.entities.UserRoleRL;
-import org.jframe.data.enums.CaptchaUsage;
+import org.jframe.infrastructure.sms.CaptchaUsage;
 import org.jframe.data.enums.Gender;
 import org.jframe.services.RedisApi;
 import org.jframe.data.sets.OAuthWeixinUserSet;

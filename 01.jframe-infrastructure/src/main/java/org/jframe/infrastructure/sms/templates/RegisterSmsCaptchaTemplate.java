@@ -1,6 +1,7 @@
 package org.jframe.infrastructure.sms.templates;
 
 import org.jframe.infrastructure.AppContext;
+import org.jframe.infrastructure.sms.CaptchaUsage;
 
 /**
  * Created by Leo on 2017/11/13.
@@ -10,9 +11,9 @@ import org.jframe.infrastructure.AppContext;
  模版内容:验证码${code}，您正在注册成为新用户，感谢您的支持！
  申请说明:
  */
-public class RegisterSmsTemplate extends GeneralCaptchaSmsTemplate {
+public class RegisterSmsCaptchaTemplate extends GeneralCaptchaSmsCaptchaTemplate {
 
-    public RegisterSmsTemplate(String phone, String code){
+    public RegisterSmsCaptchaTemplate(String phone, String code){
         super(phone, code);
     }
 
@@ -21,4 +22,8 @@ public class RegisterSmsTemplate extends GeneralCaptchaSmsTemplate {
         return AppContext.getSmsConfig().getIdRegister();
     }
 
+    @Override
+    public CaptchaUsage getUsage() {
+        return CaptchaUsage.REGISTER;
+    }
 }

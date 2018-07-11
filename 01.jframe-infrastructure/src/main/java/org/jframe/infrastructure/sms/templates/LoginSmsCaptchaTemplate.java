@@ -1,6 +1,7 @@
 package org.jframe.infrastructure.sms.templates;
 
 import org.jframe.infrastructure.AppContext;
+import org.jframe.infrastructure.sms.CaptchaUsage;
 
 /**
  * Created by Leo on 2017/11/13.
@@ -10,9 +11,9 @@ import org.jframe.infrastructure.AppContext;
  模版内容:您的验证码为：${code}。您正在使用短信验证码登录，请勿将此验证码泄露于他人。
  申请说明:
  */
-public class LoginSmsTemplate extends GeneralCaptchaSmsTemplate {
+public class LoginSmsCaptchaTemplate extends GeneralCaptchaSmsCaptchaTemplate {
 
-    public LoginSmsTemplate(String phone, String code){
+    public LoginSmsCaptchaTemplate(String phone, String code){
         super(phone, code);
     }
 
@@ -21,4 +22,8 @@ public class LoginSmsTemplate extends GeneralCaptchaSmsTemplate {
         return AppContext.getSmsConfig().getIdLogin();
     }
 
+    @Override
+    public CaptchaUsage getUsage() {
+        return CaptchaUsage.SMS_LOGIN;
+    }
 }

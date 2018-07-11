@@ -2,7 +2,7 @@ package org.jframe.data.entities;
 
 import org.jframe.data.converters.CaptchaUsageConverter;
 import org.jframe.data.core.EntityBase;
-import org.jframe.data.enums.CaptchaUsage;
+import org.jframe.infrastructure.sms.CaptchaUsage;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -40,7 +40,7 @@ public class Captcha extends EntityBase {
     private String fromIp;
 
     public Captcha(){
-        this.usage = CaptchaUsage.UNKNOWN;
+        this.usage = CaptchaUsage.GENERAL;
     }
 
     //-------------------------------

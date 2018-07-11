@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * Created by screw on 2017/5/22.
  */
 @Component
-@PropertySource("/WEB-INF/app.properties")
+@PropertySource(value = "/WEB-INF/app.properties", ignoreResourceNotFound = true)
 public class AppConfig {
 
     @Value("${app.serverName}")
@@ -45,31 +45,31 @@ public class AppConfig {
     private boolean printStackTrace;
 
     @Value("${app.mock}")
-    private boolean mock;
+    private boolean mock=false;
 
     @Value("${app.entityPackage}")
     private String entityPackage;
 
     @Value("${app.isDeveloperMode}")
-    private boolean isDeveloperMode;
+    private boolean isDeveloperMode=false;
 
     @Value("${app.sms.ipLimit}")
-    private int smsIpLimit;
+    private int smsIpLimit = 1000;
 
     @Value("${app.sms.generalLimit}")
-    private int smsGeneralLimit;
+    private int smsGeneralLimit = 20;
 
     @Value("${app.sms.registerLimit}")
-    private int smsRegisterLimit;
+    private int smsRegisterLimit = 5;
 
     @Value("${app.sms.loginLimit}")
-    private int smsLoginLimit;
+    private int smsLoginLimit = 5;
 
     @Value("${app.sms.resetPasswordLimit}")
-    private int smsResetPasswordLimit;
+    private int smsResetPasswordLimit = 5;
 
     @Value("${app.sms.resetPayPasswordLimit}")
-    private int smsResetPayPasswordLimit;
+    private int smsResetPayPasswordLimit = 5;
 
     //---------------------------------------------
 

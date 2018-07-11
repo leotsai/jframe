@@ -123,16 +123,16 @@ public class AppContext {
             return "sms_ip_" + ip;
         }
 
-        public static String smsTimesLimit(String usageAndPhone) {
-            return "sms_times_" + usageAndPhone;
+        public static String smsTimesLimit(String templateCodeAndPhone) {
+            return "sms_times_" + templateCodeAndPhone;
         }
 
-        public static String smsInterval(String usageAndPhone) {
-            return "sms_interval_" + usageAndPhone;
+        public static String smsInterval(String templateCodeAndPhone) {
+            return "sms_interval_" + templateCodeAndPhone;
         }
 
-        public static String smsCaptcha(String usageAndPhone) {
-            return "sms_captcha_" + usageAndPhone;
+        public static String smsCaptcha(String templateCodeAndPhone) {
+            return "sms_captcha_" + templateCodeAndPhone;
         }
     }
 }
