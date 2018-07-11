@@ -1,6 +1,6 @@
 package org.jframe.core.weixin;
 
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.logging.LogHelper;
 import org.jframe.core.weixin.core.WeixinConfig;

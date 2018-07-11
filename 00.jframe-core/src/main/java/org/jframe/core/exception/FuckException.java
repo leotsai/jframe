@@ -1,4 +1,4 @@
-package org.jframe.core.extensions;
+package org.jframe.core.exception;
 
 /**
  * Created by screw on 2017/5/23.

@@ -1,19 +1,17 @@
 package org.jframe.web.controllers;
 
 import org.jframe.core.captcha.CaptchaBuilder;
-import org.jframe.core.extensions.FuckException;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.FuckException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.logging.LogHelper;
 import org.jframe.core.web.RestPost;
 import org.jframe.core.web.StandardJsonResult;
 import org.jframe.data.enums.CaptchaUsage;
-import org.jframe.data.redis.RedisApi;
 import org.jframe.infrastructure.AppContext;
-import org.jframe.infrastructure.sms.JframeSmsApi;
-import org.jframe.services.CaptchaService;
+import org.jframe.services.RedisApi;
 import org.jframe.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.jframe.services.utils.SmsUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,9 +27,6 @@ import java.util.Objects;
 @Controller
 @RequestMapping("/captcha")
 public class CaptchaController extends _ControllerBase {
-
-    @Autowired
-    private CaptchaService captchaService;
 
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
     public void refresh(HttpServletResponse response) {
@@ -65,23 +60,19 @@ public class CaptchaController extends _ControllerBase {
             String code = StringHelper.newPhoneCaptchaCode();
             switch (usage) {
                 case REGISTER:
-                    JframeSmsApi.getInstance().sendRegisterCaptcha(phone, code);
                     break;
                 case RESET_PASSWORD:
                     if (userService.get(phone) == null) {
                         throw new KnownException("该手机号还没有被注册");
                     }
-                    JframeSmsApi.getInstance().sendFindPasswordCaptcha(phone, code);
                     break;
                 case SMS_LOGIN:
-                    JframeSmsApi.getInstance().sendLoginCaptcha(phone, code);
                     break;
                 default:
                     throw new KnownException("参数错误");
             }
-
+            SmsUtil.send(phone, code, usage);
             RedisApi.setCurrentSmsPhone(phone);
-            captchaService.add(phone, code, usage);
         });
     }
 
@@ -96,21 +87,10 @@ public class CaptchaController extends _ControllerBase {
             if (!Objects.equals(currentSmsPhone, phone)) {
                 throw new FuckException();
             }
-            switch (usage) {
-                case REGISTER:
-                    JframeSmsApi.getInstance().sendRegisterCaptcha(phone, code);
-                    break;
-                case RESET_PASSWORD:
-                    JframeSmsApi.getInstance().sendFindPasswordCaptcha(phone, code);
-                    break;
-                case SMS_LOGIN:
-                    JframeSmsApi.getInstance().sendLoginCaptcha(phone, code);
-                    break;
-                default:
-                    throw new KnownException("参数错误");
+            if (usage == null || usage == CaptchaUsage.UNKNOWN) {
+                throw new KnownException("参数错误");
             }
-
-            captchaService.add(phone, code, usage);
+            SmsUtil.send(phone, code, usage);
         });
     }
 

@@ -1,7 +1,7 @@
 package org.jframe.infrastructure.unionpay;
 
 import org.jframe.core.app.AppInitializer;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.unionpay.UnionpayApi;
 import org.jframe.core.unionpay.sdk.SDKConfig;
 import org.jframe.infrastructure.AppContext;

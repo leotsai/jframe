@@ -17,7 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.jframe.core.extensions.Action;
 import org.jframe.core.extensions.JList;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 
 import java.io.Closeable;
 import java.io.File;

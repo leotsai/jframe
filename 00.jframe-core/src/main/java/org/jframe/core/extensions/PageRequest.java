@@ -1,5 +1,7 @@
 package org.jframe.core.extensions;
 
+import org.jframe.core.exception.KnownException;
+
 /**
  * Created by leo on 2017-05-26.
  */

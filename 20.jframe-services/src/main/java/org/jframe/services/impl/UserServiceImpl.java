@@ -1,7 +1,7 @@
 package org.jframe.services.impl;
 
 import org.jframe.core.extensions.JList;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.HttpHelper;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.http.WebClient;
@@ -14,14 +14,13 @@ import org.jframe.data.entities.User;
 import org.jframe.data.entities.UserRoleRL;
 import org.jframe.data.enums.CaptchaUsage;
 import org.jframe.data.enums.Gender;
-import org.jframe.data.redis.RedisApi;
+import org.jframe.services.RedisApi;
 import org.jframe.data.sets.OAuthWeixinUserSet;
-import org.jframe.infrastructure.AppContext;
 import org.jframe.infrastructure.oss.JframeOssApi;
-import org.jframe.services.CaptchaService;
 import org.jframe.services.UserService;
 import org.jframe.services.core.ServiceBase;
 import org.jframe.services.security.UserSession;
+import org.jframe.services.utils.SmsUtil;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -108,7 +107,7 @@ public class UserServiceImpl extends ServiceBase implements UserService {
             if (dbUser.isDisabled()) {
                 throw new KnownException("该账号已被禁用");
             }
-            AppContext.getBean(CaptchaService.class).validateSmsCaptcha(username, smsCaptcha, usage);
+            SmsUtil.validate(username,smsCaptcha,usage);
             dbUser.markLoginSuccess();
             db.save(dbUser);
         });

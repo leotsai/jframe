@@ -1,11 +1,9 @@
 package org.jframe.services.security;
 
 import org.jframe.core.extensions.JList;
-import org.jframe.core.extensions.KnownException;
 import org.jframe.data.caching.RoleContext;
 import org.jframe.data.entities.Role;
 import org.jframe.data.entities.User;
-import org.jframe.data.enums.VisualRole;
 
 import java.util.Objects;
 

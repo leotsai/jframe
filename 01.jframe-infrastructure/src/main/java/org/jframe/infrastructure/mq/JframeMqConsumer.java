@@ -5,7 +5,7 @@ import com.aliyun.openservices.ons.api.ConsumeContext;
 import com.aliyun.openservices.ons.api.Message;
 import org.jframe.core.aliyun.mq.MqConsumer;
 import org.jframe.core.app.AppInitializer;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.logging.LogHelper;
 import org.jframe.infrastructure.AppContext;
@@ -54,7 +54,7 @@ public class JframeMqConsumer extends MqConsumer implements AppInitializer {
             }
             return Action.CommitMessage;
         } catch (Throwable e) {
-            LogHelper.log("jobs.WpkAliMqConsumer.consumeMessage", e);
+            LogHelper.log("AliMqConsumer.consumeMessage", e);
             throw new KnownException("处理阿里云队列异常！");
         }
     }

@@ -2,7 +2,7 @@ package org.jframe.infrastructure.mq;
 
 import org.jframe.core.aliyun.mq.MqProducer;
 import org.jframe.core.app.AppInitializer;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.logging.LogHelper;
 import org.jframe.core.weixin.messaging.core.MessageBase;

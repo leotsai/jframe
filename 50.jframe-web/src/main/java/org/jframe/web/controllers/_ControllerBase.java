@@ -2,7 +2,7 @@ package org.jframe.web.controllers;
 
 import org.apache.commons.io.FileUtils;
 import org.jframe.core.extensions.Action1;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.extensions.ThrowableAction;
 import org.jframe.core.extensions.ThrowableFunction0;
 import org.jframe.core.helpers.ExceptionHelper;

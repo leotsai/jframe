@@ -1,6 +1,6 @@
 package org.jframe.web.controllers;
 
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.ExceptionHelper;
 import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.helpers.RequestHelper;
@@ -8,7 +8,6 @@ import org.jframe.core.logging.LogHelper;
 import org.jframe.core.web.StandardJsonResult;
 import org.jframe.infrastructure.AppContext;
 import org.jframe.web.viewModels.LayoutViewModel;
-import org.jframe.web.viewModels.MessageViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;

@@ -1,19 +1,15 @@
 package org.jframe.web.admin.controllers.account;
 
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.web.RestPost;
 import org.jframe.core.web.StandardJsonResult;
-import org.jframe.data.entities.OAuthWeixinUser;
-import org.jframe.infrastructure.helpers.CookieHelper;
 import org.jframe.services.UserService;
 import org.jframe.services.dto.LoginResultDto;
 import org.jframe.web.admin.controllers._AdminControllerBase;
-import org.jframe.web.enums.WeixinAuthMode;
 import org.jframe.web.security.Authorize;
 import org.jframe.web.security.WebContext;
 import org.jframe.web.security.WebIdentity;
-import org.jframe.web.security.WeixinAutoLogin;
 import org.jframe.web.viewModels.LayoutViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

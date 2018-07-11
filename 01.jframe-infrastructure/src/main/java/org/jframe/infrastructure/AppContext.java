@@ -118,5 +118,21 @@ public class AppContext {
         public static String smsPhone(String sessionId) {
             return "sms_" + sessionId;
         }
+
+        public static String smsIpLimit(String ip) {
+            return "sms_ip_" + ip;
+        }
+
+        public static String smsTimesLimit(String usageAndPhone) {
+            return "sms_times_" + usageAndPhone;
+        }
+
+        public static String smsInterval(String usageAndPhone) {
+            return "sms_interval_" + usageAndPhone;
+        }
+
+        public static String smsCaptcha(String usageAndPhone) {
+            return "sms_captcha_" + usageAndPhone;
+        }
     }
 }

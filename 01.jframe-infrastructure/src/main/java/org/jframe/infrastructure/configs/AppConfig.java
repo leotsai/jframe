@@ -53,9 +53,23 @@ public class AppConfig {
     @Value("${app.isDeveloperMode}")
     private boolean isDeveloperMode;
 
-    @Value("${app.logPattern}")
-    private String logPattern;
+    @Value("${app.sms.ipLimit}")
+    private int smsIpLimit;
 
+    @Value("${app.sms.generalLimit}")
+    private int smsGeneralLimit;
+
+    @Value("${app.sms.registerLimit}")
+    private int smsRegisterLimit;
+
+    @Value("${app.sms.loginLimit}")
+    private int smsLoginLimit;
+
+    @Value("${app.sms.resetPasswordLimit}")
+    private int smsResetPasswordLimit;
+
+    @Value("${app.sms.resetPayPasswordLimit}")
+    private int smsResetPayPasswordLimit;
 
     //---------------------------------------------
 
@@ -115,7 +129,27 @@ public class AppConfig {
         return isDeveloperMode;
     }
 
-    public String getLogPattern() {
-        return logPattern;
+    public int getSmsIpLimit() {
+        return smsIpLimit;
+    }
+
+    public int getSmsGeneralLimit() {
+        return smsGeneralLimit;
+    }
+
+    public int getSmsRegisterLimit() {
+        return smsRegisterLimit;
+    }
+
+    public int getSmsLoginLimit() {
+        return smsLoginLimit;
+    }
+
+    public int getSmsResetPasswordLimit() {
+        return smsResetPasswordLimit;
+    }
+
+    public int getSmsResetPayPasswordLimit() {
+        return smsResetPayPasswordLimit;
     }
 }

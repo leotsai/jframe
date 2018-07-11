@@ -18,6 +18,7 @@ public class JframeDbContext extends DbContext {
     private DepartmentSet departmentSet;
     private ArticleSet articleSet;
     private LogMySqlSet logMySqlSet;
+    private SettingSet settingSet;
 
     public JframeDbContext() {
         super(JframeHibernateSessionFactory.getInstance());
@@ -102,5 +103,12 @@ public class JframeDbContext extends DbContext {
             this.departmentSet = new DepartmentSet(this);
         }
         return departmentSet;
+    }
+
+    public SettingSet getSettingSet() {
+        if (this.settingSet == null) {
+            this.settingSet = new SettingSet(this);
+        }
+        return settingSet;
     }
 }

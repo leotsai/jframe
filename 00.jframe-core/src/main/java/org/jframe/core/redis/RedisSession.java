@@ -78,6 +78,10 @@ public class RedisSession implements AutoCloseable {
         this.tryDo(() -> this.jedis.setex(this.getActualKey(key), expireSeconds, value));
     }
 
+    public void incr(String key) {
+        this.tryDo(() -> this.jedis.incr(key));
+    }
+
     public void del(String key) {
         this.tryDo(() -> this.jedis.del(this.getActualKey(key)));
     }

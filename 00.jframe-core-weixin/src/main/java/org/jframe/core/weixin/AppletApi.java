@@ -1,6 +1,5 @@
 package org.jframe.core.weixin;
 
-import org.jframe.core.extensions.KnownException;
 import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.http.WebClient;
 import org.jframe.core.weixin.core.AppletConfig;
@@ -8,7 +7,6 @@ import org.jframe.core.weixin.core.WxKeyManager;
 import org.jframe.core.weixin.core.WxUrls;
 import org.jframe.core.weixin.core.dtos.AccessTokenDto;
 import org.jframe.core.weixin.core.dtos.AppletOpenIdDto;
-import org.jframe.core.weixin.core.dtos.GetQrCodeDto;
 import org.jframe.core.weixin.core.helpers.WxHttpHelper;
 import org.jframe.core.weixin.core.parameters.AppletQrCodeParameter;
 

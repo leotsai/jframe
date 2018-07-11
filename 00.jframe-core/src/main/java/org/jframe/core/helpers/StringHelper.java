@@ -2,7 +2,7 @@ package org.jframe.core.helpers;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jframe.core.extensions.JDate;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

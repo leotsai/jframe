@@ -2,7 +2,7 @@ package org.jframe.core.weixin.pay;
 
 import com.github.wxpay.sdk.WXPay;
 import org.jframe.core.alipay.apiResults.QueryRefundStatusResult;
-import org.jframe.core.extensions.KnownException;
+import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.logging.LogHelper;
 import org.jframe.core.weixin.core.WeixinPayConfig;
