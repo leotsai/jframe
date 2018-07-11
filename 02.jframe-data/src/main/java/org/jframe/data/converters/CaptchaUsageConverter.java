@@ -1,7 +1,7 @@
 package org.jframe.data.converters;
 
 
-import org.jframe.data.enums.CaptchaUsage;
+import org.jframe.infrastructure.sms.CaptchaUsage;
 
 import javax.persistence.AttributeConverter;
 

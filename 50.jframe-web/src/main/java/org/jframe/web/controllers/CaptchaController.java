@@ -7,7 +7,7 @@ import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.logging.LogHelper;
 import org.jframe.core.web.RestPost;
 import org.jframe.core.web.StandardJsonResult;
-import org.jframe.data.enums.CaptchaUsage;
+import org.jframe.infrastructure.sms.CaptchaUsage;
 import org.jframe.infrastructure.AppContext;
 import org.jframe.services.RedisApi;
 import org.jframe.services.UserService;
@@ -87,7 +87,7 @@ public class CaptchaController extends _ControllerBase {
             if (!Objects.equals(currentSmsPhone, phone)) {
                 throw new FuckException();
             }
-            if (usage == null || usage == CaptchaUsage.UNKNOWN) {
+            if (usage == null || usage == CaptchaUsage.GENERAL) {
                 throw new KnownException("参数错误");
             }
             SmsUtil.send(phone, code, usage);

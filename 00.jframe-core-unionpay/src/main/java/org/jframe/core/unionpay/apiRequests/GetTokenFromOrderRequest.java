@@ -16,9 +16,7 @@ public class GetTokenFromOrderRequest {
     private String merId;
     private String tokenPayData;
 
-
     private Map<String, String> mapData;
-
 
     public Map<String, String> getMapData() {
         return this.mapData;

@@ -36,7 +36,7 @@ public class DbContext implements AutoCloseable {
         this.sessionFactory = factory;
         this.session = factory.getFactory().openSession();
         this.transactional = transactional;
-        if(transactional){
+        if (transactional) {
             this.beginTransaction();
         }
     }
@@ -224,9 +224,9 @@ public class DbContext implements AutoCloseable {
 
     @Override
     public void close() {
-        if(this.transactional){
+        if (this.transactional) {
             Transaction transaction = this.session.getTransaction();
-            if(transaction.getStatus() == TransactionStatus.ACTIVE){
+            if (TransactionStatus.ACTIVE == transaction.getStatus()) {
                 transaction.rollback();
             }
         }

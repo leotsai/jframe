@@ -8,8 +8,12 @@ public interface UnionpayConfig {
     String TIME_PATTERN = "YYYYMMDDhhmmss";
 
     String getMerId();
+
     String getFrontReturnUrl();
+
     String getBackNotifyUrl();
+
     boolean isEncrypted();
+
     String getTrId();
 }

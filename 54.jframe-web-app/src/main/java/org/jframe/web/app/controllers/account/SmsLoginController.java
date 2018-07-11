@@ -6,7 +6,7 @@ import org.jframe.core.web.RestPost;
 import org.jframe.core.web.StandardJsonResult;
 import org.jframe.data.entities.OAuthWeixinUser;
 import org.jframe.data.entities.User;
-import org.jframe.data.enums.CaptchaUsage;
+import org.jframe.infrastructure.sms.CaptchaUsage;
 import org.jframe.infrastructure.helpers.CookieHelper;
 import org.jframe.services.UserService;
 import org.jframe.services.dto.LoginResultDto;

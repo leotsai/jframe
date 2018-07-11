@@ -1,9 +1,9 @@
 package org.jframe.infrastructure.configs;
 
+import org.jframe.core.unionpay.configs.UnionpayConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.jframe.core.unionpay.configs.UnionpayConfig;
 
 /**
  * Created by Leo on 2017/11/6.
@@ -23,7 +23,6 @@ public class JframeUnionpayConfig implements UnionpayConfig {
 
     @Value("${unionpay.isEncrypted}")
     private boolean isEncrypted;
-
 
     @Value("${unionpay.trId}")
     private String trId;

@@ -24,7 +24,6 @@ public class SmsPayRequest {
 
     private Map<String, String> mapData;
 
-
     public Map<String, String> getMapData() {
         return this.mapData;
     }

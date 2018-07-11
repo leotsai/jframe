@@ -41,30 +41,4 @@ public class JframeSmsApi extends AliyunSmsApi implements AppInitializer {
         super.trySend(template);
     }
 
-
-    public void sendGenralCaptcha(String phone, String code) {
-        GeneralCaptchaSmsTemplate template = new GeneralCaptchaSmsTemplate(phone, code);
-        this.trySend(template);
-    }
-
-    public void sendRegisterCaptcha(String phone, String code) {
-        SmsTemplate template = new RegisterSmsTemplate(phone, code);
-        this.trySend(template);
-    }
-
-    public void sendFindPasswordCaptcha(String phone, String code) {
-        SmsTemplate template = new FindPasswordSmsTemplate(phone, code);
-        this.trySend(template);
-    }
-
-    public void sendLoginCaptcha(String phone, String code) {
-        SmsTemplate template = new LoginSmsTemplate(phone, code);
-        this.trySend(template);
-    }
-
-    public void sendResetPayPasswordCaptcha(String phone, String code) {
-        SmsTemplate template = new ResetPayPasswordSmsTemplate(phone, code);
-        this.trySend(template);
-    }
-
 }

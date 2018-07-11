@@ -5,7 +5,7 @@ import org.jframe.core.extensions.JList;
 import org.jframe.core.hibernate.DbContext;
 import org.jframe.core.hibernate.DbSet;
 import org.jframe.data.entities.Captcha;
-import org.jframe.data.enums.CaptchaUsage;
+import org.jframe.infrastructure.sms.CaptchaUsage;
 
 /**
  * Created by leo on 2017/5/19.
