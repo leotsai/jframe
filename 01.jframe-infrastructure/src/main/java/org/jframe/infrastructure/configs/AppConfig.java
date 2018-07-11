@@ -68,7 +68,7 @@ public class AppConfig {
     @Value("${app.sms.resetPasswordLimit}")
     private int smsResetPasswordLimit = 5;
 
-    @Value("${app.sms.resetPayPasswordLimit}")
+    @Value("${app.sms.resetPayPasswordLimit:10}")
     private int smsResetPayPasswordLimit = 5;
 
     //---------------------------------------------
