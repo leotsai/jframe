@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by Leo on 2017/11/3.
  * 支付并开通无跳转支付
  */
-public class PayAndOpenCardRequest {
+public class MobileWapPayRequest {
 
     private String merId;
     private String orderId;
@@ -23,12 +23,11 @@ public class PayAndOpenCardRequest {
 
     private Map<String, String> mapData;
 
-
     public Map<String, String> getMapData() {
         return this.mapData;
     }
 
-    public PayAndOpenCardRequest buildMapData() {
+    public MobileWapPayRequest buildMapData() {
         int amountFen = this.amount.multiply(new BigDecimal(100)).setScale(0).intValue();
 
         this.mapData = new HashMap<>();

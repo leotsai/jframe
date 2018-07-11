@@ -23,7 +23,6 @@ public class SendPaySmsRequest {
 
     private Map<String, String> mapData;
 
-
     public Map<String, String> getMapData() {
         return this.mapData;
     }

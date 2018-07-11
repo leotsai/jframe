@@ -11,7 +11,6 @@ import java.util.Map;
  */
 public class QueryOrderStatusRequest {
 
-
     private String merId;
     private String orderId;
     private String txnTime;

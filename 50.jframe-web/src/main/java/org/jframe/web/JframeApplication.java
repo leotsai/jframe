@@ -31,8 +31,8 @@ public class JframeApplication extends Application {
     protected void registerInitializers(JList<AppInitializer> initializers) {
         initializers.add(JframeHibernateSessionFactory.getInstance());
         initializers.add(JframeCrypto.getInstance());
-        initializers.add(WxKeyManager.getInstance().setCacheProvider(new RedisWxCacheProvider()));
         initializers.add(JframeRedisPoolContext.getInstance());
+        initializers.add(WxKeyManager.getInstance().setCacheProvider(new RedisWxCacheProvider()));
         initializers.add(JframeSmsApi.getInstance());
         initializers.add(JframeOssApi.getInstance());
         initializers.add(JframeMqProducer.getInstance());

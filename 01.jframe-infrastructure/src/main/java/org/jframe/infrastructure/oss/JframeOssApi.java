@@ -8,10 +8,10 @@ import org.jframe.infrastructure.AppContext;
  * Created by leo on 2017-08-18.
  */
 public class JframeOssApi implements AppInitializer {
+
     private static final JframeOssApi instance = new JframeOssApi();
 
     private JframeOssApi() {
-
     }
 
     private static OssBucket images;
@@ -26,12 +26,12 @@ public class JframeOssApi implements AppInitializer {
         return images;
     }
 
-    public static OssBucket getPublic() {
-        return publik;
-    }
-
     public static OssBucket getInternal() {
         return internal;
+    }
+
+    public static OssBucket getPublik() {
+        return publik;
     }
 
     private void initializeAll() {

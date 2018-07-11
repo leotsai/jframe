@@ -9,6 +9,7 @@ import java.util.Map;
  * Created by Leo on 2017/11/6.
  */
 public class UnionpayHelper {
+
     public static Map<String, String> getRequestParameters(final HttpServletRequest request) {
         Map<String, String> res = new HashMap<>();
         Enumeration<?> temp = request.getParameterNames();
