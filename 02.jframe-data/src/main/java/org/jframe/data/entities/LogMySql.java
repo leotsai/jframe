@@ -1,8 +1,10 @@
 package org.jframe.data.entities;
 
+import org.jframe.core.extensions.JDate;
 import org.jframe.core.logging.enums.LogArea;
 import org.jframe.data.converters.LogTypeConverter;
 import org.jframe.data.core.EntityBase;
+import org.jframe.infrastructure.helpers.DateHelper;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -38,6 +40,10 @@ public class LogMySql extends EntityBase {
         this.log = log;
         this.type = type;
         this.location = location;
+    }
+
+    public String formatFileLog() {
+        return "\r\n" + DateHelper.toDate(JDate.now()) + this.type + "；" + this.group + "；" + this.location + "；" + this.log;
     }
 
     public String getLog() {

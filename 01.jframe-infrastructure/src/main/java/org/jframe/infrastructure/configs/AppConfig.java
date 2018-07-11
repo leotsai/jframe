@@ -71,6 +71,9 @@ public class AppConfig {
     @Value("${app.sms.resetPayPasswordLimit}")
     private int smsResetPayPasswordLimit;
 
+    @Value("${app.fileLogPath}")
+    private String fileLogPath;
+
     //---------------------------------------------
 
     public String getServerName() {
@@ -151,5 +154,9 @@ public class AppConfig {
 
     public int getSmsResetPayPasswordLimit() {
         return smsResetPayPasswordLimit;
+    }
+
+    public String getFileLogPath() {
+        return fileLogPath;
     }
 }

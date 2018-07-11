@@ -119,7 +119,7 @@ public class LogHelper {
     public static String getLocation(Throwable ex) {
         StringBuilder sb = new StringBuilder();
         StackTraceElement[] stacks = ex.getStackTrace();
-        sb.append("class:").append(stacks[1].getClassName()).append(";method:").append(stacks[1].getMethodName()).append(";number:").append(stacks[1].getLineNumber());
+        sb.append("class:").append(stacks[0].getClassName()).append(";method:").append(stacks[0].getMethodName()).append(";number:").append(stacks[0].getLineNumber());
         return sb.toString();
     }
 
