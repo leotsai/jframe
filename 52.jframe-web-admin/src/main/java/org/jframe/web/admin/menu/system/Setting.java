@@ -1,5 +1,6 @@
 package org.jframe.web.admin.menu.system;
 
+import org.jframe.web.admin.menu.system.setting.Configuration;
 import org.jframe.web.admin.menu.system.setting.Permission;
 import org.jframe.web.menu.MenuItem;
 
@@ -13,8 +14,13 @@ public class Setting extends MenuItem {
     }
 
     private final Permission permission = new Permission();
+    private final Configuration configuration = new Configuration();
 
     public Permission permission() {
         return permission;
+    }
+
+    public Configuration config() {
+        return configuration;
     }
 }

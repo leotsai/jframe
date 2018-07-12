@@ -15,7 +15,7 @@ import java.util.Objects;
 /**
  * created by yezi on 2018/1/16
  */
-@Service("demo-employee-service")
+@Service("admin-employee-service")
 public class EmployeeServiceImpl extends ServiceBase implements EmployeeService {
 
     @Override

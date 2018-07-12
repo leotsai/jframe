@@ -5,6 +5,7 @@ import org.jframe.core.extensions.JMap;
 import org.jframe.data.JframeDbContext;
 import org.jframe.data.entities.Setting;
 import org.jframe.data.enums.DbCacheKey;
+import org.jframe.data.enums.SettingType;
 
 import java.util.Objects;
 
@@ -31,7 +32,12 @@ public class SettingContext implements VersionedCacheContext {
     @Override
     public void initialize(long version) {
         JList<Setting> list = new JList<>();
-        list.add(new Setting("app.sms.enable", "true", "短信开关"));
+        list.add(new Setting("app.sms.enable", "true", "短信开关", SettingType.BOOLEAN, null));
+
+        list.add(new Setting("app.test.text", "112233", "TEXT测试", SettingType.TEXT, null));
+        list.add(new Setting("app.test.json", "{\"key\":\"value\"}", "JSON测试", SettingType.JSON, null));
+        list.add(new Setting("app.test.checkbox", "[\"v1\",\"v2\",\"v3\"]", "CHECKBOX测试", SettingType.CHECKBOX, "v1,v2,v3,v4,v5"));
+        list.add(new Setting("app.test.select", "v1", "SELECT测试", SettingType.SELECT, "v1,v2,v3,v4,v5"));
 
         this.init(list);
         this.refresh(version);

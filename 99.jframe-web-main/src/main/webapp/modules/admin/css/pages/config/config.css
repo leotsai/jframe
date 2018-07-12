@@ -1,0 +1,54 @@
+.switch {
+    border: 1px solid white;
+    transition: border 0.4s, box-shadow 0.2s, background-color 1.2s;
+    cursor: pointer;
+    border-color: #2cc5a8;
+    box-shadow: #2cc5a8 0px 0px 0px 16px inset;
+    background-color: #2cc5a8;
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 14px;
+    border-radius: 6px;
+    line-height: 14px;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+.slider {
+    position: absolute;
+    display: inline-block;
+    width: 24px;
+    height: 25px;
+    background: white;
+    border-radius: 50%;
+    left: 0;
+    top: -4px;
+}
+
+.switch .slider {
+    left: 30px;
+    transition: background-color 0.4s, left 0.2s;
+    background: url("../../images/switch-on.png") no-repeat center/24px 25px;
+}
+
+.switch-off {
+    border: 1px solid #eee;
+    transition: border 0.4s, box-shadow 0.4s;
+    box-shadow: #eee 0px 0px 0px 0px inset;
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.switch-off .slider {
+    left: 0;
+    transition: background-color 0.4s, left 0.2s;
+    background: url("../../images/switch-off.png") no-repeat center/24px 25px
+}
+.edit-checkbox{
+    float: left;
+    line-height: 18px;
+    margin-right: 20px;
+}
+.btn-save{
+    margin: 10px;
+}

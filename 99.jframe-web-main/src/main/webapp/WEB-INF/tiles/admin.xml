@@ -41,6 +41,8 @@
     </definition>
     <definition name="admin-roleSetting-permission" template="/modules/admin/views/employee/permission.jsp"/>
 
-
+    <definition name="admin-config-index" extends="adminLayout">
+        <put-attribute name="body" value="/modules/admin/views/config/index.jsp"/>
+    </definition>
 
 </tiles-definitions>

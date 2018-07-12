@@ -10,7 +10,6 @@ public class JframeDbContext extends DbContext {
     private UserSet userSet;
     private RoleSet roleSet;
     private UserRoleRLSet userRoleRLSet;
-    private CaptchaSet captchaSet;
     private OAuthWeixinUserSet oAuthWeixinUserSet;
     private DbCacheSet dbCacheSet;
     private EmployeeSet employeeSet;
@@ -61,13 +60,6 @@ public class JframeDbContext extends DbContext {
             this.userRoleRLSet = new UserRoleRLSet(this);
         }
         return userRoleRLSet;
-    }
-
-    public CaptchaSet getCaptchaSet() {
-        if (this.captchaSet == null) {
-            this.captchaSet = new CaptchaSet(this);
-        }
-        return captchaSet;
     }
 
     public OAuthWeixinUserSet getOAuthWeixinUserSet() {

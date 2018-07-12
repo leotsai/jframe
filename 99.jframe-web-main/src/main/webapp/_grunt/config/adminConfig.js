@@ -15,10 +15,13 @@ var AdminConfig = {
                 index: [libs.grid, libs.hashQuery],
                 detail: [],
                 edit: []
+            },
+            config: {
+                index: []
             }
         };
     }
 
-}
+};
 
 module.exports = AdminConfig;
