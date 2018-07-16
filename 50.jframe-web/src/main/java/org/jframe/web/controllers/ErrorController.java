@@ -1,5 +1,6 @@
 package org.jframe.web.controllers;
 
+import org.jframe.core.exception.ResultCode;
 import org.jframe.core.exception.KnownException;
 import org.jframe.core.helpers.ExceptionHelper;
 import org.jframe.core.helpers.JsonHelper;
@@ -57,7 +58,7 @@ public class ErrorController {
 
             if (RequestHelper.returnJson(request)) {
                 StandardJsonResult jsonResult = new StandardJsonResult();
-                jsonResult.fail(userMessage);
+                jsonResult.fail(ResultCode.BUSINESS, userMessage);
                 response.setContentType("application/json;charset=utf-8");
                 response.getWriter().write(JsonHelper.serialize(jsonResult));
                 return new ModelAndView();

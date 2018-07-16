@@ -1,8 +1,9 @@
 package org.jframe.web.controllers;
 
 import org.apache.commons.io.FileUtils;
-import org.jframe.core.extensions.Action1;
+import org.jframe.core.exception.ResultCode;
 import org.jframe.core.exception.KnownException;
+import org.jframe.core.extensions.Action1;
 import org.jframe.core.extensions.ThrowableAction;
 import org.jframe.core.extensions.ThrowableFunction0;
 import org.jframe.core.helpers.ExceptionHelper;
@@ -36,12 +37,11 @@ public class _ControllerBase {
     protected <T> StandardJsonResult<T> tryJson(ThrowableFunction0<T> func) {
         StandardJsonResult result = new StandardJsonResult();
         try {
-            result.setValue(func.apply());
-            result.setSuccess(true);
+            result.succeed(func.apply());
         } catch (KnownException ex) {
-            result.fail(ex.getMessage(), ex.getCode());
+            result.fail(ex.getResultCode(), ex.getMessage());
         } catch (Throwable ex) {
-            result.fail(this.getUserMessage(ex), "-1");
+            result.fail(ResultCode.SYSTEM, ex.getMessage());
             LogHelper.log("_ControllerBase.tryJson", ex);
         }
         return result;
@@ -51,11 +51,11 @@ public class _ControllerBase {
         StandardJsonResult result = new StandardJsonResult();
         try {
             action.apply();
-            result.setSuccess(true);
+            result.succeed();
         } catch (KnownException ex) {
-            result.fail(ex.getMessage(), ex.getCode());
+            result.fail(ex.getResultCode(), ex.getMessage());
         } catch (Throwable ex) {
-            result.fail(this.getUserMessage(ex), "-1");
+            result.fail(ResultCode.SYSTEM, ex.getMessage());
             LogHelper.log("_ControllerBase.tryJson", ex);
         }
         return result;
@@ -68,7 +68,7 @@ public class _ControllerBase {
     protected ModelAndView tryView(String path, ThrowableFunction0<Object> getModel, Action1<ModelAndView> mvBuilder) {
         ModelAndView mv = new ModelAndView();
         String prefix = this.getAreaPathPrefix();
-        String viewName = path.endsWith(".jsp") ?  (prefix == null ? path : prefix + path) : path;
+        String viewName = path.endsWith(".jsp") ? (prefix == null ? path : prefix + path) : path;
         try {
             mv.setViewName(viewName);
             if (getModel != null) {

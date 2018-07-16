@@ -1,7 +1,8 @@
 package org.jframe.services.impl;
 
-import org.jframe.core.extensions.JList;
+import org.jframe.core.exception.ResultCode;
 import org.jframe.core.exception.KnownException;
+import org.jframe.core.extensions.JList;
 import org.jframe.core.helpers.HttpHelper;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.http.WebClient;
@@ -12,11 +13,11 @@ import org.jframe.data.entities.Image;
 import org.jframe.data.entities.OAuthWeixinUser;
 import org.jframe.data.entities.User;
 import org.jframe.data.entities.UserRoleRL;
-import org.jframe.infrastructure.sms.CaptchaUsage;
 import org.jframe.data.enums.Gender;
-import org.jframe.services.RedisApi;
 import org.jframe.data.sets.OAuthWeixinUserSet;
 import org.jframe.infrastructure.oss.JframeOssApi;
+import org.jframe.infrastructure.sms.CaptchaUsage;
+import org.jframe.services.RedisApi;
 import org.jframe.services.UserService;
 import org.jframe.services.core.ServiceBase;
 import org.jframe.services.security.UserSession;
@@ -96,7 +97,7 @@ public class UserServiceImpl extends ServiceBase implements UserService {
             db.commitTransaction();
         }
         if (!loginSuccess) {
-            throw new KnownException("用户名或密码错误", "1");
+            throw new KnownException(ResultCode.WRONG_PASSWORD, "用户名或密码错误");
         }
     }
 
@@ -107,7 +108,7 @@ public class UserServiceImpl extends ServiceBase implements UserService {
             if (dbUser.isDisabled()) {
                 throw new KnownException("该账号已被禁用");
             }
-            SmsUtil.validate(username,smsCaptcha,usage);
+            SmsUtil.validate(username, smsCaptcha, usage);
             dbUser.markLoginSuccess();
             db.save(dbUser);
         });
@@ -276,7 +277,7 @@ public class UserServiceImpl extends ServiceBase implements UserService {
         }
         if (user.getErrorPasswordTries() > 0) {
             if (StringHelper.isNullOrWhitespace(captcha)) {
-                throw new KnownException("请输入验证码", "1");
+                throw new KnownException(ResultCode.WRONG_PASSWORD, "请输入验证码");
             }
             String captcha1 = RedisApi.getCurrentCaptcha();
             if (!StringHelper.eq(captcha1, captcha)) {

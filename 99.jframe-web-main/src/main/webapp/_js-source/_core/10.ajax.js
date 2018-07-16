@@ -15,10 +15,10 @@
     }
 
     function handleSuccess(result, successCallback, forbiddenCallback) {
-        if (result.code === mvcApp.wpkCode.NOT_AUTHENTICATED) {
+        if (result.code === mvcApp.resultCode.NOT_AUTHENTICATED) {
             forbiddenCallback && forbiddenCallback();
             mvcApp.login._showLogin();
-        } else if (result.code === mvcApp.wpkCode.INSUFFICIENT_PERMISSION) {
+        } else if (result.code === mvcApp.resultCode.INSUFFICIENT_PERMISSION) {
             forbiddenCallback && forbiddenCallback();
             mvcApp.notification.alertInfo("权限不足，请注销登录后重新登录尝试")
         } else {

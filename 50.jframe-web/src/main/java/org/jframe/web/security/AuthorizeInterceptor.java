@@ -6,7 +6,7 @@ import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.helpers.RequestHelper;
 import org.jframe.core.web.StandardJsonResult;
 import org.jframe.data.entities.Role;
-import org.jframe.data.enums.ErrorCode;
+import org.jframe.core.exception.ResultCode;
 import org.jframe.services.security.UserSession;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -45,7 +45,7 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
     private boolean authorize(HttpServletRequest request, HttpServletResponse response, Authorize authorize) throws Exception {
         WebContext context = WebContext.getCurrent();
         if (context.isAuthenticated() == false) {
-            this.writeResponse(ErrorCode.NOT_AUTHENTICATED, request, response);
+            this.writeResponse(ResultCode.NOT_AUTHENTICATED, request, response);
             return false;
         }
         if (authorize.visualRoles().length == 0 && authorize.permissions().length == 0 && authorize.rolesNames().length == 0) {
@@ -55,7 +55,7 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
         if (authorizeResult == null || authorizeResult.equals(true)) {
             return true;
         }
-        this.writeResponse(ErrorCode.INSUFFICIENT_PERMISSION, request, response);
+        this.writeResponse(ResultCode.INSUFFICIENT_PERMISSION, request, response);
         return false;
     }
 
@@ -81,7 +81,7 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
         return false;
     }
 
-    private void writeResponse(ErrorCode code, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    private void writeResponse(ResultCode code, HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (RequestHelper.isAjax(request)) {
             this.writeAjaxIntercept(response, code);
         } else {
@@ -90,7 +90,7 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
         }
     }
 
-    private void writeAjaxIntercept(HttpServletResponse response, ErrorCode code) throws IOException {
+    private void writeAjaxIntercept(HttpServletResponse response, ResultCode code) throws IOException {
         StandardJsonResult result = new StandardJsonResult();
         result.setCode(code.getCode());
         result.setSuccess(true);

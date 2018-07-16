@@ -50,7 +50,8 @@
                 return url.substr(0, index + 6) + "full";
             }
         },
-        wpkCode: {
+        resultCode: {
+            WRONG_PASSWORD: '1001',//密码错误
             NOT_AUTHENTICATED: '4001',//未登录或session过期，但是访问的url需要登录
             INSUFFICIENT_PERMISSION: '4002',//已登录，但是权限不足
             REQUIRE_DSN: '4003'//请求中需要DSN信息

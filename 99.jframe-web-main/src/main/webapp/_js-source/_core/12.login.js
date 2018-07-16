@@ -240,7 +240,7 @@
                 handleLoginSuccess(result.value);
             } else {
                 mvcApp.notification.busy(false);
-                if (result.code == 1) {
+                if (result.code == mvcApp.resultCode.WRONG_PASSWORD) {
                     mvcApp.login.get$Captcha().show();
                 }
                 refreshCaptcha();

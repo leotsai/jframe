@@ -19,18 +19,26 @@ import java.util.Objects;
 
 /**
  * 短信发送工具
- * 发送间隔60秒（INTERVAL_SECONDS）
- * 有效期15分钟（EXPIRE_SECONDS）
- * 错误次数5词（EXPIRE_SECONDS）
- * 发送次数重置周期12小时（SEND_CYCLE_SECONDS）
  *
  * @author qq
  * @date 2018/7/10
  */
 public class SmsUtil {
+    /**
+     * 发送间隔（秒）
+     */
     private static final int INTERVAL_SECONDS = 60;
+    /**
+     * 有效期（秒）
+     */
     private static final int EXPIRE_SECONDS = 60 * 15;
+    /**
+     * 验证错误次数限制
+     */
     private static final int ERROR_LIMIT = 5;
+    /**
+     * 发送次数重置周期（秒）
+     */
     private static final int SEND_CYCLE_SECONDS = 12 * 60 * 60;
 
     public static void send(String phone, String code, CaptchaUsage usage) {

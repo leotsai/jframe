@@ -4,7 +4,6 @@ import org.jframe.core.aliyun.sms.AliyunSmsApi;
 import org.jframe.core.aliyun.sms.SmsTemplate;
 import org.jframe.core.app.AppInitializer;
 import org.jframe.infrastructure.AppContext;
-import org.jframe.infrastructure.sms.templates.*;
 
 /**
  * Created by leo on 2017-11-12.
