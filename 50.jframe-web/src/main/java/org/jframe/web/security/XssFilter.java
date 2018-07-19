@@ -1,11 +1,8 @@
 package org.jframe.web.security;
 
-import org.jframe.core.exception.KnownException;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Enumeration;
 
 /**
  * @author qq

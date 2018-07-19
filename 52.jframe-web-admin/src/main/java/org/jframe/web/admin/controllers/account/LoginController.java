@@ -1,7 +1,6 @@
 package org.jframe.web.admin.controllers.account;
 
 import org.jframe.core.exception.KnownException;
-import org.jframe.core.helpers.HttpHelper;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.web.RestPost;
 import org.jframe.core.web.StandardJsonResult;
