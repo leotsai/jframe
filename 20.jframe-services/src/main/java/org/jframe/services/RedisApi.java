@@ -18,7 +18,7 @@ public class RedisApi {
      * @param code
      */
     public static void setCurrentCaptcha(String code) {
-        String key = AppContext.RedisKeys.captcha(RequestHelper.getSessionId());
+        String key = AppContext.RedisKeys.captcha(RequestHelper.getSessionIdFromCookie());
         int expireSeconds = 600;
         try (JframeRedisSession session = new JframeRedisSession()) {
             session.setex(key, expireSeconds, code);
@@ -31,7 +31,7 @@ public class RedisApi {
      * @return
      */
     public static String getCurrentCaptcha() {
-        String key = AppContext.RedisKeys.captcha(RequestHelper.getSessionId());
+        String key = AppContext.RedisKeys.captcha(RequestHelper.getSessionIdFromCookie());
         try (JframeRedisSession session = new JframeRedisSession()) {
             String code = session.get(key);
             session.del(key);
@@ -40,7 +40,7 @@ public class RedisApi {
     }
 
     public static void setCurrentSmsPhone(String phone) {
-        String key = AppContext.RedisKeys.smsPhone(RequestHelper.getSessionId());
+        String key = AppContext.RedisKeys.smsPhone(RequestHelper.getSessionIdFromCookie());
         int expireSeconds = 600;
         try (JframeRedisSession session = new JframeRedisSession()) {
             session.setex(key, expireSeconds, phone);
@@ -48,7 +48,7 @@ public class RedisApi {
     }
 
     public static String getCurrentSmsPhone() {
-        String key = AppContext.RedisKeys.smsPhone(RequestHelper.getSessionId());
+        String key = AppContext.RedisKeys.smsPhone(RequestHelper.getSessionIdFromCookie());
         try (JframeRedisSession session = new JframeRedisSession()) {
             String phone = session.get(key);
             return phone;

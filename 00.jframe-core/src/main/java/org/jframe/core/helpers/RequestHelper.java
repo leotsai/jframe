@@ -4,6 +4,7 @@ package org.jframe.core.helpers;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Objects;
@@ -61,6 +62,17 @@ public class RequestHelper {
     public static String getSessionId() {
         return HttpHelper.getCurrentRequest().getSession().getId();
     }
+
+    public static String getSessionIdFromCookie() {
+        Cookie[] cookies = HttpHelper.getCurrentRequest().getCookies();
+        for (Cookie cookie : cookies) {
+            if (Objects.equals(cookie.getName(), "JSESSIONID")) {
+                return cookie.getValue();
+            }
+        }
+        return getSessionId();
+    }
+
 
     public static String getRoutedDsn() {
         HttpServletRequest request = HttpHelper.getCurrentRequest();
