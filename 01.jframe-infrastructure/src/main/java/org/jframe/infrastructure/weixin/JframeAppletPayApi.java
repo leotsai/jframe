@@ -1,9 +1,9 @@
 package org.jframe.infrastructure.weixin;
 
-import org.jframe.infrastructure.AppContext;
-import org.jframe.infrastructure.configs.DemoAppletPayConfig;
 import org.jframe.core.weixin.core.WeixinPayConfig;
 import org.jframe.core.weixin.pay.WeixinPayApi;
+import org.jframe.infrastructure.AppContext;
+import org.jframe.infrastructure.configs.DemoAppletPayConfig;
 
 /**
  * DESC:小程序支付接口

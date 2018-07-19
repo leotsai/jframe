@@ -1,9 +1,9 @@
 package org.jframe.infrastructure.weixin;
 
-import org.jframe.infrastructure.AppContext;
-import org.jframe.infrastructure.configs.DemoAppletConfig;
 import org.jframe.core.weixin.AppletApi;
 import org.jframe.core.weixin.core.AppletConfig;
+import org.jframe.infrastructure.AppContext;
+import org.jframe.infrastructure.configs.DemoAppletConfig;
 
 /**
  * @author xiaojin

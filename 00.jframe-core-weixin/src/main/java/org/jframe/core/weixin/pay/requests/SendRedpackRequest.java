@@ -6,7 +6,6 @@ import org.jframe.core.extensions.JMap;
 import org.jframe.core.weixin.core.WeixinPayConfig;
 import org.jframe.core.weixin.pay.WxPayHelper;
 
-import java.math.BigDecimal;
 import java.util.Map;
 
 /**

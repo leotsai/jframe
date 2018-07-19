@@ -1,9 +1,9 @@
 package org.jframe.core.redis;
 
+import org.jframe.core.helpers.StringHelper;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-import org.jframe.core.helpers.StringHelper;
 
 /**
  * Created by leo on 2017-08-22.

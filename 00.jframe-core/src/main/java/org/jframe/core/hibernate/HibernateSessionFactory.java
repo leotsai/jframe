@@ -2,8 +2,8 @@ package org.jframe.core.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.jframe.core.extensions.JList;
 import org.jframe.core.exception.KnownException;
+import org.jframe.core.extensions.JList;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

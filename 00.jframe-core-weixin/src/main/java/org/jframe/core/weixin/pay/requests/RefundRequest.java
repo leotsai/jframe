@@ -1,6 +1,5 @@
 package org.jframe.core.weixin.pay.requests;
 
-import org.jframe.core.weixin.core.WeixinConfig;
 import org.jframe.core.weixin.core.WeixinPayConfig;
 
 import java.math.BigDecimal;

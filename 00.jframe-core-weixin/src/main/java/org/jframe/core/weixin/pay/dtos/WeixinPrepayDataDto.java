@@ -4,7 +4,6 @@ import org.jframe.core.extensions.JList;
 import org.jframe.core.extensions.KeyValuePair;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.security.Crypto;
-import org.jframe.core.weixin.core.WeixinConfig;
 
 import java.util.UUID;
 

@@ -9,6 +9,8 @@ import org.jframe.data.JframeHibernateSessionFactory;
 import org.jframe.data.caching.DbCacheContext;
 import org.jframe.infrastructure.AppContext;
 import org.jframe.infrastructure.alipay.JframeAlipayApi;
+import org.jframe.infrastructure.cache.CacheManager;
+import org.jframe.infrastructure.cache.RedisCache;
 import org.jframe.infrastructure.mongodb.JframeMongoDatabaseFactory;
 import org.jframe.infrastructure.mq.JframeMqConsumer;
 import org.jframe.infrastructure.mq.JframeMqProducer;
@@ -42,6 +44,7 @@ public class JframeApplication extends Application {
         initializers.add(JframeWeixinPayApi.getInstance());
         initializers.add(PermissionRegistery.getInstance());
         initializers.add(DbCacheContext.getInstance());
+        initializers.add(CacheManager.getInstance().setCache(new RedisCache()));
     }
 
     @Override

@@ -6,11 +6,8 @@ import org.jframe.core.security.Crypto;
 import org.jframe.data.converters.GenderConverter;
 import org.jframe.data.core.EntityBase;
 import org.jframe.data.enums.Gender;
-import org.jframe.infrastructure.security.JframeCrypto;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 

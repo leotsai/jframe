@@ -1,9 +1,9 @@
 package org.jframe.infrastructure.configs;
 
+import org.jframe.core.weixin.core.WeixinConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.jframe.core.weixin.core.WeixinConfig;
 
 /**
  * Created by Leo on 2017/10/20.

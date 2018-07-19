@@ -1,9 +1,9 @@
 package org.jframe.infrastructure.configs;
 
+import org.jframe.core.aliyun.sms.SmsConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.jframe.core.aliyun.sms.SmsConfig;
 
 /**
  * Created by leo on 2017-11-12.

@@ -1,9 +1,9 @@
 package org.jframe.core.redis;
 
-import redis.clients.jedis.Jedis;
 import org.jframe.core.extensions.Action;
 import org.jframe.core.extensions.Function0;
 import org.jframe.core.logging.LogHelper;
+import redis.clients.jedis.Jedis;
 
 /**
  * Created by Leo on 2017/11/3.

@@ -1,7 +1,7 @@
 package org.jframe.core.helpers;
 
-import org.springframework.util.StreamUtils;
 import org.jframe.core.extensions.JList;
+import org.springframework.util.StreamUtils;
 
 import java.io.*;
 

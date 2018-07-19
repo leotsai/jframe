@@ -19,7 +19,6 @@ import javax.net.ssl.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.security.cert.X509Certificate;
 
 /**

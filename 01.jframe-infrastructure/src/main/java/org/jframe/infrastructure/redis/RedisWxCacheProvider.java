@@ -1,11 +1,11 @@
 package org.jframe.infrastructure.redis;
 
-import org.jframe.infrastructure.AppContext;
 import org.jframe.core.helpers.JsonHelper;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.weixin.core.WxCacheProvider;
 import org.jframe.core.weixin.core.dtos.AccessTokenDto;
 import org.jframe.core.weixin.core.dtos.JsApiTicketDto;
+import org.jframe.infrastructure.AppContext;
 
 /**
  * Created by leo on 2017-09-24.

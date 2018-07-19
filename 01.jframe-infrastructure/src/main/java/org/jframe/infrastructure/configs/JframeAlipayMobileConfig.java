@@ -1,10 +1,10 @@
 package org.jframe.infrastructure.configs;
 
+import org.jframe.core.alipay.AlipayMobileConfig;
+import org.jframe.infrastructure.AppContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.jframe.infrastructure.AppContext;
-import org.jframe.core.alipay.AlipayMobileConfig;
 
 /**
  * Created by Leo on 2017/10/20.

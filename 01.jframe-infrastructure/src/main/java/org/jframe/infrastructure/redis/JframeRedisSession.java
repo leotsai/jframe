@@ -1,7 +1,7 @@
 package org.jframe.infrastructure.redis;
 
-import org.jframe.infrastructure.AppContext;
 import org.jframe.core.redis.RedisSession;
+import org.jframe.infrastructure.AppContext;
 
 /**
  * Created by Leo on 2017/11/3.

@@ -12,6 +12,7 @@ import java.util.Enumeration;
  * Created by screw on 2017/5/9.
  */
 public class LogHelper {
+
     private static LogAppender appender;
 
     public static void logRaw(String group, String rawMessage) {

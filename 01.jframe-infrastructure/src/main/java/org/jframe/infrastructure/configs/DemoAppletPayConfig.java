@@ -1,11 +1,11 @@
 package org.jframe.infrastructure.configs;
 
+import org.jframe.core.logging.LogHelper;
+import org.jframe.core.weixin.core.WeixinPayConfig;
+import org.jframe.infrastructure.AppContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.jframe.infrastructure.AppContext;
-import org.jframe.core.logging.LogHelper;
-import org.jframe.core.weixin.core.WeixinPayConfig;
 
 import java.io.FileInputStream;
 import java.io.IOException;

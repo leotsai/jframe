@@ -1,7 +1,5 @@
 package org.jframe.core.weixin.core.dtos;
 
-import org.jframe.core.extensions.JList;
-
 /**
  * @author:qq
  * @date:2017/11/23

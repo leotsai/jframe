@@ -1,8 +1,8 @@
 package org.jframe.web.security;
 
 import org.jframe.core.app.AppInitializer;
-import org.jframe.core.extensions.JList;
 import org.jframe.core.exception.KnownException;
+import org.jframe.core.extensions.JList;
 import org.jframe.core.helpers.StringHelper;
 import org.jframe.core.logging.LogHelper;
 import org.jframe.data.JframeDbContext;

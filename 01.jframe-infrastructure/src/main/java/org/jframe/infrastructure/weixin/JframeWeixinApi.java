@@ -1,7 +1,7 @@
 package org.jframe.infrastructure.weixin;
 
-import org.jframe.infrastructure.AppContext;
 import org.jframe.core.weixin.WeixinApi;
+import org.jframe.infrastructure.AppContext;
 
 /**
  * Created by leo on 2017-10-22.

@@ -2,7 +2,6 @@ package org.jframe.data.entities;
 
 import org.jframe.core.extensions.JList;
 import org.jframe.core.helpers.StringHelper;
-import org.jframe.core.logging.LogHelper;
 import org.jframe.data.JframeDbContext;
 import org.jframe.data.core.EntityBase;
 

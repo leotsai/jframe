@@ -1,7 +1,6 @@
 package org.jframe.core.unionpay.sdk;
 
 
-
 import org.apache.commons.httpclient.HttpClientError;
 import org.apache.commons.httpclient.params.HttpConnectionParams;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
@@ -12,7 +11,6 @@ import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.security.cert.X509Certificate;
 
 public class MySSLSocketFactory implements ProtocolSocketFactory {

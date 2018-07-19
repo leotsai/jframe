@@ -1,9 +1,9 @@
 package org.jframe.infrastructure.weixin;
 
 import org.jframe.core.app.AppInitializer;
+import org.jframe.core.weixin.pay.WeixinPayApi;
 import org.jframe.infrastructure.AppContext;
 import org.jframe.infrastructure.configs.JframeWeixinPayConfig;
-import org.jframe.core.weixin.pay.WeixinPayApi;
 
 /**
  * Created by Leo on 2017/11/9.
