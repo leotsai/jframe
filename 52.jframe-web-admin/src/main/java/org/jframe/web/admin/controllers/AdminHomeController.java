@@ -19,6 +19,7 @@ public class AdminHomeController extends _AdminControllerBase {
         return super.tryView("admin-home-index", () -> {
             AdminLayoutViewModel model = new AdminLayoutViewModel();
             model.setTitle("home index");
+            model.setValue("&lt;script&gt;alert('111')</script>");
             model.setCurrentPage(Menu.home());
             return model;
         });

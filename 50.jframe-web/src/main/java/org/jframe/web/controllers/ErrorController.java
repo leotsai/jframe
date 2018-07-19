@@ -46,11 +46,14 @@ public class ErrorController {
                 LogHelper.log("http.error." + response.getStatus(), fullMessage);
             }
             String userMessage = null;
+            ResultCode resultCode = ResultCode.BUSINESS;
             if (ex == null) {
                 userMessage = getUserMessage(response.getStatus());
+                resultCode = ResultCode.SYSTEM;
             } else {
                 if (ex instanceof KnownException) {
                     userMessage = ex.getMessage();
+                    resultCode  =((KnownException) ex).getResultCode();
                 } else {
                     userMessage = AppContext.getAppConfig().isTestServer() ? ExceptionHelper.getFullHtmlMessage(ex) : getUserMessage(response.getStatus());
                 }
@@ -58,10 +61,10 @@ public class ErrorController {
 
             if (RequestHelper.returnJson(request)) {
                 StandardJsonResult jsonResult = new StandardJsonResult();
-                jsonResult.fail(ResultCode.BUSINESS, userMessage);
+                jsonResult.fail(resultCode, userMessage);
                 response.setContentType("application/json;charset=utf-8");
                 response.getWriter().write(JsonHelper.serialize(jsonResult));
-                return new ModelAndView();
+                return null;
             }
             return errorView(userMessage, requestUri);
         } catch (Exception ex2) {

@@ -48,7 +48,8 @@
             } else {
                 $btn.cssEnable().html("Login");
                 mvcApp.notification.alertError(result.message);
+                $("#captcha").removeClass("hide");
             }
-        }, "Login...", true);
+        }, "Login...", false);
     }
 })();

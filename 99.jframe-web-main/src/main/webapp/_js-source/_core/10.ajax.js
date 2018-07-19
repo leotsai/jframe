@@ -4,12 +4,19 @@
         if (err.status === 0 && err.statusText === "abort") {
             return;
         }
+        var message = "";
+        try {
+            message = JSON.parse(err.responseText).message;
+        } catch (e) {
+            message = err.responseText;
+        }
+
         if (onlyCallbackOnSuccess) {
-            mvcApp.notification.alert("网络错误", err.responseText);
+            mvcApp.notification.alert("网络错误", message);
         } else {
             callback({
                 success: false,
-                message: err.responseText
+                message: message
             });
         }
     }
