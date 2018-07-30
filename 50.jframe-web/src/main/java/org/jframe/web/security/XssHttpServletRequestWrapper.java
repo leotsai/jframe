@@ -86,8 +86,9 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     private static String stripXSS(String value) {
         if (value != null) {
             value = value.replaceAll("\0", "");
-            value = comment.matcher(value).replaceAll("");
             value = patterns.matcher(value).replaceAll("");
+            value = patterns2.matcher(value).replaceAll("");
+            value = comment.matcher(value).replaceAll("");
 
             value = StringEscapeUtils.escapeHtml(value);
 //            value = StringEscapeUtils.escapeJavaScript(value);
