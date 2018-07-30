@@ -25,8 +25,20 @@ public class HibernateConfig {
     @Value("${hibernate.connection.password}")
     private String password;
 
-    @Value("${hibernate.connection.poolSize}")
-    private String poolSize;
+    @Value("${connection.provider_class}")
+    private String providerClass;
+
+    @Value("${hibernate.c3p0.max_size}")
+    private String maxSize;
+
+    @Value("${hibernate.c3p0.min_size}")
+    private String minSize;
+
+    @Value("${hibernate.c3p0.timeout}")
+    private String timeout;
+
+    @Value("${hibernate.c3p0.max_statements}")
+    private String maxStatements;
 
     @Value("${hibernate.jdbc.fetchSize}")
     private String fetchSize;
@@ -52,7 +64,13 @@ public class HibernateConfig {
         properties.setProperty("hibernate.connection.url", this.url);
         properties.setProperty("hibernate.connection.username", this.username);
         properties.setProperty("hibernate.connection.password", this.password);
-        properties.setProperty("hibernate.connection.pool_size", this.poolSize);
+
+        properties.setProperty("connection.provider_class", this.providerClass);
+        properties.setProperty("hibernate.c3p0.max_size", this.maxSize);
+        properties.setProperty("hibernate.c3p0.min_size", this.minSize);
+        properties.setProperty("hibernate.c3p0.timeout", this.timeout);
+        properties.setProperty("hibernate.c3p0.max_statements", this.maxStatements);
+
         properties.setProperty("hibernate.jdbc.fetch_size", this.fetchSize);
         properties.setProperty("hibernate.batch_size", this.batchSize);
         properties.setProperty("hibernate.dialect", this.dialect);
@@ -78,8 +96,24 @@ public class HibernateConfig {
         return password;
     }
 
-    public String getPoolSize() {
-        return poolSize;
+    public String getMaxStatements() {
+        return maxStatements;
+    }
+
+    public String getTimeout() {
+        return timeout;
+    }
+
+    public String getMinSize() {
+        return minSize;
+    }
+
+    public String getMaxSize() {
+        return maxSize;
+    }
+
+    public String getProviderClass() {
+        return providerClass;
     }
 
     public String getFetchSize() {
