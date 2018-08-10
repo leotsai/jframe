@@ -1,17 +1,5 @@
-/.idea
 target
 .idea
-js
-/99.jframe-web-main/99.jframe-web-main.iml
 *.iml
-/02.jframe-data/02.jframe-data.iml
-/20.jframe-services/20.jframe-services.iml
-/21.jframe-services-pc/21.jframe-services-pc.iml
-/22.jframe-services-admin/22.jframe-services-admin.iml
-/01.jframe-infrastructure/01.jframe-infrastructure.iml
-/23.jframe-services-api/23.jframe-services-api.iml
-/50.jframe-web/50.jframe-web.iml
-/51.jframe-web-pc/51.jframe-web-pc.iml
-/52.jframe-web-admin/52.jframe-web-admin.iml
-/53.jframe-web-api/53.jframe-web-api.iml
 
+/99.jframe-web-main/src/main/webapp/modules/*/js/
