@@ -1,5 +1,6 @@
 package org.jframe.core.web;
 
+import org.apache.commons.lang.StringUtils;
 import org.jframe.core.app.AppInitializer;
 import org.jframe.core.exception.KnownException;
 import org.jframe.core.extensions.JList;
@@ -68,7 +69,7 @@ public abstract class Application implements ApplicationListener {
                     String result = appInitializer.init();
                     Long finishTime = System.currentTimeMillis();
                     successCount++;
-                    System.out.println((i + 1) + ":【" + (finishTime - startTime) + "ms】" + result);
+                    System.out.println(StringUtils.rightPad((i + 1) + ":【" + (finishTime - startTime) + "ms】", 13, " ") + result);
                 } catch (Throwable e) {
                     failCount++;
                     if (e instanceof KnownException) {
