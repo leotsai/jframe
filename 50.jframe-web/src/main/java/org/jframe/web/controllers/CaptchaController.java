@@ -12,6 +12,7 @@ import org.jframe.infrastructure.sms.CaptchaUsage;
 import org.jframe.services.RedisApi;
 import org.jframe.services.UserService;
 import org.jframe.services.utils.SmsUtil;
+import org.jframe.web.security.IgnoreXssFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +30,7 @@ import java.util.Objects;
 public class CaptchaController extends _ControllerBase {
 
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
+    @IgnoreXssFilter
     public void refresh(HttpServletResponse response) {
         try {
             response.setContentType("image/jpeg");

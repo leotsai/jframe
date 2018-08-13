@@ -34,7 +34,17 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
-        checkXSS();
+//        checkXSS();
+    }
+
+    @Override
+    public String getHeader(String name) {
+        return stripXSS(super.getHeader(name));
+    }
+
+    @Override
+    public String getParameter(String parameter) {
+        return stripXSS(super.getParameter(parameter));
     }
 
     @Override
@@ -55,17 +65,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         return Collections.unmodifiableMap(newParameterMap);
     }
 
-    @Override
-    public String getParameter(String parameter) {
-        return stripXSS(super.getParameter(parameter));
-    }
-
-    @Override
-    public String getHeader(String name) {
-        return stripXSS(super.getHeader(name));
-    }
-
-
     private void checkXSS() {
         Set<Map.Entry<String, String[]>> set = super.getParameterMap().entrySet();
         for (Map.Entry<String, String[]> entry : set) {
@@ -85,14 +84,14 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     private static String stripXSS(String value) {
         if (value != null) {
-            value = value.replaceAll("\0", "");
-            value = patterns.matcher(value).replaceAll("");
-            value = patterns2.matcher(value).replaceAll("");
-            value = comment.matcher(value).replaceAll("");
+//            value = value.replaceAll("\0", "");
+//            value = patterns.matcher(value).replaceAll("");
+//            value = patterns2.matcher(value).replaceAll("");
+//            value = comment.matcher(value).replaceAll("");
 
             value = StringEscapeUtils.escapeHtml(value);
 //            value = StringEscapeUtils.escapeJavaScript(value);
-            value = StringEscapeUtils.escapeSql(value);
+//            value = StringEscapeUtils.escapeSql(value);
         }
         return value;
     }
@@ -101,8 +100,9 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         if (values == null) {
             return null;
         }
-        String[] encodedValues = new String[values.length];
-        for (int i = 0; i < values.length; i++) {
+        int count = values.length;
+        String[] encodedValues = new String[count];
+        for (int i = 0; i < count; i++) {
             encodedValues[i] = stripXSS(values[i]);
         }
         return encodedValues;
