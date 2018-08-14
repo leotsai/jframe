@@ -53,6 +53,8 @@
     <filter-mapping>
         <filter-name>xssSpringFilter</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
 
 </web-app>

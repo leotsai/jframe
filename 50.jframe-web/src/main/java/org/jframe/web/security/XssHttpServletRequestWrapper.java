@@ -1,16 +1,12 @@
 package org.jframe.web.security;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.jframe.core.exception.KnownException;
-import org.jframe.core.exception.ResultCode;
-import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -18,7 +14,8 @@ import java.util.regex.Pattern;
  * @date 2018/7/17
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
-    private static Pattern patterns = Pattern.compile("<script>(.*?)</script>" + "|src[\r\n]*=[\r\n]*\\\'(.*?)\\\'"
+    private static Pattern patterns = Pattern.compile("<script>(.*?)</script>"
+            + "|src[\r\n]*=[\r\n]*\\\'(.*?)\\\'"
             + "|src[\r\n]*=[\r\n]*\\\"(.*?)\\\"" + "|</script>"
             + "|<script(.*?)>" + "|eval\\((.*?)\\)"
             + "|expression\\((.*?)\\)" + "|javascript:" + "|vbscript:"
@@ -34,7 +31,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
-//        checkXSS();
     }
 
     @Override
@@ -64,23 +60,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         }
         return Collections.unmodifiableMap(newParameterMap);
     }
-
-    private void checkXSS() {
-        Set<Map.Entry<String, String[]>> set = super.getParameterMap().entrySet();
-        for (Map.Entry<String, String[]> entry : set) {
-            String[] values = entry.getValue();
-            if (values != null) {
-                for (String value : values) {
-                    if (patterns.matcher(value).find() || patterns2.matcher(value).find()) {
-                        throw new KnownException(ResultCode.ATTACK, String.format("参数:[%s] 值:[%s]发现XSS注入",
-                                entry.getKey(), HtmlUtils.htmlEscape(value)));
-                    }
-                }
-            }
-
-        }
-    }
-
 
     private static String stripXSS(String value) {
         if (value != null) {
