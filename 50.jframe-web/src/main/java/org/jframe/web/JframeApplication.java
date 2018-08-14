@@ -49,7 +49,7 @@ public class JframeApplication extends Application {
 
     @Override
     protected LogAppender getLogAppender() {
-        JframeMongoDatabaseFactory.getInstance().initialize();
+        System.out.println(JframeMongoDatabaseFactory.getInstance().init());
         return new JframeMongoLogAppender(AppContext.getAppConfig().getLogsDbName(), true);
     }
 
@@ -57,6 +57,7 @@ public class JframeApplication extends Application {
     @Override
     protected void onBeforeInitializing() {
         AppContext.setStartupDirectory(super.startupDirectory);
+        System.out.println("AppContext.startupDirectory is already set.");
     }
 
 

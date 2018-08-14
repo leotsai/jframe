@@ -33,7 +33,7 @@ public class JframeMqConsumer extends MqConsumer implements AppInitializer {
 
     @Override
     protected Action consumeMessage(Message message, ConsumeContext context) {
-        if (AppContext.getAppConfig().isTestServer()) {
+        if (AppContext.getAppConfig().isPrintStackTrace()) {
             try {
                 System.out.println("tag:" + message.getTag() + ", body: " + new String(message.getBody(), "utf-8"));
             } catch (Exception ex) {

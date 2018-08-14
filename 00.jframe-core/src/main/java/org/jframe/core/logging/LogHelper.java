@@ -102,9 +102,9 @@ public class LogHelper {
         if (appender == null || appender.isStarted() == false) {
             LogHelper.appender = appenderInstance;
             appender.start();
-            System.out.println("logger started");
+            System.out.println("LogHelper started: " + appenderInstance.getClass());
         } else {
-            System.out.println("logger already started");
+            System.out.println("LogHelper already started. Please don't call LogHelper.startLogger more than once.");
         }
     }
 

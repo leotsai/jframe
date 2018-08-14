@@ -28,7 +28,6 @@ public class MongoDatabaseFactory {
         else{
             client = new MongoClient(address);
         }
-        System.out.println("\nmongodb initialized\n");
     }
 
     public void close(){

@@ -24,7 +24,7 @@ import java.util.Map;
 public class WeixinPayApi {
 
     private WXPay wxpay;
-    private WeixinPayConfig config;
+    protected WeixinPayConfig config;
 
     public WeixinPayApi(WeixinPayConfig config) {
         this.config = config;

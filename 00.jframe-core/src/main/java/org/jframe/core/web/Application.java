@@ -37,53 +37,63 @@ public abstract class Application implements ApplicationListener {
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
         if (event instanceof ContextClosedEvent) {
-            this.initializers.forEach(x -> {
-                try {
-                    x.close();
-                    System.out.println(x.getClass().getName() + " closed");
-                } catch (Exception e) {
-                    if (e instanceof KnownException) {
-                        LogHelper.log("AppInitializer.close.failed", e.getMessage());
-                    } else {
-                        LogHelper.log("AppInitializer.close.failed", x.getClass().getName() + ":" + e);
-                    }
-                }
-            });
-            LogHelper.stopLogger();
+            this.stop();
         } else if (event instanceof ContextStartedEvent || event instanceof ContextRefreshedEvent) {
-            WebApplicationContext context = (WebApplicationContext) (((ApplicationContextEvent) event).getApplicationContext());
-            Ioc.register(context);
-            this.startupDirectory = context.getServletContext().getRealPath("/");
-            LogHelper.startLogger(this.getLogAppender());
-            this.loadAppProperties();
-            this.onBeforeInitializing();
+            this.start(event);
+        }
+    }
 
-            this.registerAllAreas();
-            this.registerInitializers(this.initializers);
-            int successCount = 0;
-            int failCount = 0;
-            for (int i = 0; i < this.initializers.size(); i++) {
-                AppInitializer appInitializer = this.initializers.get(i);
-                try {
-                    Long startTime = System.currentTimeMillis();
-                    String result = appInitializer.init();
-                    Long finishTime = System.currentTimeMillis();
-                    successCount++;
-                    System.out.println(StringUtils.rightPad((i + 1) + ":【" + (finishTime - startTime) + "ms】", 13, " ") + result);
-                } catch (Throwable e) {
-                    failCount++;
-                    if (e instanceof KnownException) {
-                        System.err.println("【failed】" + e.getMessage());
-                        LogHelper.log("AppInitializer.initialize.failed", e.getMessage());
-                    } else {
-                        System.err.println("【failed】" + appInitializer.getClass().getName() + " initialize failed:" + e);
-                        LogHelper.log("AppInitializer.initialize.failed", appInitializer.getClass().getName() + ":" + e);
-                    }
+    private void start(ApplicationEvent event) {
+        System.out.println("Application is starting now...");
+        WebApplicationContext context = (WebApplicationContext) (((ApplicationContextEvent) event).getApplicationContext());
+        Ioc.register(context);
+        System.out.println("Ioc is initialized. You can get all kinds of beans by Ioc.get(...).");
+        this.startupDirectory = context.getServletContext().getRealPath("/");
+        LogHelper.startLogger(this.getLogAppender());
+        this.loadAppProperties();
+        this.onBeforeInitializing();
+
+        this.registerAllAreas();
+        this.registerInitializers(this.initializers);
+        int successCount = 0;
+        int failCount = 0;
+        for (int i = 0; i < this.initializers.size(); i++) {
+            AppInitializer appInitializer = this.initializers.get(i);
+            try {
+                Long startTime = System.currentTimeMillis();
+                String result = appInitializer.init();
+                Long finishTime = System.currentTimeMillis();
+                successCount++;
+                System.out.println(StringUtils.rightPad((i + 1) + ":【" + (finishTime - startTime) + "ms】", 13, " ") + result);
+            } catch (Throwable e) {
+                failCount++;
+                if (e instanceof KnownException) {
+                    System.err.println("【failed】" + e.getMessage());
+                    LogHelper.log("AppInitializer.initialize.failed", e.getMessage());
+                } else {
+                    System.err.println("【failed】" + appInitializer.getClass().getName() + " initialize failed:" + e);
+                    LogHelper.log("AppInitializer.initialize.failed", appInitializer.getClass().getName() + ":" + e);
                 }
             }
-            System.out.println("\nall initializer finished, total：" + this.initializers.size() + ", succeed：" + successCount + ", failed：" + failCount + "\n");
-            this.onStarted();
         }
+        System.out.println("\nall initializer finished, total：" + this.initializers.size() + ", succeed：" + successCount + ", failed：" + failCount + "\n");
+        this.onStarted();
+    }
+
+    private void stop() {
+        this.initializers.forEach(x -> {
+            try {
+                x.close();
+                System.out.println(x.getClass().getName() + " closed");
+            } catch (Exception e) {
+                if (e instanceof KnownException) {
+                    LogHelper.log("AppInitializer.close.failed", e.getMessage());
+                } else {
+                    LogHelper.log("AppInitializer.close.failed", x.getClass().getName() + ":" + e);
+                }
+            }
+        });
+        LogHelper.stopLogger();
     }
 
     protected void onBeforeInitializing() {
@@ -99,7 +109,7 @@ public abstract class Application implements ApplicationListener {
         try {
             this.appProperties = PropertiesLoaderUtils.loadProperties(new FileSystemResource(path.toFile()));
         } catch (Exception ex) {
-            throw new KnownException("加载app.properties文件失败");
+            throw new KnownException("Load " + path + " error. \n" + ex);
         }
     }
 
