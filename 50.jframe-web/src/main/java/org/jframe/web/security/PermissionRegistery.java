@@ -31,21 +31,16 @@ public class PermissionRegistery implements AppInitializer {
 
     @Override
     public String init() {
-        String result = initAllPermissions();
-        return this.getClass().getName() + " initialize success!\n    " + result;
+        try {
+            return this.doWork();
+        } catch (Exception ex) {
+            throw new KnownException("初始化PermissionRegistery失败, " + ex);
+        }
     }
 
     @Override
     public void close() {
 
-    }
-
-    public String initAllPermissions() {
-        try {
-            return doWork();
-        } catch (Exception ex) {
-            throw new KnownException("系统-初始化PermissionRegistery,失败");
-        }
     }
 
     private String doWork() throws Exception {

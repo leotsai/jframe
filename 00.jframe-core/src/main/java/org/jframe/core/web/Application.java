@@ -1,6 +1,6 @@
 package org.jframe.core.web;
 
-import org.apache.commons.lang.StringUtils;
+
 import org.jframe.core.app.AppInitializer;
 import org.jframe.core.exception.KnownException;
 import org.jframe.core.extensions.JList;
@@ -14,6 +14,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.util.StopWatch;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.file.Path;
@@ -39,45 +40,34 @@ public abstract class Application implements ApplicationListener {
         if (event instanceof ContextClosedEvent) {
             this.stop();
         } else if (event instanceof ContextStartedEvent || event instanceof ContextRefreshedEvent) {
-            this.start(event);
+            this.tryStart(event);
         }
     }
 
-    private void start(ApplicationEvent event) {
-        System.out.println("Application is starting now...");
-        WebApplicationContext context = (WebApplicationContext) (((ApplicationContextEvent) event).getApplicationContext());
-        Ioc.register(context);
-        System.out.println("Ioc is initialized. You can get all kinds of beans by Ioc.get(...).");
-        this.startupDirectory = context.getServletContext().getRealPath("/");
-        LogHelper.startLogger(this.getLogAppender());
-        this.loadAppProperties();
-        this.onBeforeInitializing();
+    private void tryStart(ApplicationEvent event) {
+        try{
+            StopWatch watch = new StopWatch();
+            watch.start();
 
-        this.registerAllAreas();
-        this.registerInitializers(this.initializers);
-        int successCount = 0;
-        int failCount = 0;
-        for (int i = 0; i < this.initializers.size(); i++) {
-            AppInitializer appInitializer = this.initializers.get(i);
-            try {
-                Long startTime = System.currentTimeMillis();
-                String result = appInitializer.init();
-                Long finishTime = System.currentTimeMillis();
-                successCount++;
-                System.out.println(StringUtils.rightPad((i + 1) + ":【" + (finishTime - startTime) + "ms】", 13, " ") + result);
-            } catch (Throwable e) {
-                failCount++;
-                if (e instanceof KnownException) {
-                    System.err.println("【failed】" + e.getMessage());
-                    LogHelper.log("AppInitializer.initialize.failed", e.getMessage());
-                } else {
-                    System.err.println("【failed】" + appInitializer.getClass().getName() + " initialize failed:" + e);
-                    LogHelper.log("AppInitializer.initialize.failed", appInitializer.getClass().getName() + ":" + e);
-                }
-            }
+            System.out.println("\nApplication is starting now...");
+            WebApplicationContext context = (WebApplicationContext) (((ApplicationContextEvent) event).getApplicationContext());
+            Ioc.register(context);
+            System.out.println("Ioc is initialized. You can get all kinds of beans by Ioc.get(...).");
+            this.startupDirectory = context.getServletContext().getRealPath("/");
+            LogHelper.startLogger(this.getLogAppender());
+            this.loadAppProperties();
+            this.onBeforeInitializing();
+
+            this.registerAllAreas();
+            this.registerInitializers(this.initializers);
+            this.runInitializers();
+            this.onStarted();
+            watch.stop();
+            System.out.println("\nApplication started. Total time cost: " + watch.getLastTaskTimeMillis() + "ms\n");
         }
-        System.out.println("\nall initializer finished, total：" + this.initializers.size() + ", succeed：" + successCount + ", failed：" + failCount + "\n");
-        this.onStarted();
+        catch (Throwable ex){
+            ex.printStackTrace();
+        }
     }
 
     private void stop() {
@@ -85,15 +75,40 @@ public abstract class Application implements ApplicationListener {
             try {
                 x.close();
                 System.out.println(x.getClass().getName() + " closed");
-            } catch (Exception e) {
-                if (e instanceof KnownException) {
-                    LogHelper.log("AppInitializer.close.failed", e.getMessage());
+            } catch (Exception ex) {
+                if (ex instanceof KnownException) {
+                    LogHelper.log("AppInitializer.close.failed", ex.getMessage());
                 } else {
-                    LogHelper.log("AppInitializer.close.failed", x.getClass().getName() + ":" + e);
+                    LogHelper.log("AppInitializer.close.failed", x.getClass().getName() + ":" + ex);
                 }
             }
         });
         LogHelper.stopLogger();
+    }
+
+    private void runInitializers() {
+        System.out.println("\nStart initializing " + this.initializers.size() + " initializers...");
+        int failed = 0;
+        StopWatch watch = new StopWatch();
+        for (int i = 0; i < this.initializers.size(); i++) {
+            AppInitializer appInitializer = this.initializers.get(i);
+            watch.start();
+            try {
+                String result = appInitializer.init();
+                watch.stop();
+                System.out.println((i + 1) + ": " + watch.getLastTaskTimeMillis() + " ms -> " + result);
+            } catch (Throwable ex) {
+                watch.stop();
+                failed++;
+                if (ex instanceof KnownException) {
+                    System.err.println((i + 1) + ": " + appInitializer.getClass().getSimpleName() + " error -> " + ex.getMessage());
+                } else {
+                    System.err.println((i + 1) + ": " + appInitializer.getClass().getSimpleName() + " error -> " + ex);
+                }
+                LogHelper.log("AppInitializer.initialize.failed", appInitializer.getClass().getName() + ":" + ex);
+            }
+        }
+        System.out.println("Total initializers：" + this.initializers.size() + ", success：" + (this.initializers.size() - failed) + ", failed：" + failed + "\n");
     }
 
     protected void onBeforeInitializing() {
@@ -108,21 +123,29 @@ public abstract class Application implements ApplicationListener {
         Path path = Paths.get(this.startupDirectory, "WEB-INF", "app.properties");
         try {
             this.appProperties = PropertiesLoaderUtils.loadProperties(new FileSystemResource(path.toFile()));
+            System.out.println("Load " + path + " success.");
         } catch (Exception ex) {
-            throw new KnownException("Load " + path + " error. \n" + ex);
+            System.err.println("Load " + path + " error. \n" + ex);
         }
     }
 
     private void registerAllAreas() {
         Map<String, AreaRegistration> areas = Ioc.getAll(AreaRegistration.class);
+        System.out.println("\nRegistering " + areas.size() + " areas...");
+        int i = 0;
+        int failed = 0;
         for (String key : areas.keySet()) {
+            i++;
             try {
                 areas.get(key).run();
+                System.out.println(i + ": " + areas.get(key).getClass().getSimpleName() + " registered.");
             } catch (Exception ex) {
                 LogHelper.log("系统-AreaRegistration", ex);
-                throw new KnownException("\n\nAreaRegistration 出现严重错误\n\n");
+                System.err.println(i + ": " + areas.get(key).getClass().getSimpleName() + " register failed.");
+                failed++;
             }
         }
+        System.out.println("Register " + areas.size() + " areas. Success: " + (areas.size() - failed) + ". Failed: " + failed);
     }
 
 }

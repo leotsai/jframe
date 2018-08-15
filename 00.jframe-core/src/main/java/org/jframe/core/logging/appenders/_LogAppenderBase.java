@@ -41,13 +41,13 @@ public abstract class _LogAppenderBase implements LogAppender{
         try{
             this.doWork();
         }
-        catch (Exception ex){
+        catch (Exception ex1){
             try{
                 if(this.printStackTrace()){
-                    ex.printStackTrace();
+                    ex1.printStackTrace();
                 }
             }
-            catch (Exception ee){
+            catch (Exception ex2){
 
             }
         }

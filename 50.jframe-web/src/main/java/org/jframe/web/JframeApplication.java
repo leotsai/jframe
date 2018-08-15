@@ -24,6 +24,9 @@ import org.jframe.infrastructure.weixin.JframeWeixinPayApi;
 import org.jframe.services.logging.JframeMongoLogAppender;
 import org.jframe.web.security.PermissionRegistery;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * Created by leo on 2017-06-28.
  */
@@ -57,7 +60,7 @@ public class JframeApplication extends Application {
     @Override
     protected void onBeforeInitializing() {
         AppContext.setStartupDirectory(super.startupDirectory);
-        System.out.println("AppContext.startupDirectory is already set.");
+        System.out.println("AppContext.startupDirectory is already set to: " + super.startupDirectory);
     }
 
 
