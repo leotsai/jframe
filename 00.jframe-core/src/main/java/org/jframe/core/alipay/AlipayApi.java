@@ -42,7 +42,7 @@ public class AlipayApi {
             AlipayTradeQueryResponse response = alipayClient.execute(request);
             return new QueryOrderStatusResult().loadFromResponse(response);
         } catch (Exception ex) {
-            LogHelper.log("alipayapi.query", ex);
+            LogHelper.error().log("alipayapi.query", ex);
         }
         return new QueryOrderStatusResult().setHttpError();
     }
@@ -56,7 +56,7 @@ public class AlipayApi {
             AlipayTradeFastpayRefundQueryResponse response = alipayClient.execute(refundQueryRequest);
             return new QueryRefundStatusResult().loadFromAlipayResponse(response, tradeNo);
         } catch (Exception ex) {
-            LogHelper.log("alipayapi.query.refund", ex);
+            LogHelper.error().log("alipayapi.query.refund", ex);
             ex.printStackTrace();
             return new QueryRefundStatusResult().setHttpError();
         }
@@ -97,11 +97,11 @@ public class AlipayApi {
         try {
             AlipayTradeRefundResponse response = alipayClient.execute(request);
             if (!response.isSuccess()) {
-                LogHelper.log("_支付宝退款失败", JsonHelper.serialize(response));
+                LogHelper.error().log("_支付宝退款失败", JsonHelper.serialize(response));
                 throw new KnownException("退款失败。" + response.getMsg());
             }
         } catch (AlipayApiException ex) {
-            LogHelper.log("_支付宝退款失败", ex);
+            LogHelper.error().log("_支付宝退款失败", ex);
             throw ex;
         }
     }

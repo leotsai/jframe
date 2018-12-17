@@ -22,7 +22,7 @@ public class WxHttpHelper {
             }
             return url.replace("/", "-");
         } catch (Exception ex) {
-            LogHelper.log("InvalidWXUrl", fullUrl);
+            LogHelper.error().log("InvalidWXUrl", fullUrl);
             return "invalid-url-format";
         }
     }
@@ -34,7 +34,7 @@ public class WxHttpHelper {
         }
         catch (Exception ex)
         {
-            LogHelper.log("wx.httperror." + getUrlPath(url), ex);
+            LogHelper.error().log("wx.httperror." + getUrlPath(url), ex);
             return null;
         }
     }
@@ -48,7 +48,7 @@ public class WxHttpHelper {
         }
         catch (Exception ex)
         {
-            LogHelper.log("wx.httperror." + getUrlPath(url), ex);
+            LogHelper.error().log("wx.httperror." + getUrlPath(url), ex);
             return null;
         }
         return tryGetDto(clazz, html, url);
@@ -60,10 +60,10 @@ public class WxHttpHelper {
         try (WebClient client = new WebClient())
         {
             html = client.post(url, json);
-            LogHelper.log("wx.postFile result:", html);
+            LogHelper.error().log("wx.postFile result:", html);
         }
         catch (Exception ex){
-            LogHelper.log("wx.httperror." + getUrlPath(url), ex);
+            LogHelper.error().log("wx.httperror." + getUrlPath(url), ex);
             return null;
         }
         return tryGetDto(clazz, html, url);
@@ -77,7 +77,7 @@ public class WxHttpHelper {
             html = client.postFile(url,file);
         }
         catch (Exception ex){
-            LogHelper.log("wx.httperror." + getUrlPath(url), ex);
+            LogHelper.error().log("wx.httperror." + getUrlPath(url), ex);
             return null;
         }
         return tryGetDto(clazz, html, url);
@@ -87,11 +87,11 @@ public class WxHttpHelper {
         try {
             T dto = JsonHelper.deserialize(html, clazz);
             if (dto.isSuccess() == false) {
-                LogHelper.log("wx.failed." + getUrlPath(url), dto.getFullError());
+                LogHelper.error().log("wx.failed." + getUrlPath(url), dto.getFullError());
             }
             return dto;
         } catch (Exception ex) {
-            LogHelper.log("wx.jsonerror." + getUrlPath(url), ex);
+            LogHelper.error().log("wx.jsonerror." + getUrlPath(url), ex);
             return null;
         }
     }

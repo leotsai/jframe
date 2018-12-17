@@ -101,7 +101,7 @@ public class WeixinApi {
             if (ex.getMessage() != null && ex.getMessage().contains("基础连接已经关闭")) {
                 return null;
             }
-            LogHelper.log("WeixinApi TrySendMessage", ex);
+            LogHelper.error().log("WeixinApi TrySendMessage", ex);
         }
         return null;
     }

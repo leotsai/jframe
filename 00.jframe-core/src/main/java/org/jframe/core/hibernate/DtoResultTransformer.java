@@ -31,7 +31,7 @@ public class DtoResultTransformer implements ResultTransformer {
             return entity;
         }
         catch (Exception ex){
-            LogHelper.log("_transformTuple." + this.clazz.getName(), ex);
+            LogHelper.error().log("_transformTuple." + this.clazz.getName(), ex);
             return null;
         }
     }

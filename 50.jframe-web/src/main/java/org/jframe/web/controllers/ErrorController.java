@@ -40,10 +40,10 @@ public class ErrorController {
         String requestUri = RequestHelper.getRequestUri(request);
         try {
             if (response.getStatus() == 404) {
-                LogHelper.log("http.error.404", requestUri);
+                LogHelper.error().log("http.error.404", requestUri);
             } else {
-                String fullMessage = requestUri + "\r\n<br/>" + ExceptionHelper.getFullHtmlMessage(ex);
-                LogHelper.log("http.error." + response.getStatus(), fullMessage);
+                String fullMessage = requestUri + "\r\n<br/>" + ExceptionHelper.getFullMessages(ex);
+                LogHelper.error().log("http.error." + response.getStatus(), fullMessage);
             }
             String userMessage = null;
             ResultCode resultCode = ResultCode.BUSINESS;
@@ -55,7 +55,7 @@ public class ErrorController {
                     userMessage = ex.getMessage();
                     resultCode  =((KnownException) ex).getResultCode();
                 } else {
-                    userMessage = AppContext.getAppConfig().isTestServer() ? ExceptionHelper.getFullHtmlMessage(ex) : getUserMessage(response.getStatus());
+                    userMessage = AppContext.getAppConfig().isTestServer() ? ExceptionHelper.getFullMessages(ex) : getUserMessage(response.getStatus());
                 }
             }
 
@@ -68,7 +68,7 @@ public class ErrorController {
             }
             return errorView(userMessage, requestUri);
         } catch (Exception ex2) {
-            LogHelper.log("ErrorController.exception", ex2);
+            LogHelper.error().log("ErrorController.exception", ex2);
         }
         return errorView("对不起，服务器出错了，请重试", requestUri);
     }

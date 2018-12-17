@@ -54,7 +54,7 @@ abstract class RedisCacheReaderBase<T> implements RedisCacheReader {
         try (RedisSession session = this.getSession()) {
             return session.get(this.getCacheKey());
         } catch (Exception ex) {
-            LogHelper.log(this.getClazz() + ".getRedisValue", ex);
+            LogHelper.error().log(this.getClazz() + ".getRedisValue", ex);
             return null;
         }
     }
@@ -65,7 +65,7 @@ abstract class RedisCacheReaderBase<T> implements RedisCacheReader {
         try (RedisSession session = this.getSession()) {
             this.setCache(session, json);
         } catch (Exception ex) {
-            LogHelper.log(this.getClazz() + ".getFromDbAndSetCache", ex);
+            LogHelper.error().log(this.getClazz() + ".getFromDbAndSetCache", ex);
         }
         return value;
     }

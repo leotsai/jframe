@@ -25,6 +25,15 @@ public class JframeMysqlLogAppender extends _LogAppenderBase {
     }
 
     @Override
+    public void entry(LogArea area, String group, String message) {
+        if (!this.map.containsKey(group)) {
+            this.map.put(group, new Vector<>());
+        }
+        LogMySql logMySql = new LogMySql(group, message, area);
+        this.map.get(group).add(logMySql);
+    }
+
+    @Override
     public void stop() {
         super.stop();
     }
@@ -71,27 +80,4 @@ public class JframeMysqlLogAppender extends _LogAppenderBase {
         }
     }
 
-    @Override
-    public void entry(String group, String message, int type, String location) {
-        if (!this.map.containsKey(group)) {
-            this.map.put(group, new Vector<>());
-        }
-        LogMySql logMySql = new LogMySql(group, message, LogArea.from(type), location);
-        this.map.get(group).add(logMySql);
-    }
-
-    @Override
-    public boolean printStackTrace() {
-        return AppContext.getAppConfig().isPrintStackTrace();
-    }
-
-    @Override
-    public String getServerName() {
-        return AppContext.getAppConfig().getServerName();
-    }
-
-    @Override
-    public boolean autoAppendHttpHeaders() {
-        return this.autoAppendHttpHeaders;
-    }
 }

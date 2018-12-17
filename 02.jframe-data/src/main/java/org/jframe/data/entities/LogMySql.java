@@ -27,7 +27,7 @@ public class LogMySql extends EntityBase {
     @Column(name = "location", columnDefinition = "varchar(250) not null COMMENT '日志记录位置'")
     private String location;
 
-    @Column(name = "type", columnDefinition = "int not null COMMENT '" + LogArea.Doc + "'")
+    @Column(name = "type", columnDefinition = "int not null COMMENT '" + LogArea.DOC + "'")
     @Convert(converter = LogTypeConverter.class)
     private LogArea type;
 
@@ -35,11 +35,10 @@ public class LogMySql extends EntityBase {
 
     }
 
-    public LogMySql(String group, String log, LogArea type, String location) {
+    public LogMySql(String group, String log, LogArea type) {
         this.group = group;
         this.log = log;
         this.type = type;
-        this.location = location;
     }
 
     public String formatFileLog() {

@@ -42,7 +42,7 @@ public class _ControllerBase {
             result.fail(ex.getResultCode(), ex.getMessage());
         } catch (Throwable ex) {
             result.fail(ResultCode.SYSTEM, ex.getMessage());
-            LogHelper.log("_ControllerBase.tryJson", ex);
+            LogHelper.error().log("_ControllerBase.tryJson", ex);
         }
         return result;
     }
@@ -56,7 +56,7 @@ public class _ControllerBase {
             result.fail(ex.getResultCode(), ex.getMessage());
         } catch (Throwable ex) {
             result.fail(ResultCode.SYSTEM, ex.getMessage());
-            LogHelper.log("_ControllerBase.tryJson", ex);
+            LogHelper.error().log("_ControllerBase.tryJson", ex);
         }
         return result;
     }
@@ -85,7 +85,7 @@ public class _ControllerBase {
                 }
                 return this.error(ex.getMessage());
             }
-            LogHelper.log("_ControllerBase.tryView", ex);
+            LogHelper.error().log("_ControllerBase.tryView", ex);
             if (RequestHelper.isAjax()) {
                 return this.writeToResponse(this.getUserMessage(ex));
             }
@@ -101,13 +101,13 @@ public class _ControllerBase {
             response.setHeader("Content-Type", "application/json;charset=utf-8");
             response.getWriter().write(message);
         } catch (IOException e) {
-            LogHelper.log("response.write", e);
+            LogHelper.error().log("response.write", e);
         }
         return null;
     }
 
     private String getUserMessage(Throwable ex) {
-        return AppContext.getAppConfig().isTestServer() ? ExceptionHelper.getFullHtmlMessage(ex) : "服务器未知错误，请刷新页面重试";
+        return AppContext.getAppConfig().isTestServer() ? ExceptionHelper.getFullMessages(ex) : "服务器未知错误，请刷新页面重试";
     }
 
     protected ModelAndView error(String message) {

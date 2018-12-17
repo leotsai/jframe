@@ -41,7 +41,7 @@ public class AdminAreaRegistration implements AreaRegistration {
         }
         if (codes.size() > 0) {
             String message = "\n\n警告：有如下权限代码为注册到菜单：" + String.join(",", codes) + "\n\n";
-            LogHelper.logRaw("代码错误", message);
+            LogHelper.fatal().raw("代码错误", message);
             System.err.println(message);
         }
     }
@@ -74,7 +74,7 @@ public class AdminAreaRegistration implements AreaRegistration {
         String error = sb.toString();
         if (!StringHelper.isNullOrWhitespace(error)) {
             error = "\n\n代码中定义了重复的权限。错误内容如下：" + error;
-            LogHelper.logRaw("代码错误", error);
+            LogHelper.fatal().raw("代码错误", error);
             System.err.println(error);
             throw new KnownException("\n\n严重代码错误！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！\n\n");
         }

@@ -48,7 +48,7 @@ public class SmsLoginController extends _AppControllerBase {
 //                try{
 //                    new BuildFansFlow(user).run();
 //                }catch (KnownException e){
-//                    LogHelper.log("app.fans.create",e);
+//                    LogHelper.error().log("app.fans.create",e);
 //                }
             }
 

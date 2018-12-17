@@ -193,7 +193,7 @@ public class DbContext implements AutoCloseable {
         try {
             transaction.commit();
         } catch (Throwable e) {
-            LogHelper.log("__commitTransaction", e);
+            LogHelper.error().log("__commitTransaction", e);
             throw e;
         }
     }
@@ -237,7 +237,7 @@ public class DbContext implements AutoCloseable {
         try {
             this.close();
         } catch (Exception ex) {
-            LogHelper.log("DbContext.tryClose", ex);
+            LogHelper.error().log("DbContext.tryClose", ex);
         }
     }
 

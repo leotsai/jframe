@@ -1,6 +1,7 @@
 package org.jframe.services.logging;
 
 import org.jframe.core.logging.appenders.MongoLogAppender;
+import org.jframe.core.logging.enums.LogArea;
 import org.jframe.core.mongodb.MongoDbContext;
 import org.jframe.infrastructure.AppContext;
 import org.jframe.infrastructure.mongodb.JframeMongoDatabaseFactory;
@@ -11,39 +12,24 @@ import org.jframe.infrastructure.mongodb.JframeMongoDatabaseFactory;
 public class JframeMongoLogAppender extends MongoLogAppender {
 
     private final String databaseName;
-    private final boolean autoAppendHttpHeaders;
 
-    public JframeMongoLogAppender(String databaseName, boolean autoAppendHttpHeaders) {
-        super.setIntervalSeconds(5);
+    public JframeMongoLogAppender(String databaseName) {
         this.databaseName = databaseName;
-        this.autoAppendHttpHeaders = autoAppendHttpHeaders;
     }
 
     @Override
-    public boolean printStackTrace() {
-        return AppContext.getAppConfig().isPrintStackTrace();
+    protected MongoDbContext getMongoDbContext(LogArea area) {
+        return new MongoDbContext(JframeMongoDatabaseFactory.getInstance(), getDbName(this.databaseName, area));
     }
-
-    @Override
-    public String getServerName() {
-        return AppContext.getAppConfig().getServerName();
-    }
-
-    @Override
-    public boolean autoAppendHttpHeaders() {
-        return this.autoAppendHttpHeaders;
-    }
-
-    @Override
-    protected MongoDbContext getMongoDbContext() {
-        return new MongoDbContext(JframeMongoDatabaseFactory.getInstance(), this.databaseName);
-    }
-
 
     @Override
     public void stop() {
         super.stop();
         JframeMongoDatabaseFactory.getInstance().close();
+    }
+
+    public static String getDbName(String databaseName, LogArea area){
+        return databaseName+"_"+area;
     }
 
 }

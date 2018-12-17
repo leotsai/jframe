@@ -3,6 +3,7 @@ package org.jframe.web;
 import org.jframe.core.app.AppInitializer;
 import org.jframe.core.extensions.JList;
 import org.jframe.core.logging.LogAppender;
+import org.jframe.core.logging.LoggingConfig;
 import org.jframe.core.web.Application;
 import org.jframe.core.weixin.core.WxKeyManager;
 import org.jframe.data.JframeHibernateSessionFactory;
@@ -53,7 +54,37 @@ public class JframeApplication extends Application {
     @Override
     protected LogAppender getLogAppender() {
         System.out.println(JframeMongoDatabaseFactory.getInstance().init());
-        return new JframeMongoLogAppender(AppContext.getAppConfig().getLogsDbName(), true);
+        return new JframeMongoLogAppender(AppContext.getAppConfig().getLogsDbName());
+    }
+
+    @Override
+    protected LoggingConfig getLoggingConfig() {
+        return new LoggingConfig() {
+            @Override
+            public boolean printStackTrace() {
+                return true;
+            }
+
+            @Override
+            public String getServerName() {
+                return "dev";
+            }
+
+            @Override
+            public boolean appendHttpHeaders() {
+                return true;
+            }
+
+            @Override
+            public int getFlushIntervalSeconds() {
+                return 10;
+            }
+
+            @Override
+            public int getInitialDelaySeconds() {
+                return 10;
+            }
+        };
     }
 
 

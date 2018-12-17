@@ -1,23 +1,33 @@
 package org.jframe.core.helpers;
 
+import org.jframe.core.logging.LogHelper;
+
 /**
  * Created by Leo on 2017/9/25.
  */
 public class ExceptionHelper {
-    public static String getFullHtmlMessage(Throwable ex) {
-        if(ex == null){
+    public static String getErrorLine(Throwable ex) {
+        StackTraceElement[] stacks = ex.getStackTrace();
+        if (stacks == null || stacks.length == 0) {
+            return null;
+        }
+        StackTraceElement trace = stacks[0];
+        return trace.getClassName() + "." + trace.getMethodName() + ". line: " + trace.getLineNumber();
+    }
+
+    public static String getFullMessages(Throwable ex) {
+        if (ex == null) {
             return "";
         }
-        StringBuilder sb = new StringBuilder("<div class=\"ex-wrap\">");
+        StringBuilder sb = new StringBuilder();
+        String errorLine = getErrorLine(ex);
+        if (errorLine != null) {
+            sb.append(errorLine + LogHelper.getLineBreak());
+        }
         while (ex != null) {
-            String message = ex.getMessage();
-            if(!StringHelper.isNullOrWhitespace(message)){
-                message = message.replace("<", "&lt;").replace(">", "&gt") + "</pre>";
-            }
-            sb.append(ex.getClass() + ": <pre>" + message + "</pre><br/>");
+            sb.append(ex.getClass() + ": " + ex.getMessage() + LogHelper.getLineBreak());
             ex = ex.getCause();
         }
-        sb.append("</div>");
         return sb.toString();
     }
 }

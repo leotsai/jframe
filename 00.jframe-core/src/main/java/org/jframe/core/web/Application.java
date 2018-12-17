@@ -3,9 +3,12 @@ package org.jframe.core.web;
 
 import org.jframe.core.app.AppInitializer;
 import org.jframe.core.exception.KnownException;
+import org.jframe.core.extensions.JDate;
 import org.jframe.core.extensions.JList;
+import org.jframe.core.extensions.PrintBuilder;
 import org.jframe.core.logging.LogAppender;
 import org.jframe.core.logging.LogHelper;
+import org.jframe.core.logging.LoggingConfig;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ApplicationContextEvent;
@@ -27,6 +30,7 @@ import java.util.Properties;
  */
 public abstract class Application implements ApplicationListener {
 
+    protected final PrintBuilder pb = new PrintBuilder();
     protected String startupDirectory;
     protected Properties appProperties;
     private final JList<AppInitializer> initializers = new JList<>();
@@ -34,6 +38,8 @@ public abstract class Application implements ApplicationListener {
     protected abstract void registerInitializers(JList<AppInitializer> initializers);
 
     protected abstract LogAppender getLogAppender();
+
+    protected abstract LoggingConfig getLoggingConfig();
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
@@ -45,16 +51,19 @@ public abstract class Application implements ApplicationListener {
     }
 
     private void tryStart(ApplicationEvent event) {
-        try{
+        try {
+            this.pb.clear();
             StopWatch watch = new StopWatch();
             watch.start();
 
-            System.out.println("\nApplication is starting now...");
+
+            this.pb.out("【" + JDate.now().toDateTimeString() + "】Application is starting now...");
             WebApplicationContext context = (WebApplicationContext) (((ApplicationContextEvent) event).getApplicationContext());
             Ioc.register(context);
-            System.out.println("Ioc is initialized. You can get all kinds of beans by Ioc.get(...).");
+            this.pb.out("Ioc is initialized. You can get all kinds of beans by Ioc.get(...).");
             this.startupDirectory = context.getServletContext().getRealPath("/");
-            LogHelper.startLogger(this.getLogAppender());
+
+            LogHelper.startLogger(this.getLoggingConfig(), this.getLogAppender());
             this.loadAppProperties();
             this.onBeforeInitializing();
 
@@ -62,32 +71,37 @@ public abstract class Application implements ApplicationListener {
             this.registerInitializers(this.initializers);
             this.runInitializers();
             this.onStarted();
+
             watch.stop();
-            System.out.println("\nApplication started. Total time cost: " + watch.getLastTaskTimeMillis() + "ms\n");
-        }
-        catch (Throwable ex){
-            ex.printStackTrace();
+            this.pb.out("Application started. Total time cost: " + watch.getLastTaskTimeMillis() + "ms" + LogHelper.getLineBreak());
+            LogHelper.info().raw("app", this.pb.getMessages());
+        } catch (Throwable ex) {
+            LogHelper.fatal().log("app", ex);
         }
     }
 
     private void stop() {
-        this.initializers.forEach(x -> {
+        this.pb.clear();
+        for (AppInitializer initializer : this.initializers) {
             try {
-                x.close();
-                System.out.println(x.getClass().getName() + " closed");
+                initializer.close();
+                this.pb.out(initializer.getClass().getName() + " closed successfully.");
             } catch (Exception ex) {
                 if (ex instanceof KnownException) {
-                    LogHelper.log("AppInitializer.close.failed", ex.getMessage());
+                    this.pb.err("AppInitializer.close.failed: " + ex.getMessage());
                 } else {
-                    LogHelper.log("AppInitializer.close.failed", x.getClass().getName() + ":" + ex);
+                    this.pb.err("AppInitializer.close.failed. " + initializer.getClass().getName() + ": " + ex);
                 }
             }
-        });
+        }
+        this.pb.out("Application stopped successfully.");
+        LogHelper.info().raw("app", this.pb.getMessages());
+        this.pb.clear();
         LogHelper.stopLogger();
     }
 
     private void runInitializers() {
-        System.out.println("\nStart initializing " + this.initializers.size() + " initializers...");
+        this.pb.out(LogHelper.getLineBreak() + "Start initializing " + this.initializers.size() + " initializers...");
         int failed = 0;
         StopWatch watch = new StopWatch();
         for (int i = 0; i < this.initializers.size(); i++) {
@@ -96,19 +110,19 @@ public abstract class Application implements ApplicationListener {
             try {
                 String result = appInitializer.init();
                 watch.stop();
-                System.out.println((i + 1) + ": " + watch.getLastTaskTimeMillis() + " ms -> " + result);
+                this.pb.out((i + 1) + ": " + watch.getLastTaskTimeMillis() + " ms -> " + result);
             } catch (Throwable ex) {
                 watch.stop();
                 failed++;
                 if (ex instanceof KnownException) {
-                    System.err.println((i + 1) + ": " + appInitializer.getClass().getSimpleName() + " error -> " + ex.getMessage());
+                    this.pb.err((i + 1) + ": " + appInitializer.getClass().getSimpleName() + " error -> " + ex.getMessage());
                 } else {
-                    System.err.println((i + 1) + ": " + appInitializer.getClass().getSimpleName() + " error -> " + ex);
+                    this.pb.err((i + 1) + ": " + appInitializer.getClass().getSimpleName() + " error -> " + ex);
                 }
-                LogHelper.log("AppInitializer.initialize.failed", appInitializer.getClass().getName() + ":" + ex);
+                this.pb.err("AppInitializer.initialize.failed. " + appInitializer.getClass().getName() + ":" + ex);
             }
         }
-        System.out.println("Total initializers：" + this.initializers.size() + ", success：" + (this.initializers.size() - failed) + ", failed：" + failed + "\n");
+        this.pb.err("Total initializers：" + this.initializers.size() + ", success：" + (this.initializers.size() - failed) + ", failed：" + failed + LogHelper.getLineBreak());
     }
 
     protected void onBeforeInitializing() {
@@ -119,33 +133,32 @@ public abstract class Application implements ApplicationListener {
 
     }
 
-    private void loadAppProperties() {
+    protected void loadAppProperties() {
         Path path = Paths.get(this.startupDirectory, "WEB-INF", "app.properties");
         try {
             this.appProperties = PropertiesLoaderUtils.loadProperties(new FileSystemResource(path.toFile()));
-            System.out.println("Load " + path + " success.");
+            this.pb.out("Load " + path + " success.");
         } catch (Exception ex) {
-            System.err.println("Load " + path + " error. \n" + ex);
+            this.pb.err("Load " + path + " error. " + LogHelper.getLineBreak() + ex);
         }
     }
 
     private void registerAllAreas() {
         Map<String, AreaRegistration> areas = Ioc.getAll(AreaRegistration.class);
-        System.out.println("\nRegistering " + areas.size() + " areas...");
+        this.pb.out(LogHelper.getLineBreak() + "Registering " + areas.size() + " areas...");
         int i = 0;
         int failed = 0;
         for (String key : areas.keySet()) {
             i++;
             try {
                 areas.get(key).run();
-                System.out.println(i + ": " + areas.get(key).getClass().getSimpleName() + " registered.");
+                this.pb.out(i + ": " + areas.get(key).getClass().getSimpleName() + " registered.");
             } catch (Exception ex) {
-                LogHelper.log("系统-AreaRegistration", ex);
-                System.err.println(i + ": " + areas.get(key).getClass().getSimpleName() + " register failed.");
+                this.pb.err(i + ": " + areas.get(key).getClass().getSimpleName() + " register failed.");
                 failed++;
             }
         }
-        System.out.println("Register " + areas.size() + " areas. Success: " + (areas.size() - failed) + ". Failed: " + failed);
+        this.pb.out("Register " + areas.size() + " areas. Success: " + (areas.size() - failed) + ". Failed: " + failed);
     }
 
 }

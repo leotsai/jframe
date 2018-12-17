@@ -39,7 +39,7 @@ public class OssBucket {
         try {
             this.client.putObject(this.bucketName, key, new File(fileFullPath));
         } catch (Exception ex) {
-            LogHelper.log(this.getClass() + ".putFile1", ex);
+            LogHelper.error().log(this.getClass() + ".putFile1", ex);
             throw ex;
         }
     }
@@ -48,7 +48,7 @@ public class OssBucket {
         try {
             client.putObject(this.bucketName, key, stream);
         } catch (Exception ex) {
-            LogHelper.log(this.getClass() + ".putFile2", ex);
+            LogHelper.error().log(this.getClass() + ".putFile2", ex);
             throw ex;
         }
     }
@@ -57,7 +57,7 @@ public class OssBucket {
         try {
             return client.getObject(this.bucketName, key);
         } catch (Exception ex) {
-            LogHelper.log(this.getClass() + ".getObject", ex);
+            LogHelper.error().log(this.getClass() + ".getObject", ex);
             throw ex;
         }
     }
@@ -66,7 +66,7 @@ public class OssBucket {
         try {
             return client.getObject(this.bucketName, key).getObjectContent();
         } catch (Exception ex) {
-            LogHelper.log(this.getClass() + ".getObjectContent", ex);
+            LogHelper.error().log(this.getClass() + ".getObjectContent", ex);
             throw ex;
         }
     }
@@ -75,7 +75,7 @@ public class OssBucket {
         try {
             return client.getObject(this.bucketName, key).getObjectContent();
         } catch (Exception ex) {
-            LogHelper.log(this.getClass() + ".tryGetObjectContent", ex);
+            LogHelper.error().log(this.getClass() + ".tryGetObjectContent", ex);
             return null;
         }
     }

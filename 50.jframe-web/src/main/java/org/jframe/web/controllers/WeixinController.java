@@ -115,7 +115,7 @@ public class WeixinController extends _ControllerBase {
                 }
             }
         } catch (Exception e) {
-            LogHelper.log("获取自动登录连接中的参数", e);
+            LogHelper.error().log("获取自动登录连接中的参数", e);
         }
     }
 

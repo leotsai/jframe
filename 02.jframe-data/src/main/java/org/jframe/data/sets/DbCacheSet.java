@@ -19,7 +19,7 @@ public class DbCacheSet extends DbSet<DbCache> {
     public void refresh(DbCacheKey key) {
         DbCache cache = super.getFirst("where cache_key=:p0", key.getValue());
         if (cache == null) {
-            LogHelper.log("严重错误dbcache", key.toString());
+            LogHelper.error().log("严重错误dbcache", key.toString());
             return;
         }
         cache.setVersion(JDate.now().getVersionSeconds());

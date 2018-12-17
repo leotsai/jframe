@@ -29,7 +29,7 @@ public class JframeMqProducer extends MqProducer implements AppInitializer {
         try {
             super.publish(tag, messaeBody);
         } catch (Exception ex) {
-            LogHelper.log("AliyunMqApi.publish", ex);
+            LogHelper.error().log("AliyunMqApi.publish", ex);
             throw new KnownException("写入数据队列失败了，请刷新页面重试");
         }
     }
@@ -38,7 +38,7 @@ public class JframeMqProducer extends MqProducer implements AppInitializer {
         WeixinMessageDto dto = new WeixinMessageDto(message);
         String msg = JsonHelper.serialize(dto);
         this.tryPublish(JframeMqTag.WEIXIN_MESSAGE, msg);
-        LogHelper.log("WeixinMessage", msg);
+        LogHelper.error().log("WeixinMessage", msg);
     }
 
     @Override

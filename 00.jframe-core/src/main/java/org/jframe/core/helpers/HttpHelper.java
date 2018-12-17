@@ -59,7 +59,7 @@ public class HttpHelper {
         try {
             return URLEncoder.encode(url, "UTF-8");
         } catch (Exception ex) {
-            LogHelper.log("__HttpHelper.urlEncode", ex);
+            LogHelper.error().log("__HttpHelper.urlEncode", ex);
             return "";
         }
     }
@@ -95,13 +95,13 @@ public class HttpHelper {
                 JSONObject jsonObject = JSON.parseObject(body);
                 Integer code = jsonObject.getInteger("code");
                 if (0 != code) {
-                    LogHelper.log("解析ip物理地址失败", entity.getBody());
+                    LogHelper.error().log("解析ip物理地址失败", entity.getBody());
                     return null;
                 }
                 return jsonObject.getJSONObject("data");
             }
         } catch (Exception e) {
-            LogHelper.log("解析ip物理地址失败", e);
+            LogHelper.error().log("解析ip物理地址失败", e);
         }
         return null;
     }
@@ -128,14 +128,14 @@ public class HttpHelper {
                 JSONObject jsonObject = JSON.parseObject(body);
                 Integer status = jsonObject.getInteger("status");
                 if (0 != status) {
-                    LogHelper.log("解析ip地理地址失败", entity.getBody());
+                    LogHelper.error().log("解析ip地理地址失败", entity.getBody());
                     return null;
                 }
                 //adcode
                 return jsonObject.getJSONObject("result");
             }
         } catch (Exception e) {
-            LogHelper.log("解析ip地理地址失败", e);
+            LogHelper.error().log("解析ip地理地址失败", e);
         }
         return null;
     }

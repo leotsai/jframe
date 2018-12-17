@@ -36,7 +36,7 @@ public class WeixinPayApi {
             Map<String, String> response = wxpay.unifiedOrder(request.getDataMap(), this.config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
             return new CreateOrderResult().loadFromResponse(response);
         } catch (Exception ex) {
-            LogHelper.log("weixinpay.createorder", ex);
+            LogHelper.error().log("weixinpay.createorder", ex);
             return null;
         }
     }
@@ -46,7 +46,7 @@ public class WeixinPayApi {
             Map<String, String> data = this.wxpay.processResponseXml(xmlResponse);
             return new PayResult().loadFromResponse(data);
         } catch (Exception ex) {
-            LogHelper.log("weixinpay.parseresult", ex);
+            LogHelper.error().log("weixinpay.parseresult", ex);
             return null;
         }
     }
@@ -59,7 +59,7 @@ public class WeixinPayApi {
             Map<String, String> responseData = wxpay.orderQuery(data);
             return new QueryOrderResult().loadFromResponse(responseData);
         } catch (Exception e) {
-            LogHelper.log("weixinpay.queryorder", e);
+            LogHelper.error().log("weixinpay.queryorder", e);
             return null;
         }
     }
@@ -82,9 +82,9 @@ public class WeixinPayApi {
         try {
             String respXml = this.wxpay.requestWithCert(url, request.getRequestData(), 30000, 30000);
             Map<String, String> responseData = this.wxpay.processResponseXml(respXml);
-            LogHelper.log("微信红包", JsonHelper.serialize(responseData));
+            LogHelper.error().log("微信红包", JsonHelper.serialize(responseData));
         } catch (Exception ex) {
-            LogHelper.log("微信红包", ex);
+            LogHelper.error().log("微信红包", ex);
         }
     }
 
@@ -143,11 +143,11 @@ public class WeixinPayApi {
             Map<String, String> response = wxpay.refund(data);
             RefundResult result = new RefundResult().loadFromResponse(response);
             if (result == null || !result.isRefundSuccess()) {
-                LogHelper.log("weixinpay.refund", (result == null ? "null" : "response") + JsonHelper.serialize(response));
+                LogHelper.error().log("weixinpay.refund", (result == null ? "null" : "response") + JsonHelper.serialize(response));
             }
             return result;
         } catch (Exception e) {
-            LogHelper.log("weixinpay.refund", e);
+            LogHelper.error().log("weixinpay.refund", e);
             return null;
         }
     }
@@ -162,10 +162,10 @@ public class WeixinPayApi {
         data.put("transaction_id", tradeNumber);
         try {
             Map<String, String> response = wxpay.refundQuery(data);
-            LogHelper.log("alipayapi.query.refund.response", JsonHelper.serialize(response));
+            LogHelper.error().log("alipayapi.query.refund.response", JsonHelper.serialize(response));
             return new QueryRefundStatusResult().loadFromWeixinpayResponse(response);
         } catch (Exception e) {
-            LogHelper.log("alipayapi.query.refund", e);
+            LogHelper.error().log("alipayapi.query.refund", e);
             e.printStackTrace();
             return new QueryRefundStatusResult().setHttpError();
         }

@@ -81,7 +81,7 @@ public class DbCacheContext implements AppInitializer {
         try {
             this.doWork();
         } catch (Exception ex) {
-            LogHelper.log("DbCacheContext", ex);
+            LogHelper.error().log("DbCacheContext", ex);
         }
     }
 

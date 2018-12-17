@@ -217,7 +217,7 @@ public class UserServiceImpl extends ServiceBase implements UserService {
                             JframeOssApi.getImages().putFile(key, stream);
                             dbUser.setImageKey(key);
                         } catch (Exception e) {
-                            LogHelper.log("绑定微信", "下载微信头像失败：" + e.getMessage());
+                            LogHelper.error().log("绑定微信", "下载微信头像失败：" + e.getMessage());
                         }
                     }
                 }

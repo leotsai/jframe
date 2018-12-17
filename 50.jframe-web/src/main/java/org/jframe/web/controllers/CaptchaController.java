@@ -44,7 +44,7 @@ public class CaptchaController extends _ControllerBase {
             RedisApi.setCurrentCaptcha(code);
             response.getOutputStream().close();
         } catch (Exception ex) {
-            LogHelper.log("captcha.refresh", ex);
+            LogHelper.error().log("captcha.refresh", ex);
         }
     }
 

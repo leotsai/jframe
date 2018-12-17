@@ -1,19 +1,17 @@
 package org.jframe.core.logging.enums;
 
+
+
 import org.jframe.core.extensions.JList;
 
 import java.util.Objects;
 
-/**
- * created by yezi on 2018/7/9
- */
 public enum LogArea {
+    INFO(1, "调试、业务日志等"),
+    ERROR(2, "错误类型"),
+    FATAL(3, "严重错误，比如代码错误");
 
-    UNKNOWN(0, "未知类型"),
-    ERROR(1, "error类型"),
-    WARN(2, "warn类型");
-
-    public final static String Doc = "0: 未知类型; 1: error类型; 2: warn类型";
+    public final static String DOC = "1: INFO, 2: ERROR, 3: FATAL";
 
     private final int value;
     private final String text;
@@ -32,7 +30,7 @@ public enum LogArea {
     }
 
     public static LogArea from(Integer value) {
-        LogArea gender = JList.from(LogArea.values()).firstOrNull(x -> Objects.equals(x.getValue(), value));
-        return gender == null ? LogArea.UNKNOWN : gender;
+        LogArea area = JList.from(LogArea.values()).firstOrNull(x -> Objects.equals(x.getValue(), value));
+        return area == null ? LogArea.ERROR : area;
     }
 }

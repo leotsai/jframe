@@ -25,7 +25,7 @@ public class AliyunSmsApi {
         try {
             this.send(template);
         } catch (Exception ex) {
-            LogHelper.log("aliyunsms.trysend", ex);
+            LogHelper.error().log("aliyunsms.trysend", ex);
             if (ex instanceof KnownException) {
                 throw new KnownException(ex.getMessage());
             }
@@ -59,7 +59,7 @@ public class AliyunSmsApi {
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
 
         if (!"OK".equals(sendSmsResponse.getCode())) {
-            LogHelper.log("aliyunsms.send", JsonHelper.serialize(sendSmsResponse));
+            LogHelper.error().log("aliyunsms.send", JsonHelper.serialize(sendSmsResponse));
             String message = "发送短信验证码出错了，请重试";
             if ("isv.BUSINESS_LIMIT_CONTROL".equals(sendSmsResponse.getCode())) {
                 message = "您获取短信验证码的频率有点高了，请过1分钟后再试试吧";

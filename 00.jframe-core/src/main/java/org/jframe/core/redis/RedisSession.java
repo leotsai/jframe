@@ -22,7 +22,7 @@ public class RedisSession implements AutoCloseable {
         try {
             this.jedis = poolContext.getResource();
         } catch (Exception ex) {
-            LogHelper.log("redisex0", ex);
+            LogHelper.error().log("redisex0", ex);
             if (!this.ignoreAllExceptions) {
                 throw ex;
             }
@@ -36,7 +36,7 @@ public class RedisSession implements AutoCloseable {
         try {
             return getter.apply();
         } catch (Exception ex) {
-            LogHelper.log("redisex1", ex);
+            LogHelper.error().log("redisex1", ex);
             if (!this.ignoreAllExceptions) {
                 throw ex;
             }
@@ -51,7 +51,7 @@ public class RedisSession implements AutoCloseable {
         try {
             action.apply();
         } catch (Exception ex) {
-            LogHelper.log("redisex2", ex);
+            LogHelper.error().log("redisex2", ex);
             if (!this.ignoreAllExceptions) {
                 throw ex;
             }
@@ -96,7 +96,7 @@ public class RedisSession implements AutoCloseable {
             try {
                 this.jedis.close();
             } catch (Exception ex) {
-                LogHelper.log("redisex3", ex);
+                LogHelper.error().log("redisex3", ex);
                 if (!this.ignoreAllExceptions) {
                     throw ex;
                 }

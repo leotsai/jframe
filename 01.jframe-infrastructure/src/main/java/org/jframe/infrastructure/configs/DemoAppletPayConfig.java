@@ -69,7 +69,7 @@ public class DemoAppletPayConfig implements WeixinPayConfig {
         try {
             return new FileInputStream(this.certFilePath);
         } catch (IOException ex) {
-            LogHelper.log("极其严重.weixinpay", "证书不存在：" + this.certFilePath);
+            LogHelper.error().log("极其严重.weixinpay", "证书不存在：" + this.certFilePath);
             return null;
         }
     }

@@ -54,7 +54,7 @@ public class JframeMqConsumer extends MqConsumer implements AppInitializer {
             }
             return Action.CommitMessage;
         } catch (Throwable e) {
-            LogHelper.log("AliMqConsumer.consumeMessage", e);
+            LogHelper.error().log("AliMqConsumer.consumeMessage", e);
             throw new KnownException("处理阿里云队列异常！");
         }
     }

@@ -129,7 +129,7 @@ public class PermissionRegistery implements AppInitializer {
 
         String error = errorSb.toString();
         if (!StringHelper.isNullOrWhitespace(error)) {
-            LogHelper.log("代码错误-权限代码与注册信息不一致", error);
+            LogHelper.error().log("代码错误-权限代码与注册信息不一致", error);
         }
         return permissions;
     }

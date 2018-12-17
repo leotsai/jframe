@@ -50,7 +50,7 @@ public class Crypto {
             return bytesToHex(encrypt(input.getBytes()));
         }
         catch (Exception ex){
-            LogHelper.log("__encrypt", ex);
+            LogHelper.error().log("__encrypt", ex);
             return null;
         }
     }
@@ -60,7 +60,7 @@ public class Crypto {
             return new String(decrypt(hexToBytes(input)));
         }
         catch (Exception ex){
-            LogHelper.log("__decrypt", ex);
+            LogHelper.error().log("__decrypt", ex);
             return null;
         }
     }
@@ -77,7 +77,7 @@ public class Crypto {
             digest.update(input.getBytes());
             return bytesToHex(digest.digest());
         } catch (NoSuchAlgorithmException ex) {
-            LogHelper.log("__crypto.md5", ex);
+            LogHelper.error().log("__crypto.md5", ex);
         }
         return null;
     }
@@ -93,7 +93,7 @@ public class Crypto {
             digest.update(input.getBytes());
             return bytesToHex(digest.digest());
         } catch (NoSuchAlgorithmException ex) {
-            LogHelper.log("__crypto.sha", ex);
+            LogHelper.error().log("__crypto.sha", ex);
         }
         return null;
     }

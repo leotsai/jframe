@@ -35,7 +35,7 @@ public class QrCode {
             }
             return code;
         } catch (Exception ex) {
-            LogHelper.logRaw("weixin.eventkey.parse", eventKey);
+            LogHelper.error().raw("weixin.eventkey.parse", eventKey);
             return null;
         }
     }

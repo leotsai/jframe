@@ -24,7 +24,7 @@ public class CreateWeixinUserIfNecessaryFlow {
             }
             UserOAuthDto userInfo = JframeWeixinApi.getInstance().getUserInfo_OAuthCallback(openId, accessToken);
             if (userInfo == null || userInfo.isSuccess() == false) {
-                LogHelper.log("weixin.getUserInfo2", userInfo == null ? "null" : userInfo.getErrmsg() + ":" + openId);
+                LogHelper.error().log("weixin.getUserInfo2", userInfo == null ? "null" : userInfo.getErrmsg() + ":" + openId);
                 return;
             }
             UserDto userDto = JframeWeixinApi.getInstance().getUserInfo(openId);
