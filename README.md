@@ -9,7 +9,9 @@ java web application architecture based on spring mvc
 2. 抛异常的方式与直接返回的方式的性能比较；
 
 ## create maven archetype commands
-1. mvn archetype:create-from-project //安装该archetype项目到你的本地仓库
-2. cd target/generated-sources/archetype
-3. mvn install
-4. mvn archetype:crawl //执行crawl命令，生成archetype-catalog.xml，会发现在咱们的本地仓库的根目录生成archetype-catalog.xml骨架配置文件。
+1. mvn archetype:create-from-project //安装该archetype项目到你的本地仓库；
+2. cd target/generated-sources/archetype；
+3. mvn install；
+4. mvn archetype:crawl //执行crawl命令，生成archetype-catalog.xml，会发现在咱们的本地仓库的根目录生成archetype-catalog.xml骨架配置文件；
+5. 在本地maven仓库中的archetype-catalog.xml找到archetype信息；
+6. 在idea-file-new-project-maven, add archetype 中填入上一步的信息，然后选中该项即可创建完成。
